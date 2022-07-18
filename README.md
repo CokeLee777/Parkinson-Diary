@@ -70,11 +70,11 @@
 
 ## 📝 테이블 정의서(Entity Details)
 
-- [바로가기](./table_details.md)
+![Table_Details](./table_details.png)
 
 ## 🔗 엔티티-관계 모델(Entity Relationship Diagram)
 
-![Entity_Details](./images/entity_details.png)
+![Entity_Details](./entity_details.png)
 
 ## 📐 트러블 슈팅(Trouble Shooting)
 
