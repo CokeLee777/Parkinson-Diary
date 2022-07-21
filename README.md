@@ -2,7 +2,7 @@
 
 ## 🖥 사용자 인터페이스(UI)
 
-- 추가 예정
+![Parkinson-App-UI](./Parkinson-App-UI.png)
 
 ## ⚙️ 개발 환경(Development Environment)
 
