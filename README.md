@@ -4,6 +4,16 @@
 
 ![Parkinson-App-UI](./Parkinson-App-UI.png)
 
+## 🖥 관리자 웹 인터페이스(UI)
+### 메인
+<img src="parkinson-diary_web_design/main.png" width="550" height="300"/>
+
+### 환자 리스트
+![WebList1](parkinson-diary_web_design/list1.png) |![WebList2](parkinson-diary_web_design/list2.png)
+--- | --- | 
+### 환자 상세 그래프
+![WebGraph](parkinson-diary_web_design/graph1.png) |![WebGraph2](parkinson-diary_web_design/graph2.png)
+--- | --- | 
 ## ⚙️ 개발 환경(Development Environment)
 
 | 분류 | 개발환경 | 
