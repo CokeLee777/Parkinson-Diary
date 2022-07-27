@@ -5,9 +5,9 @@
 ![Parkinson-App-UI](./Parkinson-App-UI.png)
 
 ## 🖥 관리자 웹 인터페이스(UI)
-### 메인
-<img src="parkinson-diary_web_design/main.png" width="550" height="300"/>
-
+### 메인, 회원가입
+![WebList1](parkinson-diary_web_design/main.png) |![WebList2](parkinson-diary_web_design/member.png)
+--- | --- | 
 ### 환자 리스트
 ![WebList1](parkinson-diary_web_design/list1.png) |![WebList2](parkinson-diary_web_design/list2.png)
 --- | --- | 
