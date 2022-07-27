@@ -2,17 +2,17 @@
 
 ## 🖥 사용자 인터페이스(UI)
 
-![Parkinson-App-UI](./Parkinson-App-UI.png)
+![Parkinson-App-UI](./images/Parkinson-App-UI.png)
 
 ## 🖥 관리자 웹 인터페이스(UI)
 ### 메인, 회원가입
-![WebList1](parkinson-diary_web_design/main.png) |![WebList2](parkinson-diary_web_design/member.png)
+![WebList1](./images/parkinson-diary_web_design/main.png) |![WebList2](./images/parkinson-diary_web_design/member.png)
 --- | --- | 
 ### 환자 리스트
-![WebList1](parkinson-diary_web_design/list1.png) |![WebList2](parkinson-diary_web_design/list2.png)
+![WebList1](./images/parkinson-diary_web_design/list1.png) |![WebList2](./images/parkinson-diary_web_design/list2.png)
 --- | --- | 
 ### 환자 상세 그래프
-![WebGraph](parkinson-diary_web_design/graph1.png) |![WebGraph2](parkinson-diary_web_design/graph2.png)
+![WebGraph](./images/parkinson-diary_web_design/graph1.png) |![WebGraph2](./images/parkinson-diary_web_design/graph2.png)
 --- | --- | 
 ## ⚙️ 개발 환경(Development Environment)
 
@@ -80,11 +80,11 @@
 
 ## 📝 테이블 정의서(Entity Details)
 
-![Table_Details](./table_details.png)
+![Table_Details](./images/table_details.png)
 
 ## 🔗 엔티티-관계 모델(Entity Relationship Diagram)
 
-![Entity_Details](./entity_details.png)
+![Entity_Details](./images/entity_details.png)
 
 ## 📐 트러블 슈팅(Trouble Shooting)
 
