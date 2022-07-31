@@ -6,11 +6,14 @@
 
 ## 🖥 관리자 웹 인터페이스(UI)
 ### 메인, 회원가입
-![WebList1](./images/parkinson-diary_web_design/main.png) |![WebList2](./images/parkinson-diary_web_design/member.png)
+![WebMain](./images/parkinson-diary_web_design/main.png) |![WebMember](./images/parkinson-diary_web_design/member.png)
 --- | --- | 
 ### 환자 리스트
 ![WebList1](./images/parkinson-diary_web_design/list1.png) |![WebList2](./images/parkinson-diary_web_design/list2.png)
 --- | --- | 
+### 환자 상세 정보, 수정
+![WebUser](./images/parkinson-diary_web_design/user.png) |![WebuserEdit](./images/parkinson-diary_web_design/userEdit.png) |![WebUserAdd](./images/parkinson-diary_web_design/userAdd.png)
+--- | --- | --- |
 ### 환자 상세 그래프
 ![WebGraph](./images/parkinson-diary_web_design/graph1.png) |![WebGraph2](./images/parkinson-diary_web_design/graph2.png)
 --- | --- | 
