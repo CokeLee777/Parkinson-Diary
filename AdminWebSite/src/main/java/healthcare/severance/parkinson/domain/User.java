@@ -10,7 +10,8 @@ import static javax.persistence.FetchType.LAZY;
 
 @DynamicInsert
 @Entity
-public class Users {
+@Table(name = "users")
+public class User {
 
     @Id
     @GeneratedValue
@@ -19,7 +20,7 @@ public class Users {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "DOCTOR_ID")
-    private Doctors doctors;
+    private Doctor doctor;
 
     @Column(nullable = false)
     private String userName;

@@ -10,11 +10,12 @@ import static javax.persistence.FetchType.LAZY;
 public class Survey {
 
     @Id @GeneratedValue
+    @Column(name = "SURVEY_ID")
     private Long id;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "USER_ID")
-    private Users users;
+    private User user;
 
     @Column(nullable = false)
     private LocalDateTime surveyTime;
