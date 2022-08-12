@@ -1,8 +1,6 @@
 package healthcare.severance.parkinson.domain;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,6 +8,7 @@ import javax.persistence.*;
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @RequiredArgsConstructor
+@Builder @Getter
 public class User {
 
     @Id @GeneratedValue
