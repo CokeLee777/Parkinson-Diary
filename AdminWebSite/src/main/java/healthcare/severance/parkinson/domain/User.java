@@ -1,35 +1,35 @@
 package healthcare.severance.parkinson.domain;
 
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
 
-import static javax.persistence.FetchType.LAZY;
-
-//@DynamicInsert
 @Entity
 @Table(name = "users")
+@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
+@RequiredArgsConstructor
 public class User {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "USER_ID")
-    private Long id;
+    @Id @GeneratedValue
+    @Column(name = "user_id")
+    private final Long id;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "DOCTOR_ID")
-    private Doctor doctor;
+    @Column(name = "identifier", nullable = false)
+    private final String identifier;
 
-    @Column(nullable = false)
-    private String userName;
+    @Column(name = "password", nullable = false)
+    private final String password;
 
-//    @ColumnDefault("22:00:00")
-    private LocalDateTime userSleepStartTime;
+    @Column(name = "username", nullable = false)
+    private final String username;
 
-//    @ColumnDefault("08:00:00")
-    private LocalDateTime userSleepEndTime;
+    @Column(name = "email", nullable = false)
+    private final String email;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private final RoleType role;
+
 }

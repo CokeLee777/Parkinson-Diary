@@ -14,17 +14,17 @@ import static javax.persistence.FetchType.LAZY;
 public class Medicine {
 
     @Id @GeneratedValue
-    @Column(name = "MEDICINE_ID")
+    @Column(name = "medicine_id")
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "USER_ID")
-    private User user;
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
 
-    @Column(nullable = false)
+    @Column(name = "take_time",nullable = false)
     private LocalDateTime takeTime;
 
-    @Column(nullable = false)
     @ColumnDefault("false")
-    private Boolean takeOrNot;
+    @Column(name = "is_take",nullable = false)
+    private Boolean isTake;
 }

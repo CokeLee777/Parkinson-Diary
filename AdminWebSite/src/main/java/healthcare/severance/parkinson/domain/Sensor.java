@@ -10,15 +10,22 @@ import static javax.persistence.FetchType.LAZY;
 public class Sensor {
 
     @Id @GeneratedValue
-    @Column(name = "SENSOR_ID")
+    @Column(name = "sensor_id")
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "USER_ID")
-    private User user;
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
 
+    @Column(name = "sensor_time", nullable = false)
     private LocalDateTime sensorTime;
+
+    @Column(name = "acc_sensor_x", nullable = false)
     private double accSensorX;
+
+    @Column(name = "acc_sensor_y", nullable = false)
     private double accSensorY;
+
+    @Column(name = "acc_sensor_z", nullable = false)
     private double accSensorZ;
 }

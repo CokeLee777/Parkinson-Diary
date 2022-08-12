@@ -10,17 +10,22 @@ import static javax.persistence.FetchType.LAZY;
 public class Survey {
 
     @Id @GeneratedValue
-    @Column(name = "SURVEY_ID")
+    @Column(name = "survey_id")
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "USER_ID")
-    private User user;
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
 
-    @Column(nullable = false)
+    @Column(name = "survery_time", nullable = false)
     private LocalDateTime surveyTime;
 
+    @Column(name = "medicinal_effect", nullable = false)
     private Double medicinalEffect;
+
+    @Column(name = "abnormal_movement", nullable = false)
     private Double abnormalMovement;
-    private Double userCondition;
+
+    @Column(name = "patient_condition", nullable = false)
+    private Double patientCondition;
 }
