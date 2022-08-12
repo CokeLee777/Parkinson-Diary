@@ -4,11 +4,13 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import static javax.persistence.FetchType.LAZY;
 
-@DynamicInsert
+//@DynamicInsert
 @Entity
 @Table(name = "users")
 public class User {
@@ -25,9 +27,9 @@ public class User {
     @Column(nullable = false)
     private String userName;
 
-    @ColumnDefault("22:00:00")
+//    @ColumnDefault("22:00:00")
     private LocalDateTime userSleepStartTime;
 
-    @ColumnDefault("08:00:00")
+//    @ColumnDefault("08:00:00")
     private LocalDateTime userSleepEndTime;
 }

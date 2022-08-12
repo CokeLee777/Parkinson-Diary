@@ -20,7 +20,7 @@ public class Survey {
     @Column(nullable = false)
     private LocalDateTime surveyTime;
 
-    private double medicinalEffect;
-    private double abnormalMovement;
-    private double condition;
+    private Double medicinalEffect;
+    private Double abnormalMovement;
+    private Double userCondition;
 }
