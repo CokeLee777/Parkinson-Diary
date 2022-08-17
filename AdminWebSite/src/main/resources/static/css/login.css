@@ -10,14 +10,11 @@
   }
    
   .login-form {
-      width: 300px;
+      width: 50px;
       background-color: #EEEFF1;
-      margin-right: auto;
-      margin-left: auto;
-      margin-top: 50px;
-      padding: 20px;
+      margin-top: 20px;
+      padding: 10px;
       text-align: center;
-      border: none;
       
   }
    
