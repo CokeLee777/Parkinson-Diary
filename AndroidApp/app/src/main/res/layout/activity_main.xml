@@ -8,17 +8,50 @@
     tools:context=".MainActivity"
     tools:deviceIds="wear">
 
-    <FrameLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/mLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contextClickable="false"
         android:padding="@dimen/inner_frame_layout_padding"
+        android:textAlignment="center"
         app:layout_boxedEdges="all">
 
         <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hello_world" />
+            android:id="@+id/mTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="파킨슨 일기"
+            android:textAlignment="center" />
 
-    </FrameLayout>
+        <Button
+            android:id="@+id/mStartButton"
+            android:layout_width="250px"
+            android:layout_height="100px"
+            android:text="시작하기"
+            android:onClick="startDiary"
+            app:layout_anchor="@+id/mTitle"
+            app:layout_anchorGravity="center" />
+
+        <Button
+            android:id="@+id/mSettingButton"
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:text="Setting"
+            android:onClick="setDiary"
+            app:layout_anchor="@+id/mTitle"
+            app:layout_anchorGravity="start|bottom" />
+
+        <Button
+            android:id="@+id/mAlarmButton"
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:text="Alarm"
+            android:onClick="setAlarm"
+            app:layout_anchor="@+id/mTitle"
+            app:layout_anchorGravity="end|bottom" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 </androidx.wear.widget.BoxInsetLayout>
