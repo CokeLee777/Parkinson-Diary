@@ -6,24 +6,23 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 
-class DiarySettingActivity02 : AppCompatActivity() {
+class DiarySettingActivity03 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_diary_setting02)
+        setContentView(R.layout.activity_diary_setting03)
     }
 
     fun backToPrevPage(view: View){
         Log.i(view.resources.getResourceName(view.id),"clicked")
 
-        val intent = Intent(this, DiarySettingActivity01::class.java)
+        val intent = Intent(this, DiarySettingActivity02::class.java)
         startActivity(intent)
     }
 
-    fun goToNextPage(view: View){
+    fun finishSetting(view: View){
         Log.i(view.resources.getResourceName(view.id),"clicked")
 
-        Log.i(intent.extras?.get("patientName").toString(), "intent info")
-        val intent = Intent(this, DiarySettingActivity03::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 }

@@ -21,10 +21,10 @@
             android:id="@+id/sTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="약 복용정보"
+            android:text="복용시간 확인"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
 
         <ImageButton
             android:id="@+id/sBackButton"
@@ -39,21 +39,23 @@
 
         <ImageButton
             android:id="@+id/sNextButton"
-            android:layout_width="50px"
+            android:layout_width="80px"
             android:layout_height="50px"
-            android:onClick="goToNextPage"
             android:background="#CB181F2A"
+            android:onClick="finishSetting"
             android:scaleType="fitCenter"
-            android:src="@drawable/next_button"
+            android:src="@drawable/finish_button"
             app:layout_anchor="@+id/sTitle"
-            app:layout_anchorGravity="end|top" />
+            app:layout_anchorGravity="bottom|center" />
 
-        <Spinner
-            android:id="@+id/sProfessorSpinner"
-            android:layout_width="250px"
-            android:layout_height="90px"
-            android:background="@drawable/medicine_input_spinner"
-            android:spinnerMode="dropdown"
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="약 복용정보"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp"
             app:layout_anchor="@+id/sTitle"
             app:layout_anchorGravity="center" />
 

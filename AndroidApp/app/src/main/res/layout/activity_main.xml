@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F2181F2A"
     android:padding="@dimen/box_inset_layout_padding"
     tools:context=".MainActivity"
     tools:deviceIds="wear">
@@ -22,34 +23,44 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="파킨슨 일기"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_anchor="@+id/mTitle"
+            app:layout_anchorGravity="top|center" />
 
-        <Button
+        <ImageButton
             android:id="@+id/mStartButton"
             android:layout_width="250px"
             android:layout_height="100px"
-            android:text="시작하기"
             android:onClick="startDiary"
+            android:background="#CB181F2A"
+            android:scaleType="fitCenter"
+            android:src="@drawable/start_button"
             app:layout_anchor="@+id/mTitle"
             app:layout_anchorGravity="center" />
 
-        <Button
-            android:id="@+id/mSettingButton"
-            android:layout_width="80px"
-            android:layout_height="80px"
-            android:text="Setting"
-            android:onClick="setDiary"
-            app:layout_anchor="@+id/mTitle"
-            app:layout_anchorGravity="start|bottom" />
-
-        <Button
+        <ImageButton
             android:id="@+id/mAlarmButton"
-            android:layout_width="80px"
-            android:layout_height="80px"
-            android:text="Alarm"
+            android:layout_width="60px"
+            android:layout_height="60px"
             android:onClick="setAlarm"
+            android:background="#CB181F2A"
+            android:scaleType="fitCenter"
+            android:src="@drawable/setting_button"
             app:layout_anchor="@+id/mTitle"
             app:layout_anchorGravity="end|bottom" />
+
+        <ImageButton
+            android:id="@+id/mSettingButton"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:onClick="setDiary"
+            android:background="#CB181F2A"
+            android:scaleType="fitCenter"
+            android:src="@drawable/active_alarm"
+            app:layout_anchor="@+id/mTitle"
+            app:layout_anchorGravity="start|bottom" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

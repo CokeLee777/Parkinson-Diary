@@ -4,9 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_diary_setting01.xml" value="0.5051546391752577" />
-        <entry key="app/src/main/res/layout/activity_diary_setting02.xml" value="0.641213389121339" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.641213389121339" />
+        <entry key="app/src/main/res/layout/activity_diary_setting02.xml" value="0.55" />
+        <entry key="app/src/main/res/layout/activity_diary_setting03.xml" value="0.641213389121339" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.55" />
         <entry key="app/src/main/res/layout/activity_start.xml" value="0.641213389121339" />
+        <entry key="app/src/main/res/layout/activity_start_diary.xml" value="0.5994094488188977" />
       </map>
     </option>
   </component>

@@ -34,7 +34,13 @@ class DiarySettingActivity01 : AppCompatActivity() {
 
     fun goToNextPage(view: View){
         Log.i(view.resources.getResourceName(view.id),"clicked")
+
         val intent = Intent(this, DiarySettingActivity02::class.java)
+        val patientName: String = findViewById<Spinner?>(R.id.sPatientSpinner).selectedItem.toString()
+        val professorName: String = findViewById<Spinner?>(R.id.sProfessorSpinner).selectedItem.toString()
+        intent.putExtra("patientName", patientName)
+        intent.putExtra("professorName", professorName)
+
         startActivity(intent)
     }
 }
