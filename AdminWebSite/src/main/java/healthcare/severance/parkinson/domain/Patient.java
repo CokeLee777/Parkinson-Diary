@@ -1,5 +1,9 @@
 package healthcare.severance.parkinson.domain;
 
+import healthcare.severance.parkinson.dto.patient.PatientEditForm;
+import healthcare.severance.parkinson.dto.patient.PatientForm;
+import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -8,6 +12,9 @@ import static javax.persistence.FetchType.LAZY;
 //@DynamicInsert
 @Entity
 @Table(name = "patients")
+@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
+@AllArgsConstructor
+@Builder @Getter
 public class Patient {
 
     @Id
