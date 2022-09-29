@@ -9,6 +9,9 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.55" />
         <entry key="app/src/main/res/layout/activity_start.xml" value="0.641213389121339" />
         <entry key="app/src/main/res/layout/activity_start_diary.xml" value="0.5994094488188977" />
+        <entry key="app/src/main/res/layout/activity_survey.xml" value="0.641213389121339" />
+        <entry key="app/src/main/res/layout/activity_survey02.xml" value="0.641213389121339" />
+        <entry key="app/src/main/res/layout/activity_survey03.xml" value="0.641213389121339" />
       </map>
     </option>
   </component>

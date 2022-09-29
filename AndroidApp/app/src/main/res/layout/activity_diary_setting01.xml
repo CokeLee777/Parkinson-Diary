@@ -18,7 +18,7 @@
         app:layout_boxedEdges="all">
 
         <TextView
-            android:id="@+id/sTitle"
+            android:id="@+id/dTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="기본 정보"
@@ -27,29 +27,29 @@
             android:textSize="20sp" />
 
         <ImageButton
-            android:id="@+id/sBackButton"
+            android:id="@+id/dBackButton"
             android:layout_width="50px"
             android:layout_height="50px"
-            android:onClick="backToPrevPage"
+            android:onClick="backButtonPressed"
             android:background="#CB181F2A"
             android:scaleType="fitCenter"
             android:src="@drawable/prev_button"
-            app:layout_anchor="@+id/sTitle"
+            app:layout_anchor="@+id/dTitle"
             app:layout_anchorGravity="start|top" />
 
         <ImageButton
-            android:id="@+id/sNextButton"
+            android:id="@+id/dNextButton"
             android:layout_width="50px"
             android:layout_height="50px"
-            android:onClick="goToNextPage"
+            android:onClick="nextButtonPressed"
             android:background="#CB181F2A"
             android:scaleType="fitCenter"
             android:src="@drawable/next_button"
-            app:layout_anchor="@+id/sTitle"
+            app:layout_anchor="@+id/dTitle"
             app:layout_anchorGravity="end|top" />
 
         <Spinner
-            android:id="@+id/sProfessorSpinner"
+            android:id="@+id/dProfessorSpinner"
             android:layout_width="250px"
             android:layout_height="90px"
             android:textColor="#FFFFFF"
@@ -57,18 +57,18 @@
             android:background="@drawable/professor_input_spinner"
             android:dropDownWidth="wrap_content"
             android:spinnerMode="dropdown"
-            app:layout_anchor="@+id/sTitle"
+            app:layout_anchor="@+id/dTitle"
             app:layout_anchorGravity="center" />
 
         <Spinner
-            android:id="@+id/sPatientSpinner"
+            android:id="@+id/dPatientSpinner"
             android:layout_width="250px"
             android:layout_height="90px"
             android:textColor="#FFFFFF"
             android:textSize="11sp"
             android:background="@drawable/patient_input_spinner"
             android:spinnerMode="dropdown"
-            app:layout_anchor="@+id/sTitle"
+            app:layout_anchor="@+id/dTitle"
             app:layout_anchorGravity="bottom|center" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

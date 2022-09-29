@@ -16,8 +16,8 @@ class DiarySettingActivity01 : AppCompatActivity() {
         val professors = arrayOf("Dr.KIM", "Dr.LEE", "Dr.PARK")
         val patient = arrayOf("LEE", "KIM", "PARK")
 
-        initSpinner(findViewById(R.id.sProfessorSpinner), professors)
-        initSpinner(findViewById(R.id.sPatientSpinner), patient)
+        initSpinner(findViewById(R.id.dProfessorSpinner), professors)
+        initSpinner(findViewById(R.id.dPatientSpinner), patient)
     }
 
     fun initSpinner(spinner: Spinner, spinnerItem: Array<String>){
@@ -25,19 +25,19 @@ class DiarySettingActivity01 : AppCompatActivity() {
         spinner.adapter = adapter
     }
 
-    fun backToPrevPage(view: View){
+    fun backButtonPressed(view: View){
         Log.i(view.resources.getResourceName(view.id),"clicked")
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
-    fun goToNextPage(view: View){
+    fun nextButtonPressed(view: View){
         Log.i(view.resources.getResourceName(view.id),"clicked")
 
         val intent = Intent(this, DiarySettingActivity02::class.java)
-        val patientName: String = findViewById<Spinner?>(R.id.sPatientSpinner).selectedItem.toString()
-        val professorName: String = findViewById<Spinner?>(R.id.sProfessorSpinner).selectedItem.toString()
+        val patientName: String = findViewById<Spinner?>(R.id.dPatientSpinner).selectedItem.toString()
+        val professorName: String = findViewById<Spinner?>(R.id.dProfessorSpinner).selectedItem.toString()
         intent.putExtra("patientName", patientName)
         intent.putExtra("professorName", professorName)
 

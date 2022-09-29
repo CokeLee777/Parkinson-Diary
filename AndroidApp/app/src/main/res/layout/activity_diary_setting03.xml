@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#181F2A"
     android:padding="@dimen/box_inset_layout_padding"
-    tools:context=".DiarySettingActivity01"
+    tools:context=".DiarySettingActivity03"
     tools:deviceIds="wear">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -18,7 +18,7 @@
         app:layout_boxedEdges="all">
 
         <TextView
-            android:id="@+id/sTitle"
+            android:id="@+id/dTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="복용시간 확인"
@@ -27,25 +27,25 @@
             android:textSize="15sp" />
 
         <ImageButton
-            android:id="@+id/sBackButton"
+            android:id="@+id/dBackButton"
             android:layout_width="50px"
             android:layout_height="50px"
-            android:onClick="backToPrevPage"
+            android:onClick="backButtonPressed"
             android:background="#CB181F2A"
             android:scaleType="fitCenter"
             android:src="@drawable/prev_button"
-            app:layout_anchor="@+id/sTitle"
+            app:layout_anchor="@+id/dTitle"
             app:layout_anchorGravity="start|top" />
 
         <ImageButton
-            android:id="@+id/sNextButton"
+            android:id="@+id/finishSetting"
             android:layout_width="80px"
             android:layout_height="50px"
             android:background="#CB181F2A"
-            android:onClick="finishSetting"
+            android:onClick="finishSettingButtonPressed"
             android:scaleType="fitCenter"
             android:src="@drawable/finish_button"
-            app:layout_anchor="@+id/sTitle"
+            app:layout_anchor="@+id/dTitle"
             app:layout_anchorGravity="bottom|center" />
 
         <TextView
@@ -56,7 +56,7 @@
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="10sp"
-            app:layout_anchor="@+id/sTitle"
+            app:layout_anchor="@+id/dTitle"
             app:layout_anchorGravity="center" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

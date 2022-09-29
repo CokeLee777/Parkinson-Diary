@@ -6,10 +6,24 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 
-class DiarySettingActivity02 : AppCompatActivity() {
+class SurveyActivity01 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_diary_setting02)
+        setContentView(R.layout.activity_survey01)
+    }
+
+    fun yesButtonPressed(view: View){
+        Log.i(view.resources.getResourceName(view.id),"clicked")
+
+        val intent = Intent(this, DiarySettingActivity01::class.java)
+        startActivity(intent)
+    }
+
+    fun noButtonPressed(view: View){
+        Log.i(view.resources.getResourceName(view.id),"clicked")
+
+        val intent = Intent(this, DiarySettingActivity01::class.java)
+        startActivity(intent)
     }
 
     fun backButtonPressed(view: View){

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#181F2A"
     android:padding="@dimen/box_inset_layout_padding"
-    tools:context=".DiarySettingActivity02"
+    tools:context=".SurveyActivity01"
     tools:deviceIds="wear">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -18,44 +18,53 @@
         app:layout_boxedEdges="all">
 
         <TextView
-            android:id="@+id/dTitle"
+            android:id="@+id/sTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="약 복용정보"
+            android:text="현재 약효가 있습니까?"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
 
         <ImageButton
-            android:id="@+id/dBackButton"
+            android:id="@+id/sBackButton"
             android:layout_width="50px"
             android:layout_height="50px"
-            android:onClick="backButtonPressed"
             android:background="#CB181F2A"
+            android:onClick="backButtonPressed"
             android:scaleType="fitCenter"
             android:src="@drawable/prev_button"
-            app:layout_anchor="@+id/dTitle"
-            app:layout_anchorGravity="start|top" />
+            app:layout_anchor="@+id/sTitle"
+            app:layout_anchorGravity="start|bottom" />
 
         <ImageButton
-            android:id="@+id/dNextButton"
+            android:id="@+id/sNextButton"
             android:layout_width="50px"
             android:layout_height="50px"
-            android:onClick="nextButtonPressed"
             android:background="#CB181F2A"
+            android:onClick="nextButtonPressed"
             android:scaleType="fitCenter"
             android:src="@drawable/next_button"
-            app:layout_anchor="@+id/dTitle"
-            app:layout_anchorGravity="end|top" />
+            app:layout_anchor="@+id/sTitle"
+            app:layout_anchorGravity="end|bottom" />
 
-        <Spinner
-            android:id="@+id/dProfessorSpinner"
-            android:layout_width="250px"
-            android:layout_height="90px"
-            android:background="@drawable/medicine_input_spinner"
-            android:spinnerMode="dropdown"
-            app:layout_anchor="@+id/dTitle"
-            app:layout_anchorGravity="center" />
+        <Button
+            android:id="@+id/sYesButton"
+            android:layout_width="130px"
+            android:layout_height="wrap_content"
+            android:onClick="yesButtonPressed"
+            android:text="네"
+            app:layout_anchor="@+id/sTitle"
+            app:layout_anchorGravity="start|center" />
+
+        <Button
+            android:id="@+id/sNoButton"
+            android:layout_width="130px"
+            android:layout_height="wrap_content"
+            android:onClick="noButtonPressed"
+            android:text="아니오"
+            app:layout_anchor="@+id/sTitle"
+            app:layout_anchorGravity="end|center" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
