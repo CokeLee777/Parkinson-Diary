@@ -24,6 +24,9 @@ section, summary, time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;}
+.center {
+	position: relative;
+}
 
 .quiz-chartTip {
 	padding: 5px 10px;
