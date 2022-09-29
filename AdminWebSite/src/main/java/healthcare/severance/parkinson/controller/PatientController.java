@@ -89,10 +89,13 @@ public class PatientController {
         if (buttonValue.equals("update")) {
             patientService.editPatient(id, form);
             return "redirect:/patient/" + id;
-        } else {
+        } else if (buttonValue.equals("delete")) {
             patientService.deletePatient(id);
             return "/patient/patientList";
         }
+        model.addAttribute("patient", patientService.findPatientById(id));
+        model.addAttribute("users", getAllUsernamesAndIds());
+        return "/patient/patientEditForm";
     }
 
     private HashMap<Long, String> getAllUsernamesAndIds() {

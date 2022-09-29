@@ -36,4 +36,9 @@ public class Patient {
 //    @ColumnDefault("08:00:00")
     @Column(name = "sleep_end_time")
     private LocalDateTime sleepEndTime;
+
+    public void EditPatient(User user, String name) {
+        this.user = user;
+        this.name = name;
+    }
 }

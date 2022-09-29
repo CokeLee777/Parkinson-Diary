@@ -52,7 +52,7 @@
 
 									<span>
 										<button class="button" id="update" name="buttonValue" value="update">수정하기</button>
-										<button class="button" id="delete" name="buttonValue" value="delete">삭제</button>
+										<button class="button" id="delete" name="buttonValue" value="delete" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
 										<button class="button" type="button" th:onclick="|location.href='@{/patient/patientList}'|">취소</button>
 									</span>
 								</form>

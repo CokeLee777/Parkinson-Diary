@@ -38,11 +38,8 @@ public class PatientService {
 
     @Transactional
     public void editPatient(Long id, PatientEditForm form) {
-        patientRepository.save(Patient.builder()
-                .user(form.getInChargeUser())
-                .id(id)
-                .name(form.getName())
-                .build());
+        Patient patient = patientRepository.findById(id).get();
+        patient.EditPatient(form.getInChargeUser(), form.getName());
     }
 
     @Transactional
