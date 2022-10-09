@@ -1,4 +1,5 @@
 const mysql = require('mysql2');
+require('dotenv').config();
 
 const db = mysql.createConnection({
     host: `${process.env.AWS_RDS_HOST}`,
@@ -7,8 +8,5 @@ const db = mysql.createConnection({
     database: `${process.env.AWS_RDS_DATABASE}`,
     port: `${process.env.AWS_RDS_PORT}`
 });
-db.connect();
 
 module.exports = db;
-
-
