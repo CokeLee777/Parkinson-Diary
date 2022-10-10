@@ -1,38 +1,59 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const db = require('../config/db');
+const knex = require('../config/knex');
 require('dotenv').config();
 
 /**
  * ENDPOINT: /api/patients/login
  * 환자가 갤럭시워치에 로그인할 때 요청하는 API
  */
-router.post('/login', (request, response, next) => {
-    const patientNum = request.body.patient_num;
-    db.query('SELECT patient_name FROM patients WHERE patient_num = ?', patientNum, (error, result) => {
-        if(error) {
-            console.error(`DB QUERY ERROR=${error}`);
-            response.status(500).send('Internal server error');
-        } else if(result.length === 0){
-            console.error('Invalid patient number');
-            response.status(401).send('Invalid patient number');
-        }
-
-        const accessToken = issueJwtToken(patientNum, result[0].patientName);
-        const responseBody = {
-            access_token: accessToken
-        };
-        response.status(200).json({data: responseBody});
-    });
+router.post('/login', async (request, response, next) => {
+    await parseInputData(request)
+        .then((patientNum) => 
+            knex.select('*')
+            .from('patients AS p')
+            .where('p.patient_num', patientNum)
+            .then((patientInfo) => {
+                if(patientInfo.length === 0) {
+                    throw new ReferenceError('Invalid patient number');
+                }
+                const accessToken = issueJwtToken(patientInfo);
+                const responseBody = {
+                    access_token: accessToken
+                };
+                return response.status(200).json({data: responseBody});
+            })
+            .catch((error) => {
+                if(error.name === ReferenceError.name){
+                    console.error('Invalid patient number');
+                    return response.status(401).send(error.message);
+                } else {
+                    console.error(`DB QUERY ERROR=${error}`);
+                    return response.status(500).send('Internal server error');
+                }
+                
+            })
+        )
+        .catch((error) => {
+            console.error(`${error}`);
+            if(error.name === TypeError.name){
+                return response.status(400).send(error.message);
+            } else {
+                return response.status(500).send('Internal server error');
+            }
+        })
 });
 
 // JWT 토큰 발급 메서드
-function issueJwtToken(patientNum, patientName){
+function issueJwtToken(patientInfo){
     const accessToken = jwt.sign({
         type: 'JWT',
-        patientNum: patientNum,
-        patientName: patientName
+        patientNum: patientInfo[0].patient_num,
+        patientName: patientInfo[0].patient_name,
+        sleepStartTime: patientInfo[0].sleep_start_time,
+        sleepEndTime: patientInfo[0].sleep_end_time,
+        userId: patientInfo[0].user_id
     }, process.env.JWT_SECRET_KEY, {
         expiresIn: process.env.JWT_ACCESS_EXPIRATION,
         issuer: process.env.JWT_ISSUER
@@ -41,6 +62,16 @@ function issueJwtToken(patientNum, patientName){
     console.log(`ISSUE JWT TOKEN=${process.env.JWT_PREFIX + accessToken}`)
 
     return process.env.JWT_PREFIX + accessToken;
+}
+
+// 사용자 입력값 검증 메서드
+async function parseInputData(request){
+    const patientNum = request.body.patient_num;
+    if(patientNum === undefined){
+        throw new TypeError('Bad type request');
+    }
+
+    return patientNum;
 }
 
 module.exports = router;
