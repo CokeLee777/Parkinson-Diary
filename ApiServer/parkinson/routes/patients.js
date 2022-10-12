@@ -9,9 +9,11 @@ require('dotenv').config();
  * 환자가 갤럭시워치에 로그인할 때 요청하는 API
  */
 router.post('/login', async (request, response, next) => {
-    await parseInputData(request)
-        .then((patientNum) => 
-            knex.select('*')
+
+    try {
+        const patientNum = await parseInputData(request);
+        const responseBody = await knex
+            .select('*')
             .from('patients AS p')
             .where('p.patient_num', patientNum)
             .then((patientInfo) => {
@@ -22,27 +24,25 @@ router.post('/login', async (request, response, next) => {
                 const responseBody = {
                     access_token: accessToken
                 };
-                return response.status(200).json({data: responseBody});
+                return responseBody;
             })
             .catch((error) => {
-                if(error.name === ReferenceError.name){
-                    console.error('Invalid patient number');
-                    return response.status(401).send(error.message);
-                } else {
-                    console.error(`DB QUERY ERROR=${error}`);
-                    return response.status(500).send('Internal server error');
-                }
-                
-            })
-        )
-        .catch((error) => {
-            console.error(`${error}`);
-            if(error.name === TypeError.name){
-                return response.status(400).send(error.message);
-            } else {
-                return response.status(500).send('Internal server error');
-            }
-        })
+                throw new SyntaxError('Internal server error');
+            });
+            
+        return response.status(200).json({data: responseBody});
+    } catch(error) {
+        console.error(error);
+        if(error.name === TypeError.name){
+            return response.status(400).send(error.message);
+        } else if(error.name === ReferenceError.name){
+            return response.status(401).send(error.message);
+        } else if(error.name === SyntaxError.name){
+            return response.status(500).send(error.message);
+        } else {
+            return response.status(500).send('Internal server error');
+        }
+    }
 });
 
 // JWT 토큰 발급 메서드
@@ -58,8 +58,6 @@ function issueJwtToken(patientInfo){
         expiresIn: process.env.JWT_ACCESS_EXPIRATION,
         issuer: process.env.JWT_ISSUER
     });
-
-    console.log(`ISSUE JWT TOKEN=${process.env.JWT_PREFIX + accessToken}`)
 
     return process.env.JWT_PREFIX + accessToken;
 }
