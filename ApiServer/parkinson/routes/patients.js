@@ -10,6 +10,7 @@ require('dotenv').config();
  */
 router.post('/login', async (request, response, next) => {
 
+    console.log('로그인 요청');
     try {
         const patientNum = await parseInputData(request);
         const responseBody = await knex

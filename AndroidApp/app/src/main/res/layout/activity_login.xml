@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2181F2A"
+    android:padding="@dimen/box_inset_layout_padding"
+    tools:context=".MainActivity"
+    tools:deviceIds="wear">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/mLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contextClickable="false"
+        android:padding="@dimen/inner_frame_layout_padding"
+        android:textAlignment="center"
+        app:layout_boxedEdges="all">
+
+        <TextView
+            android:id="@+id/lTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="파킨슨 일기"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_anchor="@+id/lTitle"
+            app:layout_anchorGravity="top|center" />
+
+        <EditText
+            android:id="@+id/lLoginForm"
+            android:layout_width="250px"
+            android:layout_height="90px"
+            android:background="@drawable/login_form"
+            android:gravity="center|fill"
+            android:ems="10"
+            android:inputType="number"
+            android:textColor="#FFFFFF"
+            android:textAlignment="center"
+            android:textSize="8sp"
+            android:text="환자번호를 입력하세요"
+            app:layout_anchor="@+id/lTitle"
+            app:layout_anchorGravity="center" />
+
+        <ImageButton
+            android:id="@+id/lLoginButton"
+            android:layout_width="150px"
+            android:layout_height="100px"
+            android:background="#CB181F2A"
+            android:onClick="login"
+            android:scaleType="fitCenter"
+            android:src="@drawable/login_button"
+            app:layout_anchor="@+id/lTitle"
+            app:layout_anchorGravity="bottom|center" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</androidx.wear.widget.BoxInsetLayout>
