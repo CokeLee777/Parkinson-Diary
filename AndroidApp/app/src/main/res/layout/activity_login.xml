@@ -19,48 +19,41 @@
         app:layout_boxedEdges="all">
 
         <TextView
-            android:id="@+id/mTitle"
+            android:id="@+id/lTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="파킨슨 일기"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            app:layout_anchor="@+id/mTitle"
+            app:layout_anchor="@+id/lTitle"
             app:layout_anchorGravity="top|center" />
 
-        <ImageButton
-            android:id="@+id/mStartButton"
+        <EditText
+            android:id="@+id/lLoginForm"
             android:layout_width="250px"
-            android:layout_height="100px"
-            android:onClick="startDiary"
-            android:background="#CB181F2A"
-            android:scaleType="fitCenter"
-            android:src="@drawable/start_button"
-            app:layout_anchor="@+id/mTitle"
+            android:layout_height="90px"
+            android:background="@drawable/login_form"
+            android:gravity="center|fill"
+            android:ems="10"
+            android:inputType="number"
+            android:textColor="#FFFFFF"
+            android:textAlignment="center"
+            android:textSize="8sp"
+            android:text="환자번호를 입력하세요"
+            app:layout_anchor="@+id/lTitle"
             app:layout_anchorGravity="center" />
 
         <ImageButton
-            android:id="@+id/mAlarmButton"
-            android:layout_width="60px"
-            android:layout_height="60px"
-            android:onClick="setAlarm"
+            android:id="@+id/lLoginButton"
+            android:layout_width="150px"
+            android:layout_height="100px"
             android:background="#CB181F2A"
+            android:onClick="login"
             android:scaleType="fitCenter"
-            android:src="@drawable/setting_button"
-            app:layout_anchor="@+id/mTitle"
-            app:layout_anchorGravity="end|bottom" />
-
-        <ImageButton
-            android:id="@+id/mSettingButton"
-            android:layout_width="60px"
-            android:layout_height="60px"
-            android:onClick="setDiary"
-            android:background="#CB181F2A"
-            android:scaleType="fitCenter"
-            android:src="@drawable/active_alarm"
-            app:layout_anchor="@+id/mTitle"
-            app:layout_anchorGravity="start|bottom" />
+            android:src="@drawable/login_button"
+            app:layout_anchor="@+id/lTitle"
+            app:layout_anchorGravity="bottom|center" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

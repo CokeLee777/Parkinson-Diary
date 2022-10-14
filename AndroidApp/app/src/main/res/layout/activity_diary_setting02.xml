@@ -1,0 +1,63 @@
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#181F2A"
+    android:padding="@dimen/box_inset_layout_padding"
+    tools:context=".DiarySettingActivity02"
+    tools:deviceIds="wear">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/mLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contextClickable="false"
+        android:padding="@dimen/inner_frame_layout_padding"
+        android:textAlignment="center"
+        app:layout_boxedEdges="all">
+
+        <TextView
+            android:id="@+id/dTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="약 복용정보"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/dBackButton"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:onClick="backButtonPressed"
+            android:background="#CB181F2A"
+            android:scaleType="fitCenter"
+            android:src="@drawable/prev_button"
+            app:layout_anchor="@+id/dTitle"
+            app:layout_anchorGravity="start|top" />
+
+        <ImageButton
+            android:id="@+id/dNextButton"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:onClick="nextButtonPressed"
+            android:background="#CB181F2A"
+            android:scaleType="fitCenter"
+            android:src="@drawable/next_button"
+            app:layout_anchor="@+id/dTitle"
+            app:layout_anchorGravity="end|top" />
+
+        <Spinner
+            android:id="@+id/dProfessorSpinner"
+            android:layout_width="250px"
+            android:layout_height="90px"
+            android:background="@drawable/medicine_input_spinner"
+            android:spinnerMode="dropdown"
+            app:layout_anchor="@+id/dTitle"
+            app:layout_anchorGravity="center" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</androidx.wear.widget.BoxInsetLayout>
