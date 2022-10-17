@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F2181F2A"
     android:padding="@dimen/box_inset_layout_padding"
-    tools:context=".MainActivity"
+    tools:context=".activity.MainActivity"
     tools:deviceIds="wear">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -40,7 +40,7 @@
             android:textColor="#FFFFFF"
             android:textAlignment="center"
             android:textSize="8sp"
-            android:text="환자번호를 입력하세요"
+            android:hint="환자번호를 입력하세요"
             app:layout_anchor="@+id/lTitle"
             app:layout_anchorGravity="center" />
 

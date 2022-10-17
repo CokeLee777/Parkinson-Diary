@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#181F2A"
     android:padding="@dimen/box_inset_layout_padding"
-    tools:context=".SurveyActivity02"
+    tools:context=".activity.survey.SurveyActivity02"
     tools:deviceIds="wear">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

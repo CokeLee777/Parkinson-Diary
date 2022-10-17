@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F2181F2A"
     android:padding="@dimen/box_inset_layout_padding"
-    tools:context=".MainActivity"
+    tools:context=".activity.MainActivity"
     tools:deviceIds="wear">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -41,10 +41,10 @@
             app:layout_anchorGravity="center" />
 
         <ImageButton
-            android:id="@+id/mAlarmButton"
+            android:id="@+id/mSettingButton"
             android:layout_width="60px"
             android:layout_height="60px"
-            android:onClick="setAlarm"
+            android:onClick="setDiary"
             android:background="#CB181F2A"
             android:scaleType="fitCenter"
             android:src="@drawable/setting_button"
@@ -52,10 +52,10 @@
             app:layout_anchorGravity="end|bottom" />
 
         <ImageButton
-            android:id="@+id/mSettingButton"
+            android:id="@+id/mAlarmButton"
             android:layout_width="60px"
             android:layout_height="60px"
-            android:onClick="setDiary"
+            android:onClick="setAlarm"
             android:background="#CB181F2A"
             android:scaleType="fitCenter"
             android:src="@drawable/active_alarm"
