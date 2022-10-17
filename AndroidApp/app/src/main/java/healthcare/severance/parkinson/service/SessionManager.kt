@@ -21,4 +21,10 @@ class SessionManager(context: Context) {
         editor.putString(ACCESS_TOKEN, accessToken)
         editor.apply()
     }
+
+    fun unAuthenticate() {
+        val editor = prefs.edit()
+        editor.clear()
+        editor.commit()
+    }
 }
