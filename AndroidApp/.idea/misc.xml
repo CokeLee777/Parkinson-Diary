@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_diary_setting01.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_diary_setting02.xml" value="0.55" />
+        <entry key="app/src/main/res/layout/activity_diary_setting02_1.xml" value="0.7782426778242678" />
         <entry key="app/src/main/res/layout/activity_diary_setting03.xml" value="0.641213389121339" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.6629955947136564" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.55" />
@@ -15,6 +16,7 @@
         <entry key="app/src/main/res/layout/activity_survey01.xml" value="0.5066079295154186" />
         <entry key="app/src/main/res/layout/activity_survey02.xml" value="0.641213389121339" />
         <entry key="app/src/main/res/layout/activity_survey03.xml" value="0.641213389121339" />
+        <entry key="app/src/main/res/layout/item_list.xml" value="0.6607929515418502" />
       </map>
     </option>
   </component>

@@ -23,9 +23,6 @@ class DiarySettingActivity01 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary_setting01)
-
-        sleepStartSelectButton = findViewById(R.id.dSleepStartSelectButton)
-        sleepEndSelectButton = findViewById(R.id.dSleepEndSelectButton)
     }
 
     fun sleepStartSelectButtonPressed(view: View){
@@ -37,6 +34,7 @@ class DiarySettingActivity01 : AppCompatActivity() {
             cal.set(Calendar.MINUTE, minute)
 
             //선택한 시간 Display
+            sleepStartSelectButton = findViewById(view.id)
             sleepStartSelectButton.text = SimpleDateFormat("HH:mm").format(cal.time)
             sleepStartSelectButton.setTextColor(Color.WHITE)
             sleepStartSelectButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10f)
@@ -54,6 +52,7 @@ class DiarySettingActivity01 : AppCompatActivity() {
             cal.set(Calendar.MINUTE, minute)
 
             //선택한 시간 Display
+            sleepEndSelectButton = findViewById(view.id)
             sleepEndSelectButton.text = SimpleDateFormat("HH:mm").format(cal.time)
             sleepEndSelectButton.setTextColor(Color.WHITE)
             sleepEndSelectButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10f)
@@ -80,7 +79,7 @@ class DiarySettingActivity01 : AppCompatActivity() {
         } else if(sleepEndTime.isBlank()) {
             Toast.makeText(this@DiarySettingActivity01, "기상시간을 선택해주세요", Toast.LENGTH_SHORT).show()
         } else {
-            val intent = Intent(this, DiarySettingActivity02::class.java)
+            val intent = Intent(this, DiarySettingActivity02_1::class.java)
             intent.putExtra("sleep_start_time", sleepStartTime)
             intent.putExtra("sleep_end_time", sleepEndTime)
 
