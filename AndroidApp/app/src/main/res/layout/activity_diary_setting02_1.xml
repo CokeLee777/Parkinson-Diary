@@ -60,6 +60,7 @@
             android:textAlignment="center"
             android:textSize="7sp"
             android:hint="복용횟수를 입력하세요"
+            android:textColorHint="#FFFFFF"
             app:layout_anchor="@+id/dTitle"
             app:layout_anchorGravity="center" />
 

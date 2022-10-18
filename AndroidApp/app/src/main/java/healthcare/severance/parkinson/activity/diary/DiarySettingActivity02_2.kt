@@ -10,19 +10,32 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import healthcare.severance.parkinson.R
+import healthcare.severance.parkinson.activity.auth.LoginActivity
 import healthcare.severance.parkinson.adapter.RecyclerViewAdapter
+import healthcare.severance.parkinson.service.SessionManager
 import java.util.*
 
 class DiarySettingActivity02_2 : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var sessionManager: SessionManager
 
     private var items = arrayListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary_setting02_2)
+        //로그인한 사용자만 접근 가능
+        sessionManager = SessionManager(this)
+        if(!sessionManager.isAuthenticated()){
+            val intent = Intent(this@DiarySettingActivity02_2, LoginActivity::class.java)
+            startActivity(intent)
+        }
 
+        initRecyclerView(intent)
+    }
+
+    private fun initRecyclerView(intent: Intent){
         //리사이클러뷰 초기화
         recyclerView = findViewById(R.id.dRecyclerView)
         val linearLayoutManager = LinearLayoutManager(this)
@@ -38,15 +51,11 @@ class DiarySettingActivity02_2 : AppCompatActivity() {
     }
 
     fun backButtonPressed(view: View){
-        Log.i(view.resources.getResourceName(view.id),"clicked")
-
         val intent = Intent(this, DiarySettingActivity02_1::class.java)
         startActivity(intent)
     }
 
     fun nextButtonPressed(view: View){
-        Log.i(view.resources.getResourceName(view.id),"clicked")
-
         if(items.contains("")){
             Toast.makeText(this@DiarySettingActivity02_2, "복용시간을 입력해주세요", Toast.LENGTH_SHORT).show()
         } else {
@@ -55,6 +64,7 @@ class DiarySettingActivity02_2 : AppCompatActivity() {
             intent.putExtra("sleep_start_time", beforeIntent.getStringExtra("sleep_start_time"))
             intent.putExtra("sleep_end_time", beforeIntent.getStringExtra("sleep_end_time"))
             intent.putExtra("take_times", items)
+            intent.putExtra("is_update", beforeIntent.getStringExtra("is_update"))
 
             startActivity(intent)
         }

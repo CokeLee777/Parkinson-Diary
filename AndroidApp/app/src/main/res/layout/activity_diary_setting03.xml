@@ -48,65 +48,61 @@
             app:layout_anchor="@+id/dTitle"
             app:layout_anchorGravity="bottom|center" />
 
-        <TableLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="190px"
-            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
             app:layout_anchor="@+id/dTitle"
             app:layout_anchorGravity="center">
 
-            <TableRow
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/dSleepStartInfo"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="취침시간"
-                    android:textColorHint="#FFFFFF"
-                    android:textAlignment="center"
-                    android:textColor="#FFFFFF"
-                    android:textSize="10sp"
-                    app:layout_anchorGravity="center" />
-            </TableRow>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp" >
+                    <TextView
+                        android:id="@+id/dSleepStartInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="취침시간"
+                        android:textAlignment="textStart"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:textSize="10sp"
+                        app:layout_anchorGravity="center" />
 
-                <TextView
-                    android:id="@+id/dSleepEndInfo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="기상시간"
-                    android:textColorHint="#FFFFFF"
-                    android:textAlignment="center"
-                    android:textColor="#FFFFFF"
-                    android:textSize="10sp"
-                    app:layout_anchorGravity="center" />
-            </TableRow>
+                    <TextView
+                        android:id="@+id/dSleepEndInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="기상시간"
+                        android:textAlignment="textStart"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:textSize="10sp"
+                        app:layout_anchorGravity="center" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp" >
+                    <TextView
+                        android:id="@+id/dMedicineTimeInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="약 복용시간"
+                        android:scrollbars="vertical"
+                        android:textAlignment="textStart"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:textSize="10sp"
+                        app:layout_anchorGravity="center" />
 
-                <TextView
-                    android:id="@+id/dMedicineTimeInfo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="약 복용시간"
-                    android:textColorHint="#FFFFFF"
-                    android:textAlignment="center"
-                    android:textColor="#FFFFFF"
-                    android:textSize="10sp"
-                    app:layout_anchorGravity="center" />
-            </TableRow>
+                </LinearLayout>
 
-        </TableLayout>
+            </LinearLayout>
+
+        </ScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

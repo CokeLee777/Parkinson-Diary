@@ -30,25 +30,32 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun login(view: View){
-        Log.i(view.resources.getResourceName(view.id),"clicked")
         //입력한 환자번호 가져오기
-        val inputPatientNum: Long = findViewById<TextView>(R.id.lLoginForm).text
+        val inputPatientNum: String = findViewById<TextView>(R.id.lLoginForm).text
             .toString()
-            .toLong()
+        if(inputPatientNum.isBlank() || inputPatientNum.isEmpty()){
+            Toast.makeText(this@LoginActivity, "존재하지 않는 환자번호 입니다", Toast.LENGTH_SHORT).show()
+            return
+        }
         //서버로 로그인 요청
         RetrofitClient.loginService.login(
             LoginRequestDto(
-                patientNum = inputPatientNum
+                patientNum = inputPatientNum.toLong()
             )
         ).enqueue(object: Callback<LoginResponseVo> {
             override fun onResponse(
                 call: Call<LoginResponseVo>,
                 response: Response<LoginResponseVo>
             ) {
-                val loginResponse = response.body()
+                val loginResponse: LoginResponseVo? = response.body()
                 if(response.isSuccessful) {
                     // !!를 붙여서 200 success 가 되면 항상 서버가 null값을 반환하지 않음을 체크
                     sessionManager.saveAccessToken(loginResponse!!.data.accessToken)
+
+                    // intent: 개별 구성요소간의 런타임 바인딩을 제공해주는 객체
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    // 다이어리 세팅 시작
+                    startActivity(intent)
                 } else if(response.code() == 400) {
                     Toast.makeText(this@LoginActivity, "올바르지 않은 입력입니다", Toast.LENGTH_SHORT).show()
                 } else if(response.code() == 401){
@@ -59,14 +66,9 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<LoginResponseVo>, t: Throwable) {
-                Log.i("Server error", t.message.toString())
+                Log.e("Server error", t.message.toString())
                 Toast.makeText(this@LoginActivity, "서버 내부 오류", Toast.LENGTH_SHORT).show()
             }
         })
-
-        // intent: 개별 구성요소간의 런타임 바인딩을 제공해주는 객체
-        val intent = Intent(this, MainActivity::class.java)
-        // 다이어리 세팅 시작
-        startActivity(intent)
     }
 }

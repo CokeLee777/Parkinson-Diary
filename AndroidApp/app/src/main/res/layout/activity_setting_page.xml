@@ -19,26 +19,92 @@
         app:layout_boxedEdges="all">
 
         <TextView
-            android:id="@+id/lTitle"
+            android:id="@+id/sTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="파킨슨 일기"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            app:layout_anchor="@+id/lTitle"
-            app:layout_anchorGravity="top|center" />
+            android:textSize="15sp"
+            app:layout_anchorGravity="center" />
 
         <ImageButton
-            android:id="@+id/lLoginButton"
-            android:layout_width="120px"
-            android:layout_height="90px"
+            android:id="@+id/sBackButton"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:onClick="backButtonPressed"
+            android:background="#CB181F2A"
+            android:scaleType="fitCenter"
+            android:src="@drawable/prev_button"
+            app:layout_anchor="@+id/sTitle"
+            app:layout_anchorGravity="start|top" />
+
+        <ImageButton
+            android:id="@+id/sLogoutButton"
+            android:layout_width="150px"
+            android:layout_height="60px"
             android:background="#CB181F2A"
             android:onClick="logout"
             android:scaleType="fitCenter"
             android:src="@drawable/logout_button"
-            app:layout_anchor="@+id/lTitle"
+            app:layout_anchor="@+id/sTitle"
             app:layout_anchorGravity="bottom|center" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_anchor="@+id/sTitle"
+            app:layout_anchorGravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/sSleepStartInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="취침시간"
+                        android:textAlignment="textStart"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:textSize="10sp"
+                        app:layout_anchorGravity="center" />
+
+                    <TextView
+                        android:id="@+id/sSleepEndInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="기상시간"
+                        android:textAlignment="textStart"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:textSize="10sp"
+                        app:layout_anchorGravity="center" />
+
+                    <TextView
+                        android:id="@+id/sMedicineTimeInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="약 복용시간"
+                        android:scrollbars="vertical"
+                        android:textAlignment="textStart"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:textSize="10sp"
+                        app:layout_anchorGravity="center" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

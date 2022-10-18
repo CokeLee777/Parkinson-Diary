@@ -12,6 +12,10 @@ class SessionManager(context: Context) {
         const val ACCESS_TOKEN = "access_token"
     }
 
+    fun getAccessToken(): String? {
+        return prefs.getString(ACCESS_TOKEN, "NO_VALUE")
+    }
+
     fun isAuthenticated(): Boolean {
         return prefs.contains(ACCESS_TOKEN)
     }
