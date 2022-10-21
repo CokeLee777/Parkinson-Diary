@@ -4,7 +4,7 @@ const knex = require('../config/knex');
 const { verifyToken } = require('./auth');
 
 router.route('/').post(verifyToken, async (request, response, next) => {
-    const patientInfo = request.decodedToken;
+    const patientNum = request.decodedToken.patientNum;
     try {
         const surveyInputData = await parseInputData(request);
         await knex.insert({
@@ -12,7 +12,7 @@ router.route('/').post(verifyToken, async (request, response, next) => {
             medicinal_effect: surveyInputData.has_medicinal_effect,
             patient_condition: surveyInputData.patient_condition,
             survery_time: new Date(),
-            patient_num: patientInfo.patientNum
+            patient_num: patientNum
         })
         .into('survey')
         .then((result) => {

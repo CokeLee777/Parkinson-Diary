@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "621659517474",
+    "project_id": "parkinson-diary",
+    "storage_bucket": "parkinson-diary.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621659517474:android:9584d46d9faef31044907b",
+        "android_client_info": {
+          "package_name": "healthcare.severance.parkinson"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "621659517474-p0kd9gp3q0uptb3fir7fn11a3nikqdua.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "healthcare.severance.parkinson",
+            "certificate_hash": "6296d5d538842618e2ca718d33ecfe8dce642626"
+          }
+        },
+        {
+          "client_id": "621659517474-3u6k6s97ajihqs8q52olpo6m4e0912r6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_zq0_dwM8mgktjh6JhE8YxGYnhMKBGhY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "621659517474-3u6k6s97ajihqs8q52olpo6m4e0912r6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

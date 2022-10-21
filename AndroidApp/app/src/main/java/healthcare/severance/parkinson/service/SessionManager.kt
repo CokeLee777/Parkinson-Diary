@@ -12,6 +12,10 @@ class SessionManager(context: Context) {
         const val ACCESS_TOKEN = "access_token"
     }
 
+    fun getAccessToken(): String? {
+        return prefs.getString(ACCESS_TOKEN, "NO_VALUE")
+    }
+
     fun isAuthenticated(): Boolean {
         return prefs.contains(ACCESS_TOKEN)
     }
@@ -20,5 +24,11 @@ class SessionManager(context: Context) {
         val editor = prefs.edit()
         editor.putString(ACCESS_TOKEN, accessToken)
         editor.apply()
+    }
+
+    fun unAuthenticate() {
+        val editor = prefs.edit()
+        editor.clear()
+        editor.commit()
     }
 }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#181F2A"
     android:padding="@dimen/box_inset_layout_padding"
-    tools:context=".activity.survey.SurveyActivity01"
+    tools:context=".activity.diary.DiarySettingActivity02_2"
     tools:deviceIds="wear">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -18,53 +18,54 @@
         app:layout_boxedEdges="all">
 
         <TextView
-            android:id="@+id/sTitle"
+            android:id="@+id/dTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="현재 약효가 있습니까?"
+            android:text="약 복용정보"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="15sp" />
+            android:textSize="18sp" />
 
         <ImageButton
-            android:id="@+id/sBackButton"
+            android:id="@+id/dBackButton"
             android:layout_width="50px"
             android:layout_height="50px"
-            android:background="#CB181F2A"
             android:onClick="backButtonPressed"
+            android:background="#CB181F2A"
             android:scaleType="fitCenter"
             android:src="@drawable/prev_button"
-            app:layout_anchor="@+id/sTitle"
-            app:layout_anchorGravity="start|bottom" />
+            app:layout_anchor="@+id/dTitle"
+            app:layout_anchorGravity="start|top" />
 
         <ImageButton
-            android:id="@+id/sNextButton"
+            android:id="@+id/dNextButton"
             android:layout_width="50px"
             android:layout_height="50px"
-            android:background="#CB181F2A"
             android:onClick="nextButtonPressed"
+            android:background="#CB181F2A"
             android:scaleType="fitCenter"
             android:src="@drawable/next_button"
-            app:layout_anchor="@+id/sTitle"
-            app:layout_anchorGravity="end|bottom" />
+            app:layout_anchor="@+id/dTitle"
+            app:layout_anchorGravity="end|top" />
 
-        <Button
-            android:id="@+id/sYesButton"
-            android:layout_width="130px"
-            android:layout_height="wrap_content"
-            android:onClick="yesButtonPressed"
-            android:text="네"
-            app:layout_anchor="@+id/sTitle"
-            app:layout_anchorGravity="start|center" />
 
-        <Button
-            android:id="@+id/sNoButton"
-            android:layout_width="130px"
-            android:layout_height="wrap_content"
-            android:onClick="noButtonPressed"
-            android:text="아니오"
-            app:layout_anchor="@+id/sTitle"
-            app:layout_anchorGravity="end|center" />
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="240px"
+            android:orientation="vertical"
+            app:layout_anchor="@+id/dTitle"
+            app:layout_anchorGravity="bottom|center">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_anchorGravity="bottom|center" />
+
+        </LinearLayout>
+
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

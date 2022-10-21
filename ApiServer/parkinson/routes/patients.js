@@ -18,7 +18,8 @@ router.post('/login', async (request, response, next) => {
             .from('patients AS p')
             .where('p.patient_num', patientNum)
             .then((patientInfo) => {
-                if(patientInfo.length === 0) {
+                console.log(patientInfo.length);
+                if(patientInfo.length == 0) {
                     throw new ReferenceError('Invalid patient number');
                 }
                 const accessToken = issueJwtToken(patientInfo);
@@ -28,7 +29,7 @@ router.post('/login', async (request, response, next) => {
                 return responseBody;
             })
             .catch((error) => {
-                throw new SyntaxError('Internal server error');
+                throw error;
             });
             
         return response.status(200).json({data: responseBody});
@@ -52,8 +53,6 @@ function issueJwtToken(patientInfo){
         type: 'JWT',
         patientNum: patientInfo[0].patient_num,
         patientName: patientInfo[0].patient_name,
-        sleepStartTime: patientInfo[0].sleep_start_time,
-        sleepEndTime: patientInfo[0].sleep_end_time,
         userId: patientInfo[0].user_id
     }, process.env.JWT_SECRET_KEY, {
         expiresIn: process.env.JWT_ACCESS_EXPIRATION,

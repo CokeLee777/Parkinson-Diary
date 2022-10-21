@@ -1,4 +1,4 @@
-package healthcare.severance.parkinson
+package healthcare.severance.parkinson.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import healthcare.severance.parkinson.R
+import healthcare.severance.parkinson.activity.auth.LoginActivity
 import healthcare.severance.parkinson.service.SessionManager
 
 class DiaryStartActivity : AppCompatActivity() {

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F2181F2A"
     android:padding="@dimen/box_inset_layout_padding"
-    tools:context=".MainActivity"
+    tools:context=".activity.auth.LoginActivity"
     tools:deviceIds="wear">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -40,14 +40,15 @@
             android:textColor="#FFFFFF"
             android:textAlignment="center"
             android:textSize="8sp"
-            android:text="환자번호를 입력하세요"
+            android:hint="환자번호를 입력하세요"
+            android:textColorHint="#FFFFFF"
             app:layout_anchor="@+id/lTitle"
             app:layout_anchorGravity="center" />
 
         <ImageButton
             android:id="@+id/lLoginButton"
             android:layout_width="150px"
-            android:layout_height="100px"
+            android:layout_height="70px"
             android:background="#CB181F2A"
             android:onClick="login"
             android:scaleType="fitCenter"

@@ -10,25 +10,35 @@ const { verifyToken } = require('./auth');
  */
 router.route('/').get(verifyToken, async (request, response, next) => {
 
-  const patientInfo = request.decodedToken;
+  const patientNum = request.decodedToken.patientNum;
   try {
-    const responseBody = await knex
+    const patientInfo = await knex
+      .select('p.sleep_start_time', 'p.sleep_end_time')
+      .from('patients AS p')
+      .where('p.patient_num', patientNum)
+      .then((patientInfo) => {
+        return patientInfo[0];
+      });
+
+    const medicineInfo = await knex
       .select('m.take_time', 'm.is_take')
       .from('medicine AS m')
-      .where('m.patient_num', patientInfo.patientNum)
+      .where('m.patient_num', patientNum)
       .then((medicineInfo) => {
-        const responseBody = {
-          patient_name: patientInfo.patientName,
-          sleep_start_time: patientInfo.sleepStartTime,
-          sleep_end_time: patientInfo.sleepEndTime,
-          medicine_info: medicineInfo
-        };
-        return responseBody;
+        return medicineInfo;
       })
       .catch((error) => {
         throw new SyntaxError('Internal server error');
       });
+    
+    const responseBody = {
+      sleep_start_time: patientInfo.sleep_start_time,
+      sleep_end_time: patientInfo.sleep_end_time,
+      take_times: medicineInfo
+    };
+    
     return response.status(200).json({data: responseBody});
+
   } catch(error) {
     console.error(error);
     if(error.name === SyntaxError.name){
@@ -40,7 +50,7 @@ router.route('/').get(verifyToken, async (request, response, next) => {
 
 }).post(verifyToken, async (request, response, next) => {
 
-  const patientInfo = request.decodedToken;
+  const patientNum = request.decodedToken.patientNum;
   try {
     //사용자 입력정보 파싱
     const diaryInputData = await parseInputData(request);
@@ -50,7 +60,7 @@ router.route('/').get(verifyToken, async (request, response, next) => {
         sleep_start_time: new Date(`July 1, 1999, ${diaryInputData.sleep_start_time}`),
         sleep_end_time: new Date(`July 1, 1999, ${diaryInputData.sleep_end_time}`)
       })
-      .where('p.patient_num', patientInfo.patientNum)
+      .where('p.patient_num', patientNum)
       .catch((error) => {
         throw new SyntaxError('Internal server error');
       });
@@ -59,7 +69,7 @@ router.route('/').get(verifyToken, async (request, response, next) => {
     for(let i = 0; i < diaryInputData.take_times.length; i++){
       const takeTime = diaryInputData.take_times[i].take_time;
       await knex.insert({
-        patient_num: patientInfo.patientNum,
+        patient_num: patientNum,
         take_time: new Date(`July 1, 1999, ${takeTime}`)
       })
       .into('medicine')
@@ -81,7 +91,7 @@ router.route('/').get(verifyToken, async (request, response, next) => {
 //파킨슨 다이어리 재시작하기
 }).put(verifyToken, async (request, response, next) => {
 
-  const patientInfo = request.decodedToken;
+  const patientNum = request.decodedToken.patientNum;
   try {
     //사용자 입력정보 파싱
     const diaryInputData = await parseInputData(request);
@@ -91,14 +101,14 @@ router.route('/').get(verifyToken, async (request, response, next) => {
         sleep_start_time: new Date(`July 1, 1999, ${diaryInputData.sleep_start_time}`),
         sleep_end_time: new Date(`July 1, 1999, ${diaryInputData.sleep_end_time}`)
       })
-      .where('p.patient_num', patientInfo.patientNum)
+      .where('p.patient_num', patientNum)
       .catch((error) => {
         throw new SyntaxError('Internal server error');
       });
     
       //설정되었던 복용시간 모두 삭제
     await knex('medicine AS m')
-      .where('m.patient_num', patientInfo.patientNum)
+      .where('m.patient_num', patientNum)
       .del()
       .catch((error) => {
         throw new SyntaxError(`Internal server error`);
@@ -108,7 +118,7 @@ router.route('/').get(verifyToken, async (request, response, next) => {
     for(let i = 0; i < diaryInputData.take_times.length; i++){
       const takeTime = diaryInputData.take_times[i].take_time;
       await knex.insert({
-        patient_num: patientInfo.patientNum,
+        patient_num: patientNum,
         take_time: new Date(`July 1, 1999, ${takeTime}`)
       })
       .into('medicine')
