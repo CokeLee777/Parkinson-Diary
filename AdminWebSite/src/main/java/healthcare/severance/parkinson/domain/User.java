@@ -11,11 +11,11 @@ import javax.persistence.*;
 @Builder @Getter
 public class User {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private final Long id;
 
-    @Column(name = "identifier", nullable = false)
+    @Column(name = "identifier", nullable = false, unique = true)
     private final String identifier;
 
     @Column(name = "password", nullable = false)
@@ -24,7 +24,7 @@ public class User {
     @Column(name = "username", nullable = false)
     private final String username;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private final String email;
 
     @Enumerated(EnumType.STRING)

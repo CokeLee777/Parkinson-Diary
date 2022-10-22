@@ -1,11 +1,12 @@
 package healthcare.severance.parkinson.domain;
 
-import healthcare.severance.parkinson.dto.patient.PatientEditForm;
-import healthcare.severance.parkinson.dto.patient.PatientForm;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -18,9 +19,8 @@ import static javax.persistence.FetchType.LAZY;
 public class Patient {
 
     @Id
-    @GeneratedValue
-    @Column(name = "patient_id")
-    private Long id;
+    @Column(name = "patient_num", nullable = false, unique = true)
+    private Long patientNum;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -29,16 +29,17 @@ public class Patient {
     @Column(name = "patient_name",nullable = false)
     private String name;
 
-//    @ColumnDefault("22:00:00")
     @Column(name = "sleep_start_time")
-    private LocalDateTime sleepStartTime;
+    private LocalTime sleepStartTime;
 
-//    @ColumnDefault("08:00:00")
     @Column(name = "sleep_end_time")
-    private LocalDateTime sleepEndTime;
+    private LocalTime sleepEndTime;
 
-    public void EditPatient(User user, String name) {
+    public void EditPatient(Long patientNum, User user, String name, LocalTime sleepStartTime, LocalTime sleepEndTime) {
+        this.patientNum = patientNum;
         this.user = user;
         this.name = name;
+        this.sleepStartTime = sleepStartTime;
+        this.sleepEndTime = sleepEndTime;
     }
 }

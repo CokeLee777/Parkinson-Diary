@@ -1,5 +1,7 @@
 package healthcare.severance.parkinson.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
@@ -7,25 +9,29 @@ import java.time.LocalDateTime;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
+@Table(name = "survey")
+@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
+@RequiredArgsConstructor
+@Builder @Getter
 public class Survey {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "survey_id")
-    private Long id;
+    private final Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "patient_id", nullable = false)
-    private Patient patient;
+    @JoinColumn(name = "patient_num", nullable = false)
+    private final Patient patient;
 
     @Column(name = "survery_time", nullable = false)
-    private LocalDateTime surveyTime;
+    private final LocalDateTime surveyTime;
 
     @Column(name = "medicinal_effect", nullable = false)
-    private Double medicinalEffect;
+    private final Boolean medicinalEffect;
 
     @Column(name = "abnormal_movement", nullable = false)
-    private Double abnormalMovement;
+    private final Boolean abnormalMovement;
 
     @Column(name = "patient_condition", nullable = false)
-    private Double patientCondition;
+    private final Double patientCondition;
 }

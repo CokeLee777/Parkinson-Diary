@@ -39,7 +39,11 @@
 							<div class="login-form">
                                 <form action="/patient/add" th:action th:object="${form}" method="post">
 
-									<label for="name">환자 초성 초성</label>
+									<label for="patientNum">환자 번호</label>
+									<input type="text" id="patientNum" name="patientNum" class="form-control" placeholder="환자 번호 입력">
+									<div class="field-error" th:errors="*{patientNum}"></div>
+
+									<label for="name">환자 이름 초성</label>
 									<input type="text" id="name" name="name" class="form-control" placeholder="환자 초성 입력">
 									<div class="field-error" th:errors="*{name}"></div>
 

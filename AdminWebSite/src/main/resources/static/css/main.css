@@ -1918,6 +1918,7 @@ input, select, textarea {
 	input[type="text"],
 	input[type="password"],
 	input[type="email"],
+	input[type="time"],
 	select,
 	textarea {
 		-moz-appearance: none;

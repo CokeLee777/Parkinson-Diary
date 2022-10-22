@@ -37,14 +37,18 @@
 							<h2>환자 상세 정보</h2>
 							<div class="login-form">
                                 <form>
-									<label>환자 키</label>
-                                    <input type="text" name="id" readonly th:value="${patient.id}">
+									<label>환자 번호</label>
+                                    <input type="text" name="patientNum" readonly th:value="${patient.patientNum}">
 									<label>환자 이름 초성</label>
 									<input type="text" name="name" readonly th:value="${patient.name}">
 									<label>담당 의사</label>
-									<input type="text" name="user" readonly th:value="${patient.user.username}" style="margin-bottom: 10px">
+									<input type="text" name="user" readonly th:value="${patient.user.username}">
+									<label>취침 시작 시간</label>
+									<input type="text" name="sleepStartTime" readonly th:value="${patient.sleepStartTime}" style="margin-bottom: 10px">
+									<label>취침 종료 시간</label>
+									<input type="text" name="sleepEndTime" readonly th:value="${patient.sleepEndTime}"  style="margin-bottom: 10px">
 									<span>
-										<a class="button" type="button" th:href="@{|/patient/${patient.id}/edit|}">수정</a>
+										<a class="button" type="button" th:href="@{|/patient/${patient.patientNum}/edit|}">수정</a>
                                         <a class="button" href="userGraph.html">측정값 확인</a>
 										<a class="button" th:href="@{/patient/patientList}">취소</a>
 									</span>

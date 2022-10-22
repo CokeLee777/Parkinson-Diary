@@ -38,8 +38,9 @@
 							<div class="login-form">
 								<form action="/patient/{id}/edit" th:action th:object="${form}" method=post>
 
-									<label>환자 키</label>
-									<input type="text" name="id" readonly th:value="${patient.id}">
+									<label>환자 번호</label>
+									<input type="text" id="patientNum" name="patientNum" th:value="${patient.patientNum}" class="form-control" placeholder="환자 번호 입력">
+									<div class="field-error" th:errors="*{patientNum}"></div>
 
 									<label>환자 이름 초성</label>
 									<input type="text" id="name" name="name" th:value="${patient.name}" class="form-control" placeholder="환자 초성 입력">
@@ -50,11 +51,18 @@
 										<option th:each="user : ${users}" th:value="${user.getKey()}" th:text="${user.getValue()}">의사명</option>
 									</select>
 
-									<span>
+									<label>취침 시작 시간</label>
+									<input type="time" name="sleepStartTime" th:value="${patient.sleepStartTime}" th:placeholder="${patient.sleepStartTime}">
+
+									<label>취침 종료 시간</label>
+									<input type="time" name="sleepEndTime" th:value="${patient.sleepEndTime}", th:placeholder="${patient.sleepEndTime}" style="margin-bottom: 10px;">
+
+
+									<div>
 										<button class="button" id="update" name="buttonValue" value="update">수정하기</button>
 										<button class="button" id="delete" name="buttonValue" value="delete" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
 										<button class="button" type="button" th:onclick="|location.href='@{/patient/patientList}'|">취소</button>
-									</span>
+									</div>
 								</form>
 							</div>
 						</div>
