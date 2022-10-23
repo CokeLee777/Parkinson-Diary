@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_alarm.xml" value="0.7677824267782427" />
         <entry key="app/src/main/res/layout/activity_diary_setting01.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_diary_setting02.xml" value="0.55" />
         <entry key="app/src/main/res/layout/activity_diary_setting02_1.xml" value="0.7782426778242678" />

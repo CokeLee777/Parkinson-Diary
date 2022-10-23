@@ -55,10 +55,10 @@
             android:id="@+id/mAlarmButton"
             android:layout_width="60px"
             android:layout_height="60px"
-            android:onClick="setAlarm"
             android:background="#CB181F2A"
+            android:onClick="alarmButtonPressed"
             android:scaleType="fitCenter"
-            android:src="@drawable/active_alarm"
+            android:src="@drawable/active_alarm_button"
             app:layout_anchor="@+id/mTitle"
             app:layout_anchorGravity="start|bottom" />
 

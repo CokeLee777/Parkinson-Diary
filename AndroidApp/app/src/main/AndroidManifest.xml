@@ -2,10 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="healthcare.severance.parkinson">
 
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Http 통신을 위해 인터넷 사용 허용 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature android:name="android.hardware.type.watch" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -17,7 +20,7 @@
         <activity
             android:name=".activity.diary.DiarySettingActivity02_1"
             android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".activity.diary.SettingPageActivity"
             android:exported="false"
@@ -74,6 +77,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
+
+        <receiver
+            android:name=".activity.alarm.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>
