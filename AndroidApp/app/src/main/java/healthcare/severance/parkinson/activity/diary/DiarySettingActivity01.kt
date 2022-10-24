@@ -99,7 +99,7 @@ class DiarySettingActivity01 : AppCompatActivity() {
             val intent = Intent(this, DiarySettingActivity02_1::class.java)
             intent.putExtra("sleep_start_time", sleepStartTime)
             intent.putExtra("sleep_end_time", sleepEndTime)
-            intent.putExtra("is_update", beforeIntent.getStringExtra("is_update"))
+            intent.putExtra("is_update", beforeIntent.getBooleanExtra("is_update", true))
 
             startActivity(intent)
         }

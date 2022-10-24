@@ -63,7 +63,7 @@ class DiarySettingActivity03 : AppCompatActivity() {
 
     fun finishSettingButtonPressed(view: View){
         val beforeIntent = intent
-        if(beforeIntent.getBooleanExtra("is_update", false)){
+        if(!beforeIntent.getBooleanExtra("is_update", true)){
             createDiary(beforeIntent)
         } else {
             updateDiary(beforeIntent)

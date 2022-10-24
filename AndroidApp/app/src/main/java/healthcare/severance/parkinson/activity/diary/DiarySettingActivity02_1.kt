@@ -43,7 +43,7 @@ class DiarySettingActivity02_1 : AppCompatActivity() {
             intent.putExtra("medicine_take_count", medicineCount.toString().toInt())
             intent.putExtra("sleep_start_time", beforeIntent.getStringExtra("sleep_start_time"))
             intent.putExtra("sleep_end_time", beforeIntent.getStringExtra("sleep_end_time"))
-            intent.putExtra("is_update", beforeIntent.getStringExtra("is_update"))
+            intent.putExtra("is_update", beforeIntent.getBooleanExtra("is_update", true))
 
             startActivity(intent)
         }
