@@ -5,16 +5,16 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.media.RingtoneManager
 
-class AlarmController private constructor(private var context: Context?) {
+class MediaPlayerController private constructor(private var context: Context?) {
 
     private var mediaPlayer: MediaPlayer? = null
 
     companion object {
-        var instance: AlarmController? = null
+        var instance: MediaPlayerController? = null
 
-        fun getInstance(context: Context?): AlarmController? {
+        fun getInstance(context: Context?): MediaPlayerController? {
             if (instance == null) {
-                instance = AlarmController(context)
+                instance = MediaPlayerController(context)
             }
             return instance
         }

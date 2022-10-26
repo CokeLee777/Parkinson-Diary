@@ -5,6 +5,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
+import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import healthcare.severance.parkinson.R
@@ -38,6 +39,7 @@ class NotificationController(private val context: Context?) {
             .setDefaults(Notification.DEFAULT_VIBRATE)
             .setDefaults(Notification.DEFAULT_SOUND)
             .setDeleteIntent(pendingIntent)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .build()
     }
@@ -50,12 +52,12 @@ class NotificationController(private val context: Context?) {
             //새로운 알람 시작
             notify(NOTIFICATION_ID, notification)
             //알람 소리 시작
-            AlarmController.getInstance(context)?.playMusic()
+            MediaPlayerController.getInstance(context)?.playMusic()
         }
     }
 
     fun stopAlarmNotify(){
         notificationManager.cancel(NOTIFICATION_ID)
-        AlarmController.getInstance(context)?.stopMusic()
+        MediaPlayerController.getInstance(context)?.stopMusic()
     }
 }

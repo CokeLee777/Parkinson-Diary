@@ -51,6 +51,8 @@ class LoginActivity : AppCompatActivity() {
                 if(response.isSuccessful) {
                     // !!를 붙여서 200 success 가 되면 항상 서버가 null값을 반환하지 않음을 체크
                     sessionManager.saveAccessToken(loginResponse!!.data.accessToken)
+                    //알림 정보도 저장
+                    sessionManager.saveAlarmIsActive()
 
                     // intent: 개별 구성요소간의 런타임 바인딩을 제공해주는 객체
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
