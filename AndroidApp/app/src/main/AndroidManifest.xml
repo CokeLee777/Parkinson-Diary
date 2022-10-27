@@ -85,7 +85,8 @@
             android:exported="true" />
         <receiver
             android:name=".activity.alarm.AlarmTerminateReceiver"
-            android:enabled="true"/>
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 
 </manifest>

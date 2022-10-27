@@ -1,21 +1,11 @@
 package healthcare.severance.parkinson.activity.alarm
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.media.*
-import android.net.Uri
-import android.os.Handler
 import android.util.Log
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import healthcare.severance.parkinson.R
 import healthcare.severance.parkinson.activity.alarm.NotificationProperties.NOTIFICATION_CHANNEL_ID
-import healthcare.severance.parkinson.activity.alarm.NotificationProperties.NOTIFICATION_ID
 import java.time.LocalDateTime
 
 
