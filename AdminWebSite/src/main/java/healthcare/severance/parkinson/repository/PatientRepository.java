@@ -12,5 +12,6 @@ import java.util.List;
 
 public interface PatientRepository extends JpaRepository<Patient, Long> {
     Page<Patient> findByName(String name, Pageable pageable);
-    boolean existsByName(String name);
+
+    boolean existsByPatientNum(Long patientNum);
 }

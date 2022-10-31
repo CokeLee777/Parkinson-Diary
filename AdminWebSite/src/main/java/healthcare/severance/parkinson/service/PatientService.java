@@ -3,6 +3,8 @@ package healthcare.severance.parkinson.service;
 import healthcare.severance.parkinson.domain.Patient;
 import healthcare.severance.parkinson.dto.patient.PatientEditForm;
 import healthcare.severance.parkinson.dto.patient.PatientForm;
+import healthcare.severance.parkinson.exception.CustomException;
+import healthcare.severance.parkinson.exception.ErrorCode;
 import healthcare.severance.parkinson.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalTime;
+
+import static healthcare.severance.parkinson.exception.ErrorCode.DUPLICATE_RESOURCE;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,6 +25,7 @@ public class PatientService {
 
     @Transactional
     public void createPatient(PatientForm form) {
+        IsExistPatient(form.getPatientNum());
         patientRepository.save(form.toPatient());
     }
 
@@ -29,12 +34,12 @@ public class PatientService {
     }
 
     public Patient findPatientByPatientNum(Long patientNum) {
-        return patientRepository.findById(patientNum).get();
+        return patientRepository.findById(patientNum).orElseThrow(() -> new CustomException(ErrorCode.PATIENT_NUM_NOT_FOUND));
     }
 
     @Transactional
     public void editPatient(Long patientNum, PatientEditForm form) {
-        Patient patient = patientRepository.findById(patientNum).get();
+        Patient patient = patientRepository.findById(patientNum).orElseThrow(() -> new CustomException(ErrorCode.PATIENT_NUM_NOT_FOUND));
         patient.EditPatient(form.getPatientNum(), form.getInChargeUser(), form.getName(), LocalTime.parse(form.getSleepStartTime()), LocalTime.parse(form.getSleepEndTime()));
     }
 
@@ -43,8 +48,10 @@ public class PatientService {
         patientRepository.deleteById(patientNum);
     }
 
-    public Boolean IsExistPatient(String name) {
-        return patientRepository.existsByName(name);
+    private void IsExistPatient(Long patientNum) {
+        if (patientRepository.existsByPatientNum(patientNum)) {
+            throw new CustomException(DUPLICATE_RESOURCE);
+        }
     }
 
     @Transactional(readOnly = true)

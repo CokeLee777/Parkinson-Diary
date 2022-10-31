@@ -4,15 +4,17 @@ import healthcare.severance.parkinson.domain.Patient;
 import healthcare.severance.parkinson.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import org.hibernate.validator.constraints.ScriptAssert;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
-@Slf4j
 public class PatientForm {
+    @NotNull(message = "환자 번호를 작성해주세요.")
     private Long patientNum;
     @NotBlank(message = "환자의 이름을 작성해주세요.")
     private String name;

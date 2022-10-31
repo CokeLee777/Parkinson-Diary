@@ -9,12 +9,14 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
 @Slf4j
 public class PatientEditForm {
+    @NotNull(message = "환자 번호를 작성해주세요.")
     private Long patientNum;
     @NotBlank(message = "환자의 이름을 작성해주세요.")
     private String name;
