@@ -10,37 +10,31 @@ import healthcare.severance.parkinson.activity.diary.DiarySettingActivity01
 import healthcare.severance.parkinson.activity.diary.DiarySettingActivity03
 
 class SurveyActivity02 : AppCompatActivity() {
+
+    private var medicinalEffect: Boolean = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_survey02)
+
+        medicinalEffect = intent.getBooleanExtra("medicinalEffect", true)
     }
 
     fun yesButtonPressed(view: View){
         Log.i(view.resources.getResourceName(view.id),"clicked")
 
-        val intent = Intent(this, DiarySettingActivity01::class.java)
+        val intent = Intent(this, SurveyActivity03::class.java)
+        intent.putExtra("medicinalEffect", medicinalEffect)
+        intent.putExtra("abnormalMovement", true)
         startActivity(intent)
     }
 
     fun noButtonPressed(view: View){
         Log.i(view.resources.getResourceName(view.id),"clicked")
 
-        val intent = Intent(this, DiarySettingActivity01::class.java)
-        startActivity(intent)
-    }
-
-    fun backButtonPressed(view: View){
-        Log.i(view.resources.getResourceName(view.id),"clicked")
-
-        val intent = Intent(this, DiarySettingActivity01::class.java)
-        startActivity(intent)
-    }
-
-    fun nextButtonPressed(view: View){
-        Log.i(view.resources.getResourceName(view.id),"clicked")
-
-        Log.i(intent.extras?.get("patientName").toString(), "intent info")
-        val intent = Intent(this, DiarySettingActivity03::class.java)
+        val intent = Intent(this, SurveyActivity03::class.java)
+        intent.putExtra("medicinalEffect", medicinalEffect)
+        intent.putExtra("abnormalMovement", false)
         startActivity(intent)
     }
 }

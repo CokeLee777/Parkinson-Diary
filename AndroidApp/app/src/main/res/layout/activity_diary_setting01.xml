@@ -28,21 +28,21 @@
 
         <ImageButton
             android:id="@+id/dBackButton"
-            android:layout_width="50px"
-            android:layout_height="50px"
+            android:layout_width="60px"
+            android:layout_height="60px"
             android:background="#CB181F2A"
             android:onClick="backButtonPressed"
             android:scaleType="fitCenter"
             android:src="@drawable/prev_button"
-            app:layout_anchor="@+id/dTitle"
-            app:layout_anchorGravity="start|top" />
+            app:layout_anchor="@+id/dBackButton"
+            app:layout_anchorGravity="end|center" />
 
         <ImageButton
             android:id="@+id/dNextButton"
-            android:layout_width="50px"
-            android:layout_height="50px"
-            android:onClick="nextButtonPressed"
+            android:layout_width="60px"
+            android:layout_height="60px"
             android:background="#CB181F2A"
+            android:onClick="nextButtonPressed"
             android:scaleType="fitCenter"
             android:src="@drawable/next_button"
             app:layout_anchor="@+id/dTitle"
@@ -53,14 +53,14 @@
             android:layout_width="250px"
             android:layout_height="80px"
             android:background="@drawable/sleep_start_time_form"
-            android:onClick="sleepStartSelectButtonPressed"
-            android:scaleType="fitCenter"
             android:hint="취침시간을 선택해주세요"
-            android:textColorHint="#FFFFFF"
-            android:textSize="7sp"
-            android:textColor="#FFFFFF"
-            android:textAlignment="center"
+            android:onClick="sleepStartSelectButtonPressed"
             android:paddingTop="5dp"
+            android:scaleType="fitCenter"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            android:textSize="8sp"
             app:layout_anchor="@+id/dTitle"
             app:layout_anchorGravity="center" />
 
@@ -71,12 +71,12 @@
             android:background="@drawable/sleep_end_time_form"
             android:hint="기상시간을 선택해주세요"
             android:onClick="sleepEndSelectButtonPressed"
-            android:scaleType="fitCenter"
-            android:textColorHint="#FFFFFF"
-            android:textSize="7sp"
-            android:textColor="#FFFFFF"
-            android:textAlignment="center"
             android:paddingTop="5dp"
+            android:scaleType="fitCenter"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            android:textSize="8sp"
             app:layout_anchor="@+id/dTitle"
             app:layout_anchorGravity="bottom|center" />
 

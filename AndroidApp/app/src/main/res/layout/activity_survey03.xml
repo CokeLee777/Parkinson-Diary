@@ -26,31 +26,9 @@
             android:textColor="#FFFFFF"
             android:textSize="15sp" />
 
-        <ImageButton
-            android:id="@+id/sBackButton"
-            android:layout_width="50px"
-            android:layout_height="50px"
-            android:background="#CB181F2A"
-            android:onClick="backButtonPressed"
-            android:scaleType="fitCenter"
-            android:src="@drawable/prev_button"
-            app:layout_anchor="@+id/sTitle"
-            app:layout_anchorGravity="start|bottom" />
-
-        <ImageButton
-            android:id="@+id/sNextButton"
-            android:layout_width="50px"
-            android:layout_height="50px"
-            android:background="#CB181F2A"
-            android:onClick="nextButtonPressed"
-            android:scaleType="fitCenter"
-            android:src="@drawable/next_button"
-            app:layout_anchor="@+id/sTitle"
-            app:layout_anchorGravity="end|bottom" />
-
         <SeekBar
             android:id="@+id/seekBar"
-            android:layout_width="250px"
+            android:layout_width="190px"
             android:layout_height="wrap_content"
             app:layout_anchor="@+id/sTitle"
             app:layout_anchorGravity="center" />
@@ -60,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="나쁨"
+            android:textColor="#FFFFFF"
             app:layout_anchor="@+id/sTitle"
             app:layout_anchorGravity="start|center" />
 
@@ -67,9 +46,21 @@
             android:id="@+id/sGreatTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
             android:text="좋음"
             app:layout_anchor="@+id/sTitle"
             app:layout_anchorGravity="end|center" />
+
+        <ImageButton
+            android:id="@+id/finishSurvey"
+            android:layout_width="80px"
+            android:layout_height="50px"
+            android:background="#CB181F2A"
+            android:onClick="finishButtonPressed"
+            android:scaleType="fitCenter"
+            android:src="@drawable/finish_button"
+            app:layout_anchor="@+id/sTitle"
+            app:layout_anchorGravity="bottom|center" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

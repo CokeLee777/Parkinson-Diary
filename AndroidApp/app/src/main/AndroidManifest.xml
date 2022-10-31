@@ -2,10 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="healthcare.severance.parkinson">
 
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Http 통신을 위해 인터넷 사용 허용 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <uses-feature android:name="android.hardware.type.watch" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -16,40 +20,40 @@
         android:theme="@android:style/Theme.DeviceDefault">
         <activity
             android:name=".activity.diary.DiarySettingActivity02_1"
-            android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:exported="true"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".activity.diary.SettingPageActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".activity.auth.LoginActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".activity.survey.SurveyActivity03"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".activity.survey.SurveyActivity02"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".activity.survey.SurveyActivity01"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".activity.diary.DiarySettingActivity03"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_diary_setting03"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".activity.diary.DiarySettingActivity02_2"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".activity.diary.DiarySettingActivity01"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
 
         <uses-library
@@ -74,6 +78,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
+
+        <receiver
+            android:name=".activity.alarm.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".activity.alarm.AlarmTerminateReceiver"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 
 </manifest>

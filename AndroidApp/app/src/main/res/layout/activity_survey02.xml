@@ -26,28 +26,6 @@
             android:textColor="#FFFFFF"
             android:textSize="15sp" />
 
-        <ImageButton
-            android:id="@+id/sBackButton"
-            android:layout_width="50px"
-            android:layout_height="50px"
-            android:background="#CB181F2A"
-            android:onClick="backButtonPressed"
-            android:scaleType="fitCenter"
-            android:src="@drawable/prev_button"
-            app:layout_anchor="@+id/sTitle"
-            app:layout_anchorGravity="start|bottom" />
-
-        <ImageButton
-            android:id="@+id/sNextButton"
-            android:layout_width="50px"
-            android:layout_height="50px"
-            android:background="#CB181F2A"
-            android:onClick="nextButtonPressed"
-            android:scaleType="fitCenter"
-            android:src="@drawable/next_button"
-            app:layout_anchor="@+id/sTitle"
-            app:layout_anchorGravity="end|bottom" />
-
         <Button
             android:id="@+id/sYesButton"
             android:layout_width="130px"

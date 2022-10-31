@@ -48,7 +48,9 @@ class DiarySettingActivity01 : AppCompatActivity() {
         sleepEndSelectButton = findViewById(R.id.dSleepEndSelectButton)
         //취침시간, 기상시간 기본값 설정
         sleepStartSelectButton.text = DEFAULT_SLEEP_START_TIME
+        sleepStartSelectButton.textSize = 15f
         sleepEndSelectButton.text = DEFAULT_SLEEP_END_TIME
+        sleepEndSelectButton.textSize = 15f
     }
 
     fun sleepStartSelectButtonPressed(view: View){
@@ -99,7 +101,7 @@ class DiarySettingActivity01 : AppCompatActivity() {
             val intent = Intent(this, DiarySettingActivity02_1::class.java)
             intent.putExtra("sleep_start_time", sleepStartTime)
             intent.putExtra("sleep_end_time", sleepEndTime)
-            intent.putExtra("is_update", beforeIntent.getStringExtra("is_update"))
+            intent.putExtra("is_update", beforeIntent.getBooleanExtra("is_update", true))
 
             startActivity(intent)
         }

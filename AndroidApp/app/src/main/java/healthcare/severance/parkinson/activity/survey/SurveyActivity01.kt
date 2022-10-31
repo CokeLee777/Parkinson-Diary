@@ -18,29 +18,16 @@ class SurveyActivity01 : AppCompatActivity() {
     fun yesButtonPressed(view: View){
         Log.i(view.resources.getResourceName(view.id),"clicked")
 
-        val intent = Intent(this, DiarySettingActivity01::class.java)
+        val intent = Intent(this, SurveyActivity02::class.java)
+        intent.putExtra("medicinalEffect", true)
         startActivity(intent)
     }
 
     fun noButtonPressed(view: View){
         Log.i(view.resources.getResourceName(view.id),"clicked")
 
-        val intent = Intent(this, DiarySettingActivity01::class.java)
-        startActivity(intent)
-    }
-
-    fun backButtonPressed(view: View){
-        Log.i(view.resources.getResourceName(view.id),"clicked")
-
-        val intent = Intent(this, DiarySettingActivity01::class.java)
-        startActivity(intent)
-    }
-
-    fun nextButtonPressed(view: View){
-        Log.i(view.resources.getResourceName(view.id),"clicked")
-
-        Log.i(intent.extras?.get("patientName").toString(), "intent info")
-        val intent = Intent(this, DiarySettingActivity03::class.java)
+        val intent = Intent(this, SurveyActivity02::class.java)
+        intent.putExtra("medicinalEffect", false)
         startActivity(intent)
     }
 }

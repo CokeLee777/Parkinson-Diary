@@ -2,6 +2,7 @@ package healthcare.severance.parkinson.service
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import healthcare.severance.parkinson.R
 
 class SessionManager(context: Context) {
@@ -10,6 +11,7 @@ class SessionManager(context: Context) {
     // 상수 선언: static
     companion object {
         const val ACCESS_TOKEN = "access_token"
+        const val ALARM_IS_ACTIVE = "alarm_is_active"
     }
 
     fun getAccessToken(): String? {
@@ -29,6 +31,22 @@ class SessionManager(context: Context) {
     fun unAuthenticate() {
         val editor = prefs.edit()
         editor.clear()
-        editor.commit()
+        editor.apply()
+    }
+
+    fun isAlarmActive(): Boolean {
+        return prefs.getBoolean(ALARM_IS_ACTIVE, true)
+    }
+
+    fun saveAlarmIsActive(){
+        val editor = prefs.edit()
+        editor.putBoolean(ALARM_IS_ACTIVE, true)
+        editor.apply()
+    }
+
+    fun updateAlarmIsActive(isActive: Boolean){
+        val editor = prefs.edit()
+        editor.putBoolean(ALARM_IS_ACTIVE, isActive)
+        editor.apply()
     }
 }

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.se.omapi.Session
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,9 +18,13 @@ class DiarySettingActivity02_1 : AppCompatActivity() {
 
     private lateinit var sessionManager: SessionManager
 
+    private lateinit var medicineCountTextView: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary_setting02_1)
+
+        medicineCountTextView = findViewById(R.id.dMedicineCountForm)
     }
 
     fun backButtonPressed(view: View){
@@ -34,7 +40,7 @@ class DiarySettingActivity02_1 : AppCompatActivity() {
     }
 
     fun nextButtonPressed(view: View){
-        val medicineCount = findViewById<TextView>(R.id.dMedicineCountForm).text
+        val medicineCount = medicineCountTextView.text
         if(medicineCount.isBlank() || medicineCount.isEmpty()){
             Toast.makeText(this@DiarySettingActivity02_1, "복용횟수를 입력해주세요", Toast.LENGTH_SHORT).show()
         } else {
@@ -43,7 +49,7 @@ class DiarySettingActivity02_1 : AppCompatActivity() {
             intent.putExtra("medicine_take_count", medicineCount.toString().toInt())
             intent.putExtra("sleep_start_time", beforeIntent.getStringExtra("sleep_start_time"))
             intent.putExtra("sleep_end_time", beforeIntent.getStringExtra("sleep_end_time"))
-            intent.putExtra("is_update", beforeIntent.getStringExtra("is_update"))
+            intent.putExtra("is_update", beforeIntent.getBooleanExtra("is_update", true))
 
             startActivity(intent)
         }

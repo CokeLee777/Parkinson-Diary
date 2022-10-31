@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#181F2A"
     android:padding="@dimen/box_inset_layout_padding"
-    tools:context=".activity.diary.DiarySettingActivity01"
+    tools:context=".activity.diary.DiarySettingActivity02_1"
     tools:deviceIds="wear">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -28,8 +28,8 @@
 
         <ImageButton
             android:id="@+id/dBackButton"
-            android:layout_width="50px"
-            android:layout_height="50px"
+            android:layout_width="60px"
+            android:layout_height="60px"
             android:background="#CB181F2A"
             android:onClick="backButtonPressed"
             android:scaleType="fitCenter"
@@ -39,8 +39,8 @@
 
         <ImageButton
             android:id="@+id/dNextButton"
-            android:layout_width="50px"
-            android:layout_height="50px"
+            android:layout_width="60px"
+            android:layout_height="60px"
             android:onClick="nextButtonPressed"
             android:background="#CB181F2A"
             android:scaleType="fitCenter"
@@ -58,7 +58,7 @@
             android:inputType="number"
             android:textColor="#FFFFFF"
             android:textAlignment="center"
-            android:textSize="7sp"
+            android:textSize="8sp"
             android:hint="복용횟수를 입력하세요"
             android:textColorHint="#FFFFFF"
             app:layout_anchor="@+id/dTitle"
