@@ -4,7 +4,7 @@ services:
     container_name: parkinson-mysql
     image: "mysql"
     volumes:
-      - /opt/homebrew/var/mysql:/var/lib/mysql
+      - data:/var/lib/mysql
     env_file:
       - ./env/dev.env
     ports:
@@ -19,6 +19,9 @@ services:
     env_file:
       - ./env/dev.env
     ports:
-      - 80:80
+      - 8080:8080
     depends_on:
       - database
+
+volumes:
+  data:

@@ -10,7 +10,6 @@ const diaryRouter = require('./routes/diary');
 const surveyRouter = require('./routes/survey');
 const patientsRouter = require('./routes/patients');
 
-
 const app = express();
 
 app.use(logger('dev'));
@@ -24,13 +23,12 @@ app.use('/api/patients', patientsRouter);
 
 knex.raw('SELECT 1')
   .then((result) => {
-    const serverPort = 80;
-    app.listen(serverPort);
+    app.listen(process.env.SERVER_PORT);
     console.log('CONNECTED TO MYSQL');
-    console.log(`CONNECT TO node.js SERVER PORT=${serverPort}`);
+    console.log(`CONNECT TO node.js SERVER PORT=${process.env.SERVER_PORT}`);
   })
   .catch((error) => {
-    console.error('CONNECTED FAILED TO MYSQL');
+    console.error(`CONNECTED FAILED TO MYSQL=${error}`);
   })
 
 module.exports = app;
