@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon app.js"
+    "start-prod": "NODE_ENV=prod node app.js",
+    "start-dev": "NODE_ENV=dev nodemon app.js",
+    "start-test": "NODE_ENV=prod jest --detectOpenHandles --forceExit --testTimeout=10000"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -16,5 +18,8 @@
     "morgan": "~1.9.1",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.20"
+  },
+  "devDependencies": {
+    "jest": "^29.2.2"
   }
 }

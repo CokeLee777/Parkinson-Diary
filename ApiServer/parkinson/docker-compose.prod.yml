@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  backend:
+    container_name: parkinson-nodejs
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile.prod
+    volumes:
+      - /Volumes/T7/Repository/Parkinson-Diary/ApiServer/parkinson:/app
+    env_file:
+      - ./env/prod.env
+    ports:
+      - 80:80
