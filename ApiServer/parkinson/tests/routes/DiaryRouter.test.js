@@ -1,74 +1,17 @@
-const knex = require('../../config/knex');
-const jwt = require('jsonwebtoken');
 const app = require('../../app');
 const request = require('supertest');
-const testPatientData = require('../config/TestDataConfig').testPatientData;
-const testMedicineData = require('../config/TestDataConfig').testMedicineData;
-
-async function issueJwtToken(patientNum){
-
-  const accessToken = await jwt.sign({
-      type: 'JWT',
-      patientNum: patientNum,
-      patientName: testPatientData.patient_name,
-  }, process.env.JWT_SECRET_KEY, {
-      expiresIn: process.env.JWT_ACCESS_EXPIRATION,
-      issuer: process.env.JWT_ISSUER
-  });
-
-  return process.env.JWT_PREFIX + accessToken;
-}
+const testDataSetUp = require('../config/TestDataSetUp');
+const testDataConfig = require('../config/TestDataConfig');
 
 describe('PatientsRoute test', () => {
 
-  beforeEach(async () => {
-    //환자정보 삽입
-    await knex
-      .insert(testPatientData)
-      .into('patients')
-      .then((result) => {
-        console.log(`success insert test data=${result}`);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    //환자 약 복용정보 삽입
-    await knex
-      .insert(testMedicineData)
-      .into('medicine')
-      .then((result) => {
-        console.log(`success insert test data=${result}`);
-      })
-      .catch((error) => {
-        throw error;
-      })
-  });
-
-  afterEach(async () => {
-    await knex('medicine AS m')
-      .where('m.patient_num', testMedicineData.patient_num)
-      .del()
-      .then((result) => {
-        console.log(`success delete test data=${result}`);
-      })
-      .catch((error) => {
-        throw error;
-      })
-    
-    await knex('patients AS p')
-      .where('p.patient_num', testPatientData.patient_num)
-      .del()
-      .then((result) => {
-        console.log(`success delete test data=${result}`);
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-    
-  });
+  testDataSetUp.beforeEach;
+  testDataSetUp.afterEach;
 
   test('다이어리 조회 API', async () => {
-    const accessToken = await issueJwtToken(121212);
+    const accessToken = await testDataSetUp
+      .issueJwtToken(testDataConfig.Patients.patient_num);
+    
     const response = await request(app)
       .get('/api/diary')
       .set('Accept', 'application/json')
@@ -82,7 +25,8 @@ describe('PatientsRoute test', () => {
   });
 
   test('다이어리 추가 API', async () => {
-    const accessToken = await issueJwtToken(121212);
+    const accessToken = await testDataSetUp
+      .issueJwtToken(testDataConfig.Patients.patient_num);
     const postResponse = await request(app)
       .post('/api/diary')
       .set('Accept', 'application/json')
@@ -110,7 +54,8 @@ describe('PatientsRoute test', () => {
   });
 
   test('다이어리 수정 API', async () => {
-    const accessToken = await issueJwtToken(121212);
+    const accessToken = await testDataSetUp
+      .issueJwtToken(testDataConfig.Patients.patient_num);
     const postResponse = await request(app)
       .put('/api/diary')
       .set('Accept', 'application/json')

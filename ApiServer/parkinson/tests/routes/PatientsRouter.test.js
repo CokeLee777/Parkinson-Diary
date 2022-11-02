@@ -1,39 +1,19 @@
-const knex = require('../../config/knex');
 const app = require('../../app');
 const request = require('supertest');
-const testPatientData = require('../config/TestDataConfig').testPatientData;
+const testDataSetUp = require('../config/TestDataSetUp');
+const testDataConfig = require('../config/TestDataConfig');
 
 describe('PatientsRoute test', () => {
 
-  beforeEach(async () => {
-    await knex.insert(testPatientData)
-      .into('patients')
-      .then((result) => {
-        console.log(`success insert test data=${result}`);
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-  })
-
-  afterEach(async () => {
-    await knex('patients AS p')
-      .where('p.patient_num', testPatientData.patient_num)
-      .del()
-      .then((result) => {
-        console.log(`success delete test data=${result}`);
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-  })
+  testDataSetUp.beforeEach;
+  testDataSetUp.afterEach;
 
   test('정상 로그인', async () => {
     const response = await request(app)
       .post('/api/patients/login')
       .set('Accept', 'application/json')
       .send({
-        patient_num: 121212
+        patient_num: testDataConfig.Patients.patient_num
       });
     
       await expect(response.status).toBe(200);
@@ -57,7 +37,7 @@ describe('PatientsRoute test', () => {
       .post('/api/patients/login')
       .set('Accept', 'application/json')
       .send({
-        patient_nu: 121212
+        patient_nu: testDataConfig.Patients.patient_num
       });
 
     await expect(response.status).toBe(400);
