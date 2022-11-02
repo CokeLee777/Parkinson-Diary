@@ -11,7 +11,7 @@ router.route('/').post(verifyToken, async (request, response, next) => {
             abnormal_movement: surveyInputData.has_abnormal_movement,
             medicinal_effect: surveyInputData.has_medicinal_effect,
             patient_condition: surveyInputData.patient_condition,
-            survery_time: new Date(),
+            survey_time: new Date(),
             patient_num: patientNum
         })
         .into('survey')

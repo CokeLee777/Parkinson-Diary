@@ -8,7 +8,7 @@ const knex = require('./config/knex');
 // 라우터 세팅
 const diaryRouter = require('./routes/diary');
 const surveyRouter = require('./routes/survey');
-const patientsRouter = require('./routes/patients');
+const patientsRouter = require('./routes/PatientsRouter');
 
 const app = express();
 
@@ -20,6 +20,13 @@ app.use(cookieParser());
 app.use('/api/diary', diaryRouter);
 app.use('/api/survey', surveyRouter);
 app.use('/api/patients', patientsRouter);
+
+//전역적으로 JSON 파싱 오류 처리
+app.use((error, request, response, next) => {
+  if(error instanceof SyntaxError){
+    return response.status(400).send('부적절한 JSON 형식입니다.');
+  }
+})
 
 knex.raw('SELECT 1')
   .then((result) => {
