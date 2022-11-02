@@ -6,7 +6,7 @@ const logger = require('morgan');
 const knex = require('./config/knex');
 
 // 라우터 세팅
-const diaryRouter = require('./routes/diary');
+const diaryRouter = require('./routes/DiaryRouter');
 const surveyRouter = require('./routes/survey');
 const patientsRouter = require('./routes/PatientsRouter');
 
@@ -24,13 +24,15 @@ app.use('/api/patients', patientsRouter);
 //전역적으로 JSON 파싱 오류 처리
 app.use((error, request, response, next) => {
   if(error instanceof SyntaxError){
-    return response.status(400).send('부적절한 JSON 형식입니다.');
+    return response.status(400).json({message: '부적절한 JSON 형식입니다.'});
   }
 })
 
 knex.raw('SELECT 1')
   .then((result) => {
-    app.listen(process.env.SERVER_PORT);
+    if(process.env.NODE_ENV !== 'test'){
+      app.listen(process.env.SERVER_PORT);
+    }
     console.log('CONNECTED TO MYSQL');
     console.log(`CONNECT TO node.js SERVER PORT=${process.env.SERVER_PORT}`);
   })

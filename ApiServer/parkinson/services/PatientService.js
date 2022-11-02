@@ -1,5 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const LoginResponse = require('../dto/LoginResponseDto');
 const { InvalidPatientNumberError } = require('../error/PatientServiceError');
 
 module.exports = class PatientService {
@@ -16,7 +17,8 @@ module.exports = class PatientService {
       throw new InvalidPatientNumberError('유효하지 않은 환자번호 입니다.');
     }
 
-    return await this.issueJwtToken(patient[0]);
+    const accessToken = await this.issueJwtToken(patient[0]);
+    return new LoginResponse(accessToken);
   }
 
   // JWT 토큰 발급 메서드

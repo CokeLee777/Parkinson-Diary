@@ -1,37 +1,42 @@
 const express = require('express');
 const router = express.Router();
-const LoginResponse = require('../dto/LoginDto');
 const { NotEnoughInputDataError, InvalidInputTypeError } = require('../error/CommonError');
 const { InvalidPatientNumberError } = require('../error/PatientServiceError');
 const patientModel = require('../models/PatientModel');
 const PatientService = require('../services/PatientService');
+
+const patientService = new PatientService(patientModel);
 
 /**
  * ENDPOINT: /api/patients/login
  * 환자가 갤럭시워치에 로그인할 때 요청하는 API
  */
 router.post('/login', async (request, response, next) => {
-    const patientService = new PatientService(patientModel);
+    
     try {
         const patientNum = await parseRequestBody(request);
-        const accessToken = await patientService.login(patientNum);
+        const loginResponse = await patientService.login(patientNum);
 
         return response
             .status(200)
             .contentType('application/json')
-            .send(new LoginResponse(accessToken).serialize());
+            .send(loginResponse.serialize());
     } catch (error) {
-        if(error instanceof NotEnoughInputDataError){
-            return response.status(400).json({message: error.message});
-        } else if(error instanceof InvalidInputTypeError){
-            return response.status(400).json({message: error.message});
-        } else if(error instanceof InvalidPatientNumberError){
-            return response.status(401).json({message: error.message});
-        } else if(error instanceof DatabaseConnectError){
-            return response.status(500).json({message: error.message});
-        } else {
-            return response.status(500).json({message: error.message});
-        }
+        next(error);
+    }
+});
+
+router.use((error, request, response, next) => {
+    if(error instanceof NotEnoughInputDataError){
+        return response.status(400).json({message: error.message});
+    } else if(error instanceof InvalidInputTypeError){
+        return response.status(400).json({message: error.message});
+    } else if(error instanceof InvalidPatientNumberError){
+        return response.status(401).json({message: error.message});
+    } else if(error instanceof DatabaseConnectError){
+        return response.status(500).json({message: error.message});
+    } else {
+        return response.status(500).json({message: error.message});
     }
 });
 

@@ -5,7 +5,7 @@ const testPatientData = require('../config/TestDataConfig').testPatientData;
 
 describe('PatientsRoute test', () => {
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     await knex.insert(testPatientData)
       .into('patients')
       .then((result) => {
@@ -16,7 +16,7 @@ describe('PatientsRoute test', () => {
       })
   })
 
-  afterAll(async () => {
+  afterEach(async () => {
     await knex('patients AS p')
       .where('p.patient_num', testPatientData.patient_num)
       .del()
