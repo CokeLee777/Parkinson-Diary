@@ -15,21 +15,6 @@
 				<!-- Header -->
 				<header id="header">
 					<h1><a th:href="@{/}">Parkinson Diary</a></h1>
-					<nav id="nav">
-						<ul>
-							<li class="special">
-								<a href="#menu" class="menuToggle"><span>Menu</span></a>
-								<div id="menu">
-									<ul>
-										<li><a th:href="@{/}">Home</a></li>
-										<li><a th:href="@{/patient/patientList}">user list</a></li>
-										<li><a th:href="@{/register}">Sign Up</a></li>
-										<li><a th:href="@{/login}">Log In</a></li>
-									</ul>
-								</div>
-							</li>
-						</ul>
-					</nav>
 				</header>
 
 			<!-- Main -->
@@ -42,7 +27,7 @@
 						<div class="inner">
 							<section>
 								<h2>환자 리스트</h2>
-								<form action="/patient/patientList" th:action method="post">
+								<form action="patient/patientList" th:action method="post">
 									<span>
 										<input type="text" name="keyword" id="keyword" placeholder="초성 검색" style="display: inline"/>
 										<button class="button" type="submit" id="환자 검색">검색</button>
@@ -59,11 +44,15 @@
 											</tr>
 										</thead>
 										<tr th:each="patient : ${patients}">
-											<td> <a th:href="@{|/patient/${patient.id}|}" th:text="${patient.name}">환자명</a></td>
+											<td> <a th:href="@{|/patient/${patient.patientNum}|}" th:text="${patient.name}">환자명</a></td>
 											<td th:text="${patient.user.username}">담당 의사명</td>
-											<td th:text="${patient.id}">10</td>
+											<td th:text="${patient.patientNum}">10</td>
 										</tr>
 									</table>
+									<th:block th:if="${keyword == null}" th:each="page:${#numbers.sequence(startPage,endPage)}">
+										<a th:if="${page != nowPage}" th:href="@{/patient/patientList(page=${page-1})}" th:text ="${page}"></a>
+										<strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+									</th:block>
 								</div>
 							</section>
 						</div>

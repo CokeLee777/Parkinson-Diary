@@ -14,15 +14,15 @@
 
 				<!-- Header -->
 					<header id="header" class="alt">
-						<h1><a th:href="@{/}">Parkinson Diary</a></h1>
-						</nav>
+						<h1><a th:href="@{/static}">Parkinson Diary</a></h1>
 					</header>
 
 				<!-- Banner -->
 					<section id="banner">
 						<div class="inner">
 							<h2>Parkinson Diary</h2>
-							<p>파킨슨 병 환자의 모니터링을 위한 웹 사이트 입니다.</p>
+							<p th:text="|status: ${status}|"></p>
+							<p th:text="|message: ${message}|"></p>
 							<ul class="actions special">
 								<li><a th:href="@{/patient/patientList}" class="button primary">Activate</a></li>
 							</ul>
