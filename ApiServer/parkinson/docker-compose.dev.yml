@@ -9,7 +9,7 @@ services:
       - ./env/dev.env
     ports:
       - 3306:3306
-  backend:
+  backend-dev:
     container_name: parkinson-nodejs
     build:
       context: .
@@ -20,6 +20,8 @@ services:
       - ./env/dev.env
     ports:
       - 8080:8080
+    expose:
+      - 8080
     depends_on:
       - database
 

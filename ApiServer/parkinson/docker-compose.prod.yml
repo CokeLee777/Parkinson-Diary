@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  backend:
+  backend-prod:
     container_name: parkinson-nodejs
     build:
       context: .
@@ -8,4 +8,6 @@ services:
     env_file:
       - ./env/prod.env
     ports:
-      - 80:80
+      - 3000:3000
+    expose:
+      - 3000
