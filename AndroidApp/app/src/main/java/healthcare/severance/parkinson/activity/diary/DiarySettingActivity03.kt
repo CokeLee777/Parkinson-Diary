@@ -14,6 +14,7 @@ import healthcare.severance.parkinson.activity.MainActivity
 import healthcare.severance.parkinson.R
 import healthcare.severance.parkinson.activity.alarm.AlarmReceiver
 import healthcare.severance.parkinson.activity.auth.LoginActivity
+import healthcare.severance.parkinson.activity.survey.SurveyActivity01
 import healthcare.severance.parkinson.dto.DiaryRequestDto
 import healthcare.severance.parkinson.dto.TakeTime
 import healthcare.severance.parkinson.service.RetrofitClient
@@ -22,6 +23,7 @@ import healthcare.severance.parkinson.vo.DiaryResponseVo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -76,6 +78,7 @@ class DiarySettingActivity03 : AppCompatActivity() {
         //알림 세팅
         if(sessionManager.isAlarmActive()){
             setAlarm(requestTakeTimes)
+            setSurveyNotification(beforeIntent)
         }
         if(!beforeIntent.getBooleanExtra("is_update", true)){
             createDiary(beforeIntent, requestTakeTimes)
@@ -185,5 +188,38 @@ class DiarySettingActivity03 : AppCompatActivity() {
                 intent
             )
         }
+    }
+
+    fun setSurveyNotification(beforeIntent: Intent){
+        Log.i("설문조사 알림 세팅", String.format("%s:%s",
+                LocalDateTime.now().hour.toString(), LocalDateTime.now().minute.toString()))
+        val intent: PendingIntent =
+            Intent(this, SurveyActivity01::class.java).let { intent ->
+                //보류중인 intent 지정, 특정 이벤트(지정된 알림 시간) 발생 시 실행
+                PendingIntent.getActivity(this, 100, intent, PendingIntent.FLAG_IMMUTABLE)
+            }
+
+        //알림 시간 세팅
+        val calendar: Calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY, beforeIntent.getStringExtra("sleep_start_time")
+                !!.substring(0, 2).toInt())
+            set(Calendar.MINUTE, beforeIntent.getStringExtra("sleep_start_time")
+                !!.substring(3, 5).toInt())
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
+
+        //이미 지난 시간이라면 내일 알림
+        if(calendar.before(Calendar.getInstance())){
+            calendar.add(Calendar.DATE, 1)
+        }
+        //정확한 시간에 반복알림(백그라운드 포함)
+        alarmManager?.setInexactRepeating(
+            AlarmManager.RTC_WAKEUP,    //실제시간을 기준으로 알람 울리기, 절전모드에서도 동작한다
+            calendar.timeInMillis,
+            1000*60*60,
+            intent
+        )
     }
 }

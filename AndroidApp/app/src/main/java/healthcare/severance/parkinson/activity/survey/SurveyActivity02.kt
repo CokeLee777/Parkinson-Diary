@@ -6,26 +6,24 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import healthcare.severance.parkinson.R
-import healthcare.severance.parkinson.activity.diary.DiarySettingActivity01
-import healthcare.severance.parkinson.activity.diary.DiarySettingActivity03
 
 class SurveyActivity02 : AppCompatActivity() {
 
-    private var medicinalEffect: Boolean = true
+    private var hasMedicinalEffect: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_survey02)
 
-        medicinalEffect = intent.getBooleanExtra("medicinalEffect", true)
+        hasMedicinalEffect = intent.getBooleanExtra("hasMedicinalEffect", true)
     }
 
     fun yesButtonPressed(view: View){
         Log.i(view.resources.getResourceName(view.id),"clicked")
 
         val intent = Intent(this, SurveyActivity03::class.java)
-        intent.putExtra("medicinalEffect", medicinalEffect)
-        intent.putExtra("abnormalMovement", true)
+        intent.putExtra("hasMedicinalEffect", hasMedicinalEffect)
+        intent.putExtra("hasAbnormalMovement", true)
         startActivity(intent)
     }
 
@@ -33,8 +31,8 @@ class SurveyActivity02 : AppCompatActivity() {
         Log.i(view.resources.getResourceName(view.id),"clicked")
 
         val intent = Intent(this, SurveyActivity03::class.java)
-        intent.putExtra("medicinalEffect", medicinalEffect)
-        intent.putExtra("abnormalMovement", false)
+        intent.putExtra("hasMedicinalEffect", hasMedicinalEffect)
+        intent.putExtra("hasAbnormalMovement", false)
         startActivity(intent)
     }
 }

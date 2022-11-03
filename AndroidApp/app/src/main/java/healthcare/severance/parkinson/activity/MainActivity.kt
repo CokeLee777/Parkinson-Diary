@@ -5,44 +5,43 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
-import android.hardware.*
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
-import android.os.SystemClock
 import android.util.Log
 import android.view.View
 import android.widget.ImageButton
-import android.widget.TimePicker
 import android.widget.Toast
 import healthcare.severance.parkinson.R
 import healthcare.severance.parkinson.activity.alarm.AlarmReceiver
 import healthcare.severance.parkinson.activity.auth.LoginActivity
 import healthcare.severance.parkinson.activity.diary.DiarySettingActivity01
 import healthcare.severance.parkinson.activity.diary.SettingPageActivity
+import healthcare.severance.parkinson.activity.survey.SurveyActivity01
 import healthcare.severance.parkinson.databinding.ActivityMainBinding
 import healthcare.severance.parkinson.service.RetrofitClient
 import healthcare.severance.parkinson.service.SessionManager
-import healthcare.severance.parkinson.vo.DiaryResponse
 import healthcare.severance.parkinson.vo.DiaryResponseVo
 import healthcare.severance.parkinson.vo.TakeTime
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDateTime
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import kotlin.collections.ArrayList
 
 class MainActivity : Activity(), SensorEventListener {
 
     // lateinit : 초기화 지연
     private lateinit var binding: ActivityMainBinding
     private lateinit var sessionManager: SessionManager
-    private lateinit var diaryInfo: DiaryResponse
+    private lateinit var diaryInfo: DiaryResponseVo
     private var isUpdate: Boolean = false
 
     private var alarmManager: AlarmManager? = null
-    private var isAlarmActive: Boolean = true
 
     private lateinit var alarmButton: ImageButton
 
@@ -120,14 +119,11 @@ class MainActivity : Activity(), SensorEventListener {
                 val diaryResponseVo: DiaryResponseVo? = response.body()
                 if(response.isSuccessful) {
                     //복용 정보가 있는경우 재설정으로 전달
-                    if(diaryResponseVo!!.data.takeTimes.isNotEmpty()){
+                    if(diaryResponseVo!!.takeTimes.isNotEmpty()){
                         isUpdate = true
                     }
                     //다이어리 정보 저장
-                    diaryInfo = DiaryResponse(
-                        diaryResponseVo.data.sleepStartTime,
-                        diaryResponseVo.data.sleepEndTime,
-                        diaryResponseVo.data.takeTimes)
+                    diaryInfo = diaryResponseVo
 
                 } else if(response.code() == 419){
                     Toast.makeText(this@MainActivity, "세션이 만료되었습니다",
@@ -174,6 +170,8 @@ class MainActivity : Activity(), SensorEventListener {
             sessionManager.updateAlarmIsActive(false)
             //등록된 알람 서비스 취소하기
             cancelAlarm(diaryInfo.takeTimes)
+            //설문조사 알림 서비스 취소하기
+            cancelNotification()
             //UI 변경
             alarmButton.setImageResource(R.drawable.inactive_alarm_button)
         } else {
@@ -181,6 +179,8 @@ class MainActivity : Activity(), SensorEventListener {
             sessionManager.updateAlarmIsActive(true)
             //사용자가 설정한 알람 서비스 등록하기
             setAlarm(diaryInfo.takeTimes)
+            //설문조사 알림 서비스 등록하기
+            setSurveyNotification()
             //UI 변경
             alarmButton.setImageResource(R.drawable.active_alarm_button)
         }
@@ -230,5 +230,48 @@ class MainActivity : Activity(), SensorEventListener {
                 intent
             )
         }
+    }
+
+    fun setSurveyNotification(){
+        Log.i("설문조사 알림 세팅", String.format("%s:%s",
+            LocalDateTime.now().hour.toString(), LocalDateTime.now().minute.toString()))
+
+        val intent: PendingIntent =
+            Intent(this, SurveyActivity01::class.java).let { intent ->
+                //보류중인 intent 지정, 특정 이벤트(지정된 알림 시간) 발생 시 실행
+                PendingIntent.getActivity(this, 100, intent, PendingIntent.FLAG_IMMUTABLE)
+            }
+
+        //알림 시간 세팅
+        val calendar: Calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY, 18)
+            set(Calendar.MINUTE, 5)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
+
+        //이미 지난 시간이라면 내일 알림
+        if(calendar.before(Calendar.getInstance())){
+            calendar.add(Calendar.DATE, 1)
+        }
+        //정확한 시간에 반복알림(백그라운드 포함)
+        alarmManager?.setInexactRepeating(
+            AlarmManager.RTC_WAKEUP,    //실제시간을 기준으로 알람 울리기, 절전모드에서도 동작한다
+            calendar.timeInMillis,
+            1000*60*60,
+            intent
+        )
+    }
+
+    fun cancelNotification(){
+        Log.i(System.currentTimeMillis().toString(), "설문조사 알림 기능 취소")
+        //PendingIntent.FLAG_NO_CREATE : 기존의 생성된 PendingIntent 반환
+        val intent: PendingIntent =
+            Intent(this, AlarmReceiver::class.java).let { intent ->
+                PendingIntent.getActivity(this, 100, intent, PendingIntent.FLAG_IMMUTABLE)
+            }
+        //알람 삭제
+        alarmManager?.cancel(intent)
     }
 }
