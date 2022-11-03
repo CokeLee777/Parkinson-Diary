@@ -8,7 +8,7 @@ describe('PatientsRoute test', () => {
   testDataSetUp.beforeEach;
   testDataSetUp.afterEach;
 
-  test('다이어리 조회 API', async () => {
+  test('다이어리 조회', async () => {
     const accessToken = await testDataSetUp
       .issueJwtToken(testDataConfig.Patients.patient_num);
     
@@ -18,13 +18,16 @@ describe('PatientsRoute test', () => {
       .set('ACCESS_TOKEN', accessToken);
     
       await expect(response.status).toBe(200);
-      await expect(response.body.sleep_start_time).toEqual('22:00:00');
-      await expect(response.body.sleep_end_time).toEqual('08:00:00');
+      await expect(new Date(`July 1, 1999, ${response.body.sleep_start_time}`))
+        .toEqual(testDataConfig.Patients.sleep_start_time);
+      await expect(new Date(`July 1, 1999, ${response.body.sleep_end_time}`))
+        .toEqual(testDataConfig.Patients.sleep_end_time);
       await expect(response.body.take_times).toHaveLength(1);
-      await expect(response.body.take_times[0].take_time).toEqual('12:00:00');
+      await expect(new Date(`July 1, 1999, ${response.body.take_times[0].take_time}`))
+        .toEqual(testDataConfig.Medicine.take_time);
   });
 
-  test('다이어리 추가 API', async () => {
+  test('다이어리 추가', async () => {
     const accessToken = await testDataSetUp
       .issueJwtToken(testDataConfig.Patients.patient_num);
     const postResponse = await request(app)
@@ -53,7 +56,7 @@ describe('PatientsRoute test', () => {
       await expect(getResponse.body.take_times).toHaveLength(2);
   });
 
-  test('다이어리 수정 API', async () => {
+  test('다이어리 수정', async () => {
     const accessToken = await testDataSetUp
       .issueJwtToken(testDataConfig.Patients.patient_num);
     const postResponse = await request(app)

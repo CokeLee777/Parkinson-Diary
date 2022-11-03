@@ -7,7 +7,7 @@ const knex = require('./config/knex');
 
 // 라우터 세팅
 const diaryRouter = require('./routes/DiaryRouter');
-const surveyRouter = require('./routes/survey');
+const surveyRouter = require('./routes/SurveyRouter');
 const patientsRouter = require('./routes/PatientsRouter');
 
 const app = express();

@@ -28,6 +28,16 @@ module.exports = {
   }),
 
   afterEach: afterEach(async () => {
+    await knex('survey AS s')
+      .where('s.patient_num', testDataConfig.Survey.patient_num)
+      .del()
+      .then((result) => {
+        console.log(`success delete test data=${result}`);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    
     await knex('medicine AS m')
       .where('m.patient_num', testDataConfig.Patients.patient_num)
       .del()
@@ -36,17 +46,17 @@ module.exports = {
       })
       .catch((error) => {
         throw error;
-      })
+      });
     
     await knex('patients AS p')
-      .where('p.patient_num', testDataConfig.Patients.patient_num)
+      .where('p.patient_num', testDataConfig.Medicine.patient_num)
       .del()
       .then((result) => {
         console.log(`success delete test data=${result}`);
       })
       .catch((error) => {
         console.error(error);
-      })
+      });
   }),
 
   issueJwtToken: async function(patientNum){
