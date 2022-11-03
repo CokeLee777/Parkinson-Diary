@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
                 val loginResponse: LoginResponseVo? = response.body()
                 if(response.isSuccessful) {
                     // !!를 붙여서 200 success 가 되면 항상 서버가 null값을 반환하지 않음을 체크
-                    sessionManager.saveAccessToken(loginResponse!!.data.accessToken)
+                    sessionManager.saveAccessToken(loginResponse!!.accessToken)
                     //알림 정보도 저장
                     sessionManager.saveAlarmIsActive()
 

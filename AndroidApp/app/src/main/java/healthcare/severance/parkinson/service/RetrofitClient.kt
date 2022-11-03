@@ -5,6 +5,7 @@ import healthcare.severance.parkinson.api.PatientsApi
 import healthcare.severance.parkinson.util.WebProperties.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.URL
 
 /**
  * object 클래스는 일반 클래스와 달리 싱글톤 클래스 정의를 위한 클래스이다.
@@ -17,7 +18,7 @@ object RetrofitClient {
     init {
         // Retrofit 객체를 빌더패턴으로 생성, 컨버터는 GSON 컨버터 사용
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(URL(BASE_URL))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
