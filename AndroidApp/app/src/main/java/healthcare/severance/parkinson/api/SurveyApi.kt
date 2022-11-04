@@ -1,6 +1,6 @@
 package healthcare.severance.parkinson.api
 
-import healthcare.severance.parkinson.dto.SurveyRequestDto
+import healthcare.severance.parkinson.dto.SurveyRequest
 import healthcare.severance.parkinson.util.WebProperties.SURVEY_PATH
 import retrofit2.Call
 import retrofit2.http.Body
@@ -14,5 +14,5 @@ interface SurveyApi {
      */
     @POST(SURVEY_PATH)
     fun createSurvey(@Header("ACCESS_TOKEN") accessToken: String,
-                     @Body surveyRequest: SurveyRequestDto) : Call<Void>
+                     @Body surveyRequest: SurveyRequest) : Call<Void>
 }

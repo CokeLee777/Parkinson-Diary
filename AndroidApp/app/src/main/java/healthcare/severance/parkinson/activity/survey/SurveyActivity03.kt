@@ -10,10 +10,7 @@ import android.widget.Toast
 import healthcare.severance.parkinson.R
 import healthcare.severance.parkinson.activity.MainActivity
 import healthcare.severance.parkinson.activity.auth.LoginActivity
-import healthcare.severance.parkinson.activity.diary.DiarySettingActivity01
-import healthcare.severance.parkinson.activity.diary.DiarySettingActivity03
-import healthcare.severance.parkinson.dto.DiaryRequestDto
-import healthcare.severance.parkinson.dto.SurveyRequestDto
+import healthcare.severance.parkinson.dto.SurveyRequest
 import healthcare.severance.parkinson.service.RetrofitClient
 import healthcare.severance.parkinson.service.SessionManager
 import retrofit2.Call
@@ -59,7 +56,7 @@ class SurveyActivity03 : AppCompatActivity() {
         //서버로 요청
         RetrofitClient.surveyService.createSurvey(
             sessionManager.getAccessToken()!!,
-            SurveyRequestDto(
+            SurveyRequest(
                 hasMedicinalEffect,
                 hasAbnormalMovement,
                 patientCondition
@@ -70,17 +67,20 @@ class SurveyActivity03 : AppCompatActivity() {
                 response: Response<Void>
             ) {
                 if(response.isSuccessful) {
-                    val intent = Intent(this@SurveyActivity03, MainActivity::class.java)
+                    val intent = Intent(this@SurveyActivity03,
+                        MainActivity::class.java)
                     startActivity(intent)
                 } else if(response.code() == 419){
-                    Toast.makeText(this@SurveyActivity03, "세션이 만료되었습니다", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SurveyActivity03, "세션이 만료되었습니다",
+                        Toast.LENGTH_SHORT).show()
                     sessionManager.unAuthenticate()
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 Log.e("Server error", t.message.toString())
-                Toast.makeText(this@SurveyActivity03, "서버 내부 오류", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SurveyActivity03, "서버 내부 오류",
+                    Toast.LENGTH_SHORT).show()
             }
         })
     }

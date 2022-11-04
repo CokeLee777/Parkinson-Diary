@@ -15,7 +15,7 @@ class SurveyActivity01 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_survey01)
 
-        Log.i("설문조사 푸쉬알림", String.format("%s:%s",
+        Log.d("설문조사 푸쉬알림", String.format("%s:%s",
             LocalDateTime.now().hour.toString(), LocalDateTime.now().minute.toString()))
     }
 

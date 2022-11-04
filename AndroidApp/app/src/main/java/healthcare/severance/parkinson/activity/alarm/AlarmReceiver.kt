@@ -5,8 +5,9 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import healthcare.severance.parkinson.activity.alarm.NotificationProperties.ALARM_CHANNEL_ID
-import healthcare.severance.parkinson.activity.alarm.NotificationProperties.ALARM_ID
+import healthcare.severance.parkinson.controller.NotificationController
+import healthcare.severance.parkinson.util.NotificationProperties.ALARM_CHANNEL_ID
+import healthcare.severance.parkinson.util.NotificationProperties.ALARM_ID
 import java.time.LocalDateTime
 
 
@@ -14,7 +15,7 @@ class AlarmReceiver: BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if(intent != null){
-            Log.i("약 복용시간 알림", String.format("%s:%s",
+            Log.d("약 복용시간 알림", String.format("%s:%s",
                 LocalDateTime.now().hour.toString(), LocalDateTime.now().minute.toString()))
 
             //지연 intent 선언 -> let을 사용하여 마지막 줄의 반환값인 PendingIntent를 반환

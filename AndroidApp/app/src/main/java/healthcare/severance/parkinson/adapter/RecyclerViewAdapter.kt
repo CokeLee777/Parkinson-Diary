@@ -13,7 +13,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class RecyclerViewAdapter(val items: ArrayList<String>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter(val items: ArrayList<String>) :
+    RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     /**
      * 화면에 표시된 아이템 뷰의 종류 저장
@@ -54,7 +55,8 @@ class RecyclerViewAdapter(val items: ArrayList<String>) : RecyclerView.Adapter<R
                 medicineTimeSelectButton.setTextColor(Color.WHITE)
                 medicineTimeSelectButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10f)
             }
-            TimePickerDialog(v.context, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
+            TimePickerDialog(v.context, timeSetListener, cal.get(Calendar.HOUR_OF_DAY),
+                cal.get(Calendar.MINUTE), true).show()
         }
         viewHolder.itemView.layoutParams.height = 110
     }

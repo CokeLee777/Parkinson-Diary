@@ -14,7 +14,7 @@ router.route('/').post(verifyToken, async (request, response, next) => {
     try {
         const surveyCreateRequest = await parseRequestBody(request);
         await diaryService.createSurvey(patientNum, surveyCreateRequest);
-
+        
         return response.sendStatus(200);
     } catch(error) {
         next(error);
