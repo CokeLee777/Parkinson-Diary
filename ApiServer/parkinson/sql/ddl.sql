@@ -4,7 +4,11 @@ CREATE TABLE users (
   password VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   username VARCHAR(255) NOT NULL,
-  role VARCHAR(255) NOT NULL
+  role VARCHAR(255) NOT NULL,
+
+  CONSTRAINT identifierUnique UNIQUE(identifier),
+  CONSTRAINT emailFormatCheck CHECK(email LIKE '%@%.%'),
+  CONSTRAINT emailUnique UNIQUE(email)
 );
 
 CREATE TABLE patients (

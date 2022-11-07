@@ -1,6 +1,6 @@
 const patientModel = require('../../models/PatientModel');
 const testDataSetUp = require('../config/TestDataSetUp');
-const testDataConfig = require('../config/TestDataConfig')
+const testDataConfig = require('../config/TestDataConfig');
 
 describe('PatientModel test', () => {
 

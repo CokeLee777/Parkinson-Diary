@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const knex = require('../config/knex');
 const { DiaryCreateRequest } = require('../dto/DiaryRequestDto');
 const { NotEnoughInputDataError, DatabaseConnectError } = require('../error/CommonError');
 const medicineModel = require('../models/MedicineModel');

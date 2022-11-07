@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const knex = require('../config/knex');
 const { SurveyCreateRequest } = require('../dto/SurveyRequestDto');
 const { NotEnoughInputDataError, InvalidInputTypeError } = require('../error/CommonError');
 const { verifyToken } = require('./AuthRouter');
