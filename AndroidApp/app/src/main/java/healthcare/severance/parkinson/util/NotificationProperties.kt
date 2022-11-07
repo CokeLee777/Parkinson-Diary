@@ -1,8 +1,6 @@
 package healthcare.severance.parkinson.util
 
 object NotificationProperties{
-    const val ALARM_ID = 1
-    const val ALARM_CHANNEL_ID = "alarm_channel_id"
-    const val SURVEY_ID = 2
-    const val SURVEY_CHANNEL_ID = "survey_channel_id"
+    const val MEDICINE_ID = 1
+    const val MEDICINE_CHANNEL_ID = "medicine_channel_id"
 }

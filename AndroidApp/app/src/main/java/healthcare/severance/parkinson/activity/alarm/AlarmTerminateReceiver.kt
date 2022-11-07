@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import healthcare.severance.parkinson.controller.NotificationController
-import healthcare.severance.parkinson.util.NotificationProperties.ALARM_ID
+import healthcare.severance.parkinson.util.NotificationProperties.MEDICINE_ID
 import java.time.LocalDateTime
 
 class AlarmTerminateReceiver: BroadcastReceiver() {
@@ -14,6 +14,6 @@ class AlarmTerminateReceiver: BroadcastReceiver() {
         Log.d("약 복용시간 알림종료", String.format("%s:%s",
             LocalDateTime.now().hour.toString(), LocalDateTime.now().minute.toString()))
         //알림 읽기처리
-        NotificationController(context).stopAlarmNotify(ALARM_ID)
+        NotificationController(context).stopAlarmNotify(MEDICINE_ID)
     }
 }

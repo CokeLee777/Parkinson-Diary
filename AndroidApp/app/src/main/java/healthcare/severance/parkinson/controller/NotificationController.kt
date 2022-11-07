@@ -8,9 +8,7 @@ import android.content.Context
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import healthcare.severance.parkinson.R
-import healthcare.severance.parkinson.util.NotificationProperties.ALARM_CHANNEL_ID
-import healthcare.severance.parkinson.util.NotificationProperties.ALARM_ID
-import healthcare.severance.parkinson.util.NotificationProperties.SURVEY_CHANNEL_ID
+import healthcare.severance.parkinson.util.NotificationProperties.MEDICINE_ID
 
 class NotificationController(private val context: Context?) {
 
@@ -39,13 +37,9 @@ class NotificationController(private val context: Context?) {
             .setDefaults(Notification.DEFAULT_VIBRATE)
             .setDefaults(Notification.DEFAULT_SOUND)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setDeleteIntent(pendingIntent)
             .setAutoCancel(true)
             .build()
-        if(channelId.equals(ALARM_CHANNEL_ID)){
-            notification.deleteIntent = pendingIntent
-        } else if(channelId.equals(SURVEY_CHANNEL_ID)){
-            notification.fullScreenIntent = pendingIntent
-        }
     }
 
     fun startAlarmNotify(notificationId: Int){
@@ -55,7 +49,7 @@ class NotificationController(private val context: Context?) {
             cancel(notificationId)
             //새로운 알람 시작
             notify(notificationId, notification)
-            if(notificationId == ALARM_ID){
+            if(notificationId == MEDICINE_ID){
                 //알람 소리 시작
                 MediaPlayerController.getInstance(context)?.playMusic()
             }
@@ -64,7 +58,7 @@ class NotificationController(private val context: Context?) {
 
     fun stopAlarmNotify(notificationId: Int){
         notificationManager.cancel(notificationId)
-        if(notificationId == ALARM_ID) {
+        if(notificationId == MEDICINE_ID) {
             MediaPlayerController.getInstance(context)?.stopMusic()
         }
     }

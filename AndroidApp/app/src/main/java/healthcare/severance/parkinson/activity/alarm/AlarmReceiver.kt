@@ -6,8 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import healthcare.severance.parkinson.controller.NotificationController
-import healthcare.severance.parkinson.util.NotificationProperties.ALARM_CHANNEL_ID
-import healthcare.severance.parkinson.util.NotificationProperties.ALARM_ID
+import healthcare.severance.parkinson.util.NotificationProperties.MEDICINE_CHANNEL_ID
+import healthcare.severance.parkinson.util.NotificationProperties.MEDICINE_ID
 import java.time.LocalDateTime
 
 
@@ -27,18 +27,18 @@ class AlarmReceiver: BroadcastReceiver() {
             val notificationController = NotificationController(context)
             //알림 채널 세팅
             notificationController.setChannel(
-                ALARM_CHANNEL_ID,
+                MEDICINE_CHANNEL_ID,
                 "알람 채널",
                 "약 복용 알림 채널"
             )
             //알림 세팅
             notificationController.setNotification(
-                ALARM_CHANNEL_ID,
+                MEDICINE_CHANNEL_ID,
                 "약 복용시간 알림",
                 pendingIntent
             )
             //알림 시작
-            notificationController.startAlarmNotify(ALARM_ID)
+            notificationController.startAlarmNotify(MEDICINE_ID)
         }
     }
 
