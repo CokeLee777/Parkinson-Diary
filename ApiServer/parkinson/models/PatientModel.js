@@ -1,8 +1,19 @@
-const knex = require('../config/knex');
+const knex = require('../config/DBConfig');
 
-module.exports = {
+module.exports = class PatientModel {
 
-  findByPatientNum: async (patientNum) => {
+  static #instance;
+
+  static getInstance(){
+    if(this.#instance !== undefined){
+      return this.#instance;
+    }
+    return new PatientModel();
+  }
+
+  constructor(){}
+
+  async findByPatientNum(patientNum) {
     return await knex
       .select('*')
       .from('patients AS p')
@@ -13,9 +24,9 @@ module.exports = {
       .catch((error) => {
         throw error;
       });
-  },
-
-  updateSleepTimeByPatientNum: async (patientNum, sleepStartTime, sleepEndTime) => {
+  }
+    
+  async updateSleepTimeByPatientNum(patientNum, sleepStartTime, sleepEndTime) {
     return await knex('patients AS p')
       .update({
         sleep_start_time: new Date(`July 1, 1999, ${sleepStartTime}`),

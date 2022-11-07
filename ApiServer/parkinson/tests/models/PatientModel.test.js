@@ -1,4 +1,5 @@
-const patientModel = require('../../models/PatientModel');
+const appConfig = require('../../config/AppConfig');
+const patientModel = appConfig.patientModel;
 const testDataSetUp = require('../config/TestDataSetUp');
 const testDataConfig = require('../config/TestDataConfig');
 

@@ -1,8 +1,19 @@
-const knex = require('../config/knex');
+const knex = require('../config/DBConfig');
 
-module.exports = {
+module.exports = class SurveyModel {
 
-  createSurvey: async (patientNum, hasAbnormalMovement, hasMedicinalEffect, patientCondition) => {
+  static #instance;
+
+  static getInstance(){
+    if(this.#instance !== undefined){
+      return this.#instance;
+    }
+    return new SurveyModel();
+  }
+
+  constructor(){}
+
+  async createSurvey(patientNum, hasAbnormalMovement, hasMedicinalEffect, patientCondition) {
     await knex
       .insert({
         abnormal_movement: hasAbnormalMovement,

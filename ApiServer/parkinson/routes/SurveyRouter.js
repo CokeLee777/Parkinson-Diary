@@ -3,16 +3,14 @@ const router = express.Router();
 const { SurveyCreateRequest } = require('../dto/SurveyRequestDto');
 const { NotEnoughInputDataError, InvalidInputTypeError } = require('../error/CommonError');
 const { verifyToken } = require('./AuthRouter');
-const surveyModel = require('../models/SurveyModel');
-const SurveyService = require('../services/SurveyService');
 
-const diaryService = new SurveyService(surveyModel);
+const surveyService = require('../config/AppConfig').surveyService;
 
 router.route('/').post(verifyToken, async (request, response, next) => {
     const patientNum = request.decodedToken.patientNum;
     try {
         const surveyCreateRequest = await parseRequestBody(request);
-        await diaryService.createSurvey(patientNum, surveyCreateRequest);
+        await surveyService.createSurvey(patientNum, surveyCreateRequest);
         
         return response.sendStatus(200);
     } catch(error) {

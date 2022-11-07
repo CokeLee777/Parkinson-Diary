@@ -1,7 +1,9 @@
-const surveyModel = require('../../models/SurveyModel');
+// const surveyModel = require('../../models/SurveyModel');
+const appConfig = require('../../config/AppConfig');
+const surveyModel = appConfig.surveyModel;
 const testDataSetUp = require('../config/TestDataSetUp');
 const testDataConfig = require('../config/TestDataConfig');
-const knex = require('../../config/knex');
+const knex = require('../../config/DBConfig');
 
 describe('MedicineModel test', () => {
 

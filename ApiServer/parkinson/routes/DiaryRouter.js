@@ -2,12 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { DiaryCreateRequest } = require('../dto/DiaryRequestDto');
 const { NotEnoughInputDataError, DatabaseConnectError } = require('../error/CommonError');
-const medicineModel = require('../models/MedicineModel');
-const patientModel = require('../models/PatientModel');
-const DiaryService = require('../services/DiaryService');
 const { verifyToken } = require('./AuthRouter');
 
-const diaryService = new DiaryService(patientModel, medicineModel);
+const diaryService = require('../config/AppConfig').diaryService;
 
 /**
  * ENDPOINT: /api/diary

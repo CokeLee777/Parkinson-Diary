@@ -1,4 +1,5 @@
-const medicineModel = require('../../models/MedicineModel');
+const appConfig = require('../../config/AppConfig');
+const medicineModel = appConfig.medicineModel;
 const testDataSetUp = require('../config/TestDataSetUp');
 const testDataConfig = require('../config/TestDataConfig');
 
@@ -6,7 +7,7 @@ describe('MedicineModel test', () => {
 
   testDataSetUp.beforeEach;
   testDataSetUp.afterEach;
-
+  
   test('유효한 환자번호로 환자의 약 복용정보 조회', async () => {
     const medicine = await medicineModel
       .findByPatientNum(testDataConfig.Patients.patient_num);

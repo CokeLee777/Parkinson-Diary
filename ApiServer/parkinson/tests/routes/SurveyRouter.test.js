@@ -1,9 +1,9 @@
-const app = require('../../app');
+const app = require('../../App');
 const request = require('supertest');
 const testDataSetUp = require('../config/TestDataSetUp');
 const testDataConfig = require('../config/TestDataConfig');
 
-describe('PatientsRoute test', () => {
+describe('SurveyRoute test', () => {
 
   testDataSetUp.beforeEach;
   testDataSetUp.afterEach;

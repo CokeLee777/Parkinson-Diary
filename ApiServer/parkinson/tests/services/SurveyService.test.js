@@ -1,12 +1,10 @@
-const surveyModel = require('../../models/SurveyModel');
 const testDataConfig = require('../config/TestDataConfig');
 const testDataSetUp = require('../config/TestDataSetUp');
-const SurveyService = require('../../services/SurveyService');
-const { InvalidPatientNumberError } = require('../../error/PatientServiceError');
 const { SurveyCreateRequest } = require('../../dto/SurveyRequestDto');
-const knex = require('../../config/knex');
+const knex = require('../../config/DBConfig');
 
-const surveyService = new SurveyService(surveyModel);
+const appConfig = require('../../config/AppConfig');
+const surveyService = appConfig.surveyService;
 
 describe('SurveyService test', () => {
 

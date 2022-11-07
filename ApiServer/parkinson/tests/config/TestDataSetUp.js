@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const knex = require('../../config/knex');
+const knex = require('../../config/DBConfig');
 const testDataConfig = require('./TestDataConfig');
 
 module.exports = {

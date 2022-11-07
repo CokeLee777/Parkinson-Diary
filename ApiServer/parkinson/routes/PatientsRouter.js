@@ -2,10 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { NotEnoughInputDataError, InvalidInputTypeError } = require('../error/CommonError');
 const { InvalidPatientNumberError } = require('../error/PatientServiceError');
-const patientModel = require('../models/PatientModel');
-const PatientService = require('../services/PatientService');
 
-const patientService = new PatientService(patientModel);
+const patientService = require('../config/AppConfig').patientService;
 
 /**
  * ENDPOINT: /api/patients/login

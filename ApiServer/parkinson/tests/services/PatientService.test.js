@@ -1,10 +1,9 @@
-const patientModel = require('../../models/PatientModel');
 const testDataConfig = require('../config/TestDataConfig');
 const testDataSetUp = require('../config/TestDataSetUp');
-const PatientService = require('../../services/PatientService');
 const { InvalidPatientNumberError } = require('../../error/PatientServiceError');
 
-const patientService = new PatientService(patientModel);
+const appConfig = require('../../config/AppConfig');
+const patientService = appConfig.patientService;
 
 describe('PatientService test', () => {
 

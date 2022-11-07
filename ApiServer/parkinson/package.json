@@ -5,7 +5,7 @@
   "scripts": {
     "start-prod": "NODE_ENV=prod node app.js",
     "start-dev": "NODE_ENV=dev nodemon app.js",
-    "start-test": "NODE_ENV=test jest --detectOpenHandles --watchAll --no-cache --forceExit"
+    "start-test": "NODE_ENV=test jest --detectOpenHandles --no-cache --forceExit"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

@@ -20,6 +20,10 @@ const knex = require('knex').knex({
     
             return( useDefaultTypeCasting() );
     
+        },
+        pool: {
+            min: 0,
+            max: 10
         }
     }
 });

@@ -1,7 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const knex = require('./config/knex');
+const knex = require('./config/DBConfig');
 
 // 라우터 세팅
 const diaryRouter = require('./routes/DiaryRouter');

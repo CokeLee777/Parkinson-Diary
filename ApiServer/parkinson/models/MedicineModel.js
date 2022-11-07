@@ -1,8 +1,19 @@
-const knex = require('../config/knex');
+const knex = require('../config/DBConfig');
 
-module.exports = {
+module.exports = class MedicineModel {
 
-  findByPatientNum: async (patientNum) => {
+  static #instance;
+
+  static getInstance(){
+    if(this.#instance !== undefined){
+      return this.#instance;
+    }
+    return new MedicineModel();
+  }
+
+  constructor(){}
+
+  async findByPatientNum(patientNum) {
     return await knex
       .select('m.take_time', 'm.is_take')
       .from('medicine AS m')
@@ -13,9 +24,9 @@ module.exports = {
       .catch((error) => {
         throw error;
       });
-  },
+  }
 
-  createMedicineTakeTime: async (patientNum, takeTime) => {
+  async createMedicineTakeTime(patientNum, takeTime) {
     await knex
       .insert({
         patient_num: patientNum,
@@ -25,9 +36,9 @@ module.exports = {
       .catch((error) => {
         throw error;
       })
-  },
+  }
 
-  deleteAllMedicineTakeTime: async (patientNum) => {
+  async deleteAllMedicineTakeTime(patientNum) {
     await knex('medicine AS m')
       .where('m.patient_num', patientNum)
       .del()
