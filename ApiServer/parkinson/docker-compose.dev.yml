@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  database:
+    container_name: parkinson-mysql
+    image: "mysql"
+    volumes:
+      - data:/var/lib/mysql
+    env_file:
+      - ./env/dev.env
+    ports:
+      - 3306:3306
+  backend-dev:
+    container_name: parkinson-nodejs
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile.dev
+    volumes:
+      - /Volumes/T7/Repository/Parkinson-Diary/ApiServer/parkinson:/app
+    env_file:
+      - ./env/dev.env
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    depends_on:
+      - database
+
+volumes:
+  data:

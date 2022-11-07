@@ -1,18 +1,18 @@
 package healthcare.severance.parkinson.activity.auth
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import healthcare.severance.parkinson.R
 import healthcare.severance.parkinson.activity.MainActivity
-import healthcare.severance.parkinson.dto.LoginRequestDto
+import healthcare.severance.parkinson.dto.LoginRequest
+import healthcare.severance.parkinson.dto.LoginResponse
 import healthcare.severance.parkinson.service.RetrofitClient
 import healthcare.severance.parkinson.service.SessionManager
-import healthcare.severance.parkinson.vo.LoginResponseVo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,23 +34,25 @@ class LoginActivity : AppCompatActivity() {
         val inputPatientNum: String = findViewById<TextView>(R.id.lLoginForm).text
             .toString()
         if(inputPatientNum.isBlank() || inputPatientNum.isEmpty()){
-            Toast.makeText(this@LoginActivity, "존재하지 않는 환자번호 입니다", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@LoginActivity, "존재하지 않는 환자번호 입니다",
+                Toast.LENGTH_SHORT).show()
             return
         }
         //서버로 로그인 요청
         RetrofitClient.loginService.login(
-            LoginRequestDto(
+            LoginRequest(
                 patientNum = inputPatientNum.toLong()
             )
-        ).enqueue(object: Callback<LoginResponseVo> {
+        ).enqueue(object: Callback<LoginResponse> {
             override fun onResponse(
-                call: Call<LoginResponseVo>,
-                response: Response<LoginResponseVo>
+                call: Call<LoginResponse>,
+                response: Response<LoginResponse>
             ) {
-                val loginResponse: LoginResponseVo? = response.body()
+                //요청 성공시
                 if(response.isSuccessful) {
-                    // !!를 붙여서 200 success 가 되면 항상 서버가 null값을 반환하지 않음을 체크
-                    sessionManager.saveAccessToken(loginResponse!!.data.accessToken)
+                    val loginResponse: LoginResponse = response.body()!!
+                    //메모리에 JWT 토큰 저장
+                    sessionManager.saveAccessToken(loginResponse.accessToken)
                     //알림 정보도 저장
                     sessionManager.saveAlarmIsActive()
 
@@ -59,17 +61,21 @@ class LoginActivity : AppCompatActivity() {
                     // 다이어리 세팅 시작
                     startActivity(intent)
                 } else if(response.code() == 400) {
-                    Toast.makeText(this@LoginActivity, "올바르지 않은 입력입니다", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "올바르지 않은 입력입니다",
+                        Toast.LENGTH_SHORT).show()
                 } else if(response.code() == 401){
-                    Toast.makeText(this@LoginActivity, "존재하지 않는 환자번호 입니다", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "존재하지 않는 환자번호 입니다",
+                        Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this@LoginActivity, "알수없는 이유로 로그인이 불가합니다", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "알수없는 이유로 로그인이 불가합니다",
+                        Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onFailure(call: Call<LoginResponseVo>, t: Throwable) {
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 Log.e("Server error", t.message.toString())
-                Toast.makeText(this@LoginActivity, "서버 내부 오류", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, "서버 내부 오류",
+                    Toast.LENGTH_SHORT).show()
             }
         })
     }

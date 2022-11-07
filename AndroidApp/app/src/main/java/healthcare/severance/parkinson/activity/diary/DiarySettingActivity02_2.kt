@@ -1,19 +1,16 @@
 package healthcare.severance.parkinson.activity.diary
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import healthcare.severance.parkinson.R
 import healthcare.severance.parkinson.activity.auth.LoginActivity
 import healthcare.severance.parkinson.adapter.RecyclerViewAdapter
 import healthcare.severance.parkinson.service.SessionManager
-import java.util.*
 
 class DiarySettingActivity02_2 : AppCompatActivity() {
 
@@ -25,14 +22,20 @@ class DiarySettingActivity02_2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary_setting02_2)
+
+        init()
         //로그인한 사용자만 접근 가능
-        sessionManager = SessionManager(this)
         if(!sessionManager.isAuthenticated()){
-            val intent = Intent(this@DiarySettingActivity02_2, LoginActivity::class.java)
+            val intent = Intent(this@DiarySettingActivity02_2,
+                LoginActivity::class.java)
             startActivity(intent)
         }
 
         initRecyclerView(intent)
+    }
+
+    fun init(){
+        sessionManager = SessionManager(applicationContext)
     }
 
     private fun initRecyclerView(intent: Intent){
@@ -57,7 +60,8 @@ class DiarySettingActivity02_2 : AppCompatActivity() {
 
     fun nextButtonPressed(view: View){
         if(items.contains("")){
-            Toast.makeText(this@DiarySettingActivity02_2, "복용시간을 입력해주세요", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@DiarySettingActivity02_2, "복용시간을 입력해주세요",
+                Toast.LENGTH_SHORT).show()
         } else {
             val beforeIntent = intent
             val intent = Intent(this, DiarySettingActivity03::class.java)

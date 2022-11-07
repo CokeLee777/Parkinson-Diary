@@ -2,12 +2,8 @@ package healthcare.severance.parkinson.activity.diary
 
 import android.content.Intent
 import android.os.Bundle
-import android.se.omapi.Session
-import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import healthcare.severance.parkinson.R
@@ -17,32 +13,38 @@ import healthcare.severance.parkinson.service.SessionManager
 class DiarySettingActivity02_1 : AppCompatActivity() {
 
     private lateinit var sessionManager: SessionManager
-
     private lateinit var medicineCountTextView: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary_setting02_1)
 
+        init()
+
+        //로그인한 사용자만 접근 가능
+        if(!sessionManager.isAuthenticated()){
+            val intent = Intent(this@DiarySettingActivity02_1,
+                LoginActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    fun init(){
+        sessionManager = SessionManager(applicationContext)
         medicineCountTextView = findViewById(R.id.dMedicineCountForm)
     }
+
 
     fun backButtonPressed(view: View){
         val intent = Intent(this, DiarySettingActivity01::class.java)
         startActivity(intent)
-
-        //로그인한 사용자만 접근 가능
-        sessionManager = SessionManager(this)
-        if(!sessionManager.isAuthenticated()){
-            val intent = Intent(this@DiarySettingActivity02_1, LoginActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     fun nextButtonPressed(view: View){
         val medicineCount = medicineCountTextView.text
         if(medicineCount.isBlank() || medicineCount.isEmpty()){
-            Toast.makeText(this@DiarySettingActivity02_1, "복용횟수를 입력해주세요", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@DiarySettingActivity02_1, "복용횟수를 입력해주세요",
+                Toast.LENGTH_SHORT).show()
         } else {
             val beforeIntent = intent
             val intent = Intent(this, DiarySettingActivity02_2::class.java)

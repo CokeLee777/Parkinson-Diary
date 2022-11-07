@@ -1,4 +1,4 @@
-package healthcare.severance.parkinson.activity.alarm
+package healthcare.severance.parkinson.controller
 
 import android.content.Context
 

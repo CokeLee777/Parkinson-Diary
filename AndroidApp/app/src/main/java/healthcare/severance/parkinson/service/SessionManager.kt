@@ -7,7 +7,8 @@ import healthcare.severance.parkinson.R
 
 class SessionManager(context: Context) {
 
-    private var prefs: SharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
+    private var prefs: SharedPreferences = context
+        .getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
     // 상수 선언: static
     companion object {
         const val ACCESS_TOKEN = "access_token"

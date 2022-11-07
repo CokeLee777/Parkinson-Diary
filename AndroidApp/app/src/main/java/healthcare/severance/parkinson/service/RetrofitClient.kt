@@ -2,6 +2,7 @@ package healthcare.severance.parkinson.service
 
 import healthcare.severance.parkinson.api.DiaryApi
 import healthcare.severance.parkinson.api.PatientsApi
+import healthcare.severance.parkinson.api.SurveyApi
 import healthcare.severance.parkinson.util.WebProperties.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,6 +14,7 @@ object RetrofitClient {
 
     val loginService: PatientsApi
     val diaryService: DiaryApi
+    val surveyService: SurveyApi
 
     init {
         // Retrofit 객체를 빌더패턴으로 생성, 컨버터는 GSON 컨버터 사용
@@ -23,6 +25,7 @@ object RetrofitClient {
 
         loginService = retrofit.create(PatientsApi::class.java)
         diaryService = retrofit.create(DiaryApi::class.java)
+        surveyService = retrofit.create(SurveyApi::class.java)
     }
 
 }

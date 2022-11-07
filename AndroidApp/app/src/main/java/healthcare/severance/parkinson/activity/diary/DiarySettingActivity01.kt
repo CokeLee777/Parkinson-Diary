@@ -2,9 +2,7 @@ package healthcare.severance.parkinson.activity.diary
 
 import android.app.TimePickerDialog
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.Button
@@ -21,7 +19,6 @@ class DiarySettingActivity01 : AppCompatActivity() {
 
     private lateinit var sleepStartSelectButton: Button
     private lateinit var sleepEndSelectButton: Button
-
     private lateinit var sessionManager: SessionManager
 
     companion object {
@@ -32,17 +29,19 @@ class DiarySettingActivity01 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary_setting01)
+
+        init()
         //로그인한 사용자만 접근 가능
-        sessionManager = SessionManager(this)
         if(!sessionManager.isAuthenticated()){
-            val intent = Intent(this@DiarySettingActivity01, LoginActivity::class.java)
+            val intent = Intent(this@DiarySettingActivity01,
+                LoginActivity::class.java)
             startActivity(intent)
         }
 
-        initDefaultSleepTime()
     }
 
-    fun initDefaultSleepTime(){
+    fun init(){
+        sessionManager = SessionManager(applicationContext)
         //버튼 초기화
         sleepStartSelectButton = findViewById(R.id.dSleepStartSelectButton)
         sleepEndSelectButton = findViewById(R.id.dSleepEndSelectButton)
@@ -59,7 +58,8 @@ class DiarySettingActivity01 : AppCompatActivity() {
         //TimePicker의 내부에서 실행할 기능들 정의
         val timeSetListener = setTimePickerDialog(cal, sleepStartSelectButton)
         //TimePickerDialog UI를 띄운다
-        TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
+        TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY),
+            cal.get(Calendar.MINUTE), true).show()
     }
 
     fun sleepEndSelectButtonPressed(view: View){
@@ -68,10 +68,13 @@ class DiarySettingActivity01 : AppCompatActivity() {
         //TimePicker의 내부에서 실행할 기능들 정의
         val timeSetListener = setTimePickerDialog(cal, sleepEndSelectButton)
         //TimePickerDialog UI를 띄운다
-        TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
+        TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY),
+            cal.get(Calendar.MINUTE), true).show()
     }
 
-    private fun setTimePickerDialog(cal: Calendar, button: Button): TimePickerDialog.OnTimeSetListener {
+    private fun setTimePickerDialog(cal: Calendar, button: Button):
+            TimePickerDialog.OnTimeSetListener {
+
         return TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
             //사용자가 선택한 시간 세팅
             cal.set(Calendar.HOUR_OF_DAY, hour)
@@ -93,9 +96,11 @@ class DiarySettingActivity01 : AppCompatActivity() {
         val sleepEndTime = sleepEndSelectButton.text
         //넘어갈때 값이 있는지 확인
         if(sleepStartTime.isBlank()){
-            Toast.makeText(this@DiarySettingActivity01, "취침시간을 선택해주세요", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@DiarySettingActivity01, "취침시간을 선택해주세요",
+                Toast.LENGTH_SHORT).show()
         } else if(sleepEndTime.isBlank()) {
-            Toast.makeText(this@DiarySettingActivity01, "기상시간을 선택해주세요", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@DiarySettingActivity01, "기상시간을 선택해주세요",
+                Toast.LENGTH_SHORT).show()
         } else {
             val beforeIntent = intent
             val intent = Intent(this, DiarySettingActivity02_1::class.java)
