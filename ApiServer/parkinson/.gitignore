@@ -4,6 +4,9 @@ package-lock.json
 *.log
 *.gz
 
+### WEB STORM ###
+.idea
+
 # Coveralls
 .nyc_output
 coverage
