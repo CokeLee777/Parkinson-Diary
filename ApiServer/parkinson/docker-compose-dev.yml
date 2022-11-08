@@ -8,18 +8,18 @@ services:
     env_file:
       - ./env/dev.env
     ports:
-      - 3306:3306
+      - "3306:3306"
   backend-dev:
     container_name: parkinson-nodejs
     build:
       context: .
-      dockerfile: dockerfiles/Dockerfile.dev
+      dockerfile: dockerfiles/Dockerfile-dev
     volumes:
       - /Volumes/T7/Repository/Parkinson-Diary/ApiServer/parkinson:/app
     env_file:
       - ./env/dev.env
     ports:
-      - 8080:8080
+      - "8080:8080"
     expose:
       - 8080
     depends_on:
