@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  database:
+    container_name: parkinson-mysql-web-dev
+    image: "mysql"
+    volumes:
+      - web_dev_data:/var/lib/mysql
+    env_file:
+      - env/dev.env
+    ports:
+      - "3306:3306"
+    networks:
+      - web_dev
+
+volumes:
+  web_dev_data:
+
+networks:
+  web_dev:
+    driver: bridge

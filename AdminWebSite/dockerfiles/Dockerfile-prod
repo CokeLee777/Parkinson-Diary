@@ -1,0 +1,11 @@
+FROM openjdk:11-jdk
+
+WORKDIR /app
+
+ARG JAR_FILE=./build/libs/parkinson-1.0.jar
+
+COPY ${JAR_FILE} parkinson-spring.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["sh", "-c", "java -jar /parkinson-spring.jar"]

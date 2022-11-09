@@ -1,16 +1,18 @@
 version: "3.8"
 services:
   database:
-    container_name: parkinson-mysql
+    container_name: parkinson-mysql-api-dev
     image: "mysql"
     volumes:
-      - data:/var/lib/mysql
+      - api_dev_data:/var/lib/mysql
     env_file:
       - ./env/dev.env
     ports:
       - "3306:3306"
-  backend-dev:
-    container_name: parkinson-nodejs
+    networks:
+      - api_dev
+  backend-api-dev:
+    container_name: parkinson-nodejs-dev
     build:
       context: .
       dockerfile: dockerfiles/Dockerfile-dev
@@ -24,6 +26,12 @@ services:
       - 8080
     depends_on:
       - database
+    networks:
+      - api_dev
 
 volumes:
-  data:
+  api_dev_data:
+
+networks:
+  api_dev:
+    driver: bridge

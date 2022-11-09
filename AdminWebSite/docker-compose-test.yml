@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  database:
+    container_name: parkinson-mysql-web-test
+    image: "mysql"
+    volumes:
+      - web_test_data:/var/lib/mysql
+    env_file:
+      - env/test.env
+    ports:
+      - "3306:3306"
+    networks:
+      - web_test
+
+volumes:
+  web_test_data:
+
+networks:
+  web_test:
+    driver: bridge
