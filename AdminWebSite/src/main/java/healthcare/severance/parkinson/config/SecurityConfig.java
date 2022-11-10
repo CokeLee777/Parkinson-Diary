@@ -22,7 +22,7 @@ public class SecurityConfig {
     private final AuthenticationFailureHandler loginAuthenticationFailureHandler;
 
     private final static String[] ANONYMOUS_PATH = {
-            "/login", "/register"
+            "/", "/login", "/register"
     };
 
     @Bean

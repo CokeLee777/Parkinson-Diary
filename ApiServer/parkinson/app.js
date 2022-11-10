@@ -4,6 +4,7 @@ const logger = require('morgan');
 const knex = require('./config/DBConfig');
 
 // 라우터 세팅
+const healthCheckRouter = require('./routes/HealthCheckRouter');
 const diaryRouter = require('./routes/DiaryRouter');
 const surveyRouter = require('./routes/SurveyRouter');
 const patientsRouter = require('./routes/PatientsRouter');
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use('/api', healthCheckRouter);
 app.use('/api/diary', diaryRouter);
 app.use('/api/survey', surveyRouter);
 app.use('/api/patients', patientsRouter);

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start-prod": "NODE_ENV=prod node app.js",
-    "start-dev": "NODE_ENV=dev nodemon app.js",
+    "start-prod": "NODE_ENV=prod node App.js",
+    "start-dev": "NODE_ENV=dev nodemon App.js",
     "start-test": "NODE_ENV=test jest --detectOpenHandles --no-cache --forceExit"
   },
   "dependencies": {
