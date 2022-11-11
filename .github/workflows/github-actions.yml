@@ -20,6 +20,7 @@ jobs:
       with:
         node-version: '16.15.0'
         cache: 'npm'
+        cache-dependency-path: './ApiServer/package-lock.json'
     - run: npm ci
     - run: npm run build --if-present
     # ENV 세팅
@@ -27,17 +28,15 @@ jobs:
       run: |
         cd ./ApiServer/parkinson
         mkdir env
-        cd ./env
-        touch prod.env
-        echo "${{ secrets.NODE_ENV }}" >> prod.env
+        touch ./env/prod.env
+        echo "${{ secrets.NODE_ENV }}" >> ./env/prod.env
       shell: bash
     # Node 어플리케이션 Docker Image 빌드 및 DockerHub에 푸쉬
     - name: Build Docker Image and Push DockerHub For Node.js
       run: |
-        cd ./ApiServer/parkinson
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker build -t parkinson-backend-prod:latest ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_NODEJS_REPOSITORY }}:latest \
-        -f ApiServer/parkinson/dockerfiles/Dockerfile-prod .
+        -f dockerfiles/Dockerfile-prod .
         docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_NODEJS_REPOSITORY }}:latest
   ADMIN-WEB-SERVER-CI-CD:
     runs-on: ubuntu-latest
@@ -69,8 +68,7 @@ jobs:
     # Spring 어플리케이션 Docker Image 빌드 및 DockerHub 푸쉬
     - name: Build Docker Image For Spring
       run: |
-        cd ./AdminWebSite
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_SPRING_REPOSITORY }}:latest \
-        -f AdminWebSite/dockerfiles/Dockerfile-prod .
+        -f dockerfiles/Dockerfile-prod .
         docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_SPRING_REPOSITORY }}:latest
