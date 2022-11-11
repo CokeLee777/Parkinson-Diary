@@ -1,0 +1,9 @@
+node_modules
+package-lock.json
+tests/**
+**.sql
+
+.git
+.gitignore
+
+dockerfiles/**

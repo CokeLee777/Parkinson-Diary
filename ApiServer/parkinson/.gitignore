@@ -1,0 +1,18 @@
+# npm
+node_modules
+package-lock.json
+*.log
+*.gz
+
+### WEB STORM ###
+.idea
+
+# Coveralls
+.nyc_output
+coverage
+
+# Benchmarking
+benchmarks/graphs
+
+# env
+**.env

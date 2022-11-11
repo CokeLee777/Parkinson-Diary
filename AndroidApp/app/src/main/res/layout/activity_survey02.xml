@@ -1,0 +1,50 @@
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#181F2A"
+    android:padding="@dimen/box_inset_layout_padding"
+    tools:context=".activity.survey.SurveyActivity02"
+    tools:deviceIds="wear">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/mLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contextClickable="false"
+        android:padding="@dimen/inner_frame_layout_padding"
+        android:textAlignment="center"
+        app:layout_boxedEdges="all">
+
+        <TextView
+            android:id="@+id/sTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="현재 몸꼬임(이상 운동증)이 있습니까?"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/sYesButton"
+            android:layout_width="130px"
+            android:layout_height="wrap_content"
+            android:onClick="yesButtonPressed"
+            android:text="네"
+            app:layout_anchor="@+id/sTitle"
+            app:layout_anchorGravity="start|center" />
+
+        <Button
+            android:id="@+id/sNoButton"
+            android:layout_width="130px"
+            android:layout_height="wrap_content"
+            android:onClick="noButtonPressed"
+            android:text="아니오"
+            app:layout_anchor="@+id/sTitle"
+            app:layout_anchorGravity="end|center" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</androidx.wear.widget.BoxInsetLayout>

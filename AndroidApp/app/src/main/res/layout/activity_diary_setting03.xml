@@ -1,0 +1,110 @@
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#181F2A"
+    android:padding="@dimen/box_inset_layout_padding"
+    tools:context=".activity.diary.DiarySettingActivity03"
+    tools:deviceIds="wear">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/mLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contextClickable="false"
+        android:padding="@dimen/inner_frame_layout_padding"
+        android:textAlignment="center"
+        app:layout_boxedEdges="all">
+
+        <TextView
+            android:id="@+id/dTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="복용시간 확인"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+        <ImageButton
+            android:id="@+id/dBackButton"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:onClick="backButtonPressed"
+            android:background="#CB181F2A"
+            android:scaleType="fitCenter"
+            android:src="@drawable/prev_button"
+            app:layout_anchor="@+id/dTitle"
+            app:layout_anchorGravity="start|top" />
+
+        <ImageButton
+            android:id="@+id/finishSetting"
+            android:layout_width="80px"
+            android:layout_height="50px"
+            android:background="#CB181F2A"
+            android:onClick="finishSettingButtonPressed"
+            android:scaleType="fitCenter"
+            android:src="@drawable/finish_button"
+            app:layout_anchor="@+id/dTitle"
+            app:layout_anchorGravity="bottom|center" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_anchor="@+id/dTitle"
+            app:layout_anchorGravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/dSleepStartInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="취침시간"
+                        android:textAlignment="textStart"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:textSize="10sp"
+                        app:layout_anchorGravity="center" />
+
+                    <TextView
+                        android:id="@+id/dSleepEndInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="기상시간"
+                        android:textAlignment="textStart"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:textSize="10sp"
+                        app:layout_anchorGravity="center" />
+
+                    <TextView
+                        android:id="@+id/dMedicineTimeInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="약 복용시간"
+                        android:scrollbars="vertical"
+                        android:textAlignment="textStart"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:textSize="10sp"
+                        app:layout_anchorGravity="center" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</androidx.wear.widget.BoxInsetLayout>

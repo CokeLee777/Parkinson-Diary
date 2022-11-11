@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  backend-web-prod:
+    container_name: parkinson-spring
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile-prod
+    env_file:
+      - env/prod.env
+    ports:
+      - "8080:8080"
+    expose:
+      - 8080
+    networks:
+      - web_prod
+
+networks:
+  web_prod:
+    driver: bridge

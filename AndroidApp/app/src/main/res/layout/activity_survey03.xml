@@ -1,0 +1,71 @@
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#181F2A"
+    android:padding="@dimen/box_inset_layout_padding"
+    tools:context=".activity.survey.SurveyActivity03"
+    tools:deviceIds="wear">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/mLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contextClickable="false"
+        android:padding="@dimen/inner_frame_layout_padding"
+        android:textAlignment="center"
+        app:layout_boxedEdges="all">
+
+        <TextView
+            android:id="@+id/sTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="전반적인 상태는 어떻습니까?"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+
+        <SeekBar
+            android:id="@+id/sPatientCondition"
+            android:layout_width="190px"
+            android:layout_height="wrap_content"
+            android:min="0"
+            android:max="100"
+            android:progress="50"
+            app:layout_anchor="@+id/sTitle"
+            app:layout_anchorGravity="center" />
+
+        <TextView
+            android:id="@+id/sWorseTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="나쁨"
+            android:textColor="#FFFFFF"
+            app:layout_anchor="@+id/sTitle"
+            app:layout_anchorGravity="start|center" />
+
+        <TextView
+            android:id="@+id/sGreatTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:text="좋음"
+            app:layout_anchor="@+id/sTitle"
+            app:layout_anchorGravity="end|center" />
+
+        <ImageButton
+            android:id="@+id/finishSurvey"
+            android:layout_width="80px"
+            android:layout_height="50px"
+            android:background="#CB181F2A"
+            android:onClick="finishButtonPressed"
+            android:scaleType="fitCenter"
+            android:src="@drawable/finish_button"
+            app:layout_anchor="@+id/sTitle"
+            app:layout_anchorGravity="bottom|center" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</androidx.wear.widget.BoxInsetLayout>

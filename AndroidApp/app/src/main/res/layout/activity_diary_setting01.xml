@@ -1,0 +1,86 @@
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#181F2A"
+    android:padding="@dimen/box_inset_layout_padding"
+    tools:context=".activity.diary.DiarySettingActivity01"
+    tools:deviceIds="wear">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/mLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contextClickable="false"
+        android:padding="@dimen/inner_frame_layout_padding"
+        android:textAlignment="center"
+        app:layout_boxedEdges="all">
+
+        <TextView
+            android:id="@+id/dTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="기본 정보"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/dBackButton"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:background="#CB181F2A"
+            android:onClick="backButtonPressed"
+            android:scaleType="fitCenter"
+            android:src="@drawable/prev_button"
+            app:layout_anchor="@+id/dBackButton"
+            app:layout_anchorGravity="end|center" />
+
+        <ImageButton
+            android:id="@+id/dNextButton"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:background="#CB181F2A"
+            android:onClick="nextButtonPressed"
+            android:scaleType="fitCenter"
+            android:src="@drawable/next_button"
+            app:layout_anchor="@+id/dTitle"
+            app:layout_anchorGravity="end|top" />
+
+        <Button
+            android:id="@+id/dSleepStartSelectButton"
+            android:layout_width="250px"
+            android:layout_height="80px"
+            android:background="@drawable/sleep_start_time_form"
+            android:hint="취침시간을 선택해주세요"
+            android:onClick="sleepStartSelectButtonPressed"
+            android:paddingTop="5dp"
+            android:scaleType="fitCenter"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            android:textSize="8sp"
+            app:layout_anchor="@+id/dTitle"
+            app:layout_anchorGravity="center" />
+
+        <Button
+            android:id="@+id/dSleepEndSelectButton"
+            android:layout_width="250px"
+            android:layout_height="80px"
+            android:background="@drawable/sleep_end_time_form"
+            android:hint="기상시간을 선택해주세요"
+            android:onClick="sleepEndSelectButtonPressed"
+            android:paddingTop="5dp"
+            android:scaleType="fitCenter"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            android:textSize="8sp"
+            app:layout_anchor="@+id/dTitle"
+            app:layout_anchorGravity="bottom|center" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</androidx.wear.widget.BoxInsetLayout>

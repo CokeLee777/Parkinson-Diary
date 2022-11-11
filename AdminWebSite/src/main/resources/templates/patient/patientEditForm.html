@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Parkinson Diary</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link th:href="@{/css/main.css}" rel="stylesheet"/>
+	<noscript><link rel="stylesheet" th:href="@{/css/noscript.css}"/></noscript>
+</head>
+<body class="landing is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+				<header id="header">
+					<h1><a th:href="@{/}">Parkinson Diary</a></h1>
+				</header>
+
+					<section id="banner">
+						<div class="inner">
+							<h2>환자 정보 수정</h2>
+							<div class="login-form">
+								<form action="/patient/{id}/edit" th:action th:object="${form}" method=post>
+
+									<label>환자 번호</label>
+									<input type="text" id="patientNum" name="patientNum" th:value="${patient.patientNum}" class="form-control" placeholder="환자 번호 입력">
+									<div class="field-error" th:errors="*{patientNum}"></div>
+
+									<label>환자 이름 초성</label>
+									<input type="text" id="name" name="name" th:value="${patient.name}" class="form-control" placeholder="환자 초성 입력">
+									<div class="field-error" th:errors="*{name}"></div>
+
+									<label>담당 의사</label>
+									<select th:name="inChargeUser" style=margin-bottom:10px>
+										<option th:each="user : ${users}" th:value="${user.getKey()}" th:text="${user.getValue()}">의사명</option>
+									</select>
+
+									<label>취침 시작 시간</label>
+									<input type="time" name="sleepStartTime" th:value="${patient.sleepStartTime}" th:placeholder="${patient.sleepStartTime}">
+
+									<label>취침 종료 시간</label>
+									<input type="time" name="sleepEndTime" th:value="${patient.sleepEndTime}", th:placeholder="${patient.sleepEndTime}" style="margin-bottom: 10px;">
+
+
+									<div>
+										<button class="button" id="update" name="buttonValue" value="update">수정하기</button>
+										<button class="button" id="delete" name="buttonValue" value="delete" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+										<button class="button" type="button" th:onclick="|location.href='@{/patient/patientList}'|">취소</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</section>
+					
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+						<ul class="copyright">
+							<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">JSY8869</a></li>
+						</ul>
+					</footer>
+			</div>
+
+
+		<!-- Scripts -->
+		<script th:src="@{/js/popup.js}"></script>
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/jquery.scrollex.min.js}"></script>
+		<script th:src="@{/js/jquery.scrolly.min.js}"></script>
+		<script th:src="@{/js/browser.min.js}"></script>
+		<script th:src="@{/js/breakpoints.min.js}"></script>
+		<script th:src="@{/js/util.js}"></script>
+		<script th:src="@{/js/main.js}"></script>
+	</body>
+</html>

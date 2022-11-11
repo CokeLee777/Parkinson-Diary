@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Parkinson Diary</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link th:href="@{/css/main.css}" rel="stylesheet"/>
+		<noscript><link rel="stylesheet" th:href="@{/css/noscript.css}"/></noscript>
+	</head>
+	<body class="landing is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+				<header id="header">
+					<h1><a th:href="@{/}">Parkinson Diary</a></h1>
+				</header>
+
+					<section id="banner">
+						<div class="inner">
+							<h2>환자 상세 정보</h2>
+							<div class="login-form">
+                                <form>
+									<label>환자 번호</label>
+                                    <input type="text" name="patientNum" readonly th:value="${patient.patientNum}">
+									<label>환자 이름 초성</label>
+									<input type="text" name="name" readonly th:value="${patient.name}">
+									<label>담당 의사</label>
+									<input type="text" name="user" readonly th:value="${patient.user.username}">
+									<label>취침 시작 시간</label>
+									<input type="text" name="sleepStartTime" readonly th:value="${patient.sleepStartTime}" style="margin-bottom: 10px">
+									<label>취침 종료 시간</label>
+									<input type="text" name="sleepEndTime" readonly th:value="${patient.sleepEndTime}"  style="margin-bottom: 10px">
+									<span>
+										<a class="button" type="button" th:href="@{|/patient/${patient.patientNum}/edit|}">수정</a>
+                                        <a class="button" href="userGraph.html">측정값 확인</a>
+										<a class="button" th:href="@{/patient/patientList}">취소</a>
+									</span>
+								</form>
+							</div>
+						</div>
+					</section>
+					
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+						<ul class="copyright">
+							<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">JSY8869</a></li>
+						</ul>
+					</footer>
+			</div>
+
+		<!-- Scripts -->
+		<script th:src="@{/js/popup.js}"></script>
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/jquery.scrollex.min.js}"></script>
+		<script th:src="@{/js/jquery.scrolly.min.js}"></script>
+		<script th:src="@{/js/browser.min.js}"></script>
+		<script th:src="@{/js/breakpoints.min.js}"></script>
+		<script th:src="@{/js/util.js}"></script>
+		<script th:src="@{/js/main.js}"></script>
+	</body>
+</html>

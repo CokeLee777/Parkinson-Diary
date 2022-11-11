@@ -1,0 +1,26 @@
+{
+  "name": "parkinson",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start-prod": "NODE_ENV=prod node App.js",
+    "start-dev": "NODE_ENV=dev nodemon App.js",
+    "start-test": "NODE_ENV=test jest --detectOpenHandles --no-cache --forceExit"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^2.3.0",
+    "morgan": "~1.9.1",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.20"
+  },
+  "devDependencies": {
+    "jest": "^29.2.2",
+    "supertest": "^6.3.1"
+  }
+}

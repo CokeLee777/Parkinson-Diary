@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2181F2A"
+    android:padding="@dimen/box_inset_layout_padding"
+    tools:context=".activity.diary.SettingPageActivity"
+    tools:deviceIds="wear">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/mLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contextClickable="false"
+        android:padding="@dimen/inner_frame_layout_padding"
+        android:textAlignment="center"
+        app:layout_boxedEdges="all">
+
+        <TextView
+            android:id="@+id/sTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="파킨슨 일기"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            app:layout_anchorGravity="center" />
+
+        <ImageButton
+            android:id="@+id/sBackButton"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:onClick="backButtonPressed"
+            android:background="#CB181F2A"
+            android:scaleType="fitCenter"
+            android:src="@drawable/prev_button"
+            app:layout_anchor="@+id/sTitle"
+            app:layout_anchorGravity="start|top" />
+
+        <ImageButton
+            android:id="@+id/sLogoutButton"
+            android:layout_width="150px"
+            android:layout_height="60px"
+            android:background="#CB181F2A"
+            android:onClick="logout"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logout_button"
+            app:layout_anchor="@+id/sTitle"
+            app:layout_anchorGravity="bottom|center" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_anchor="@+id/sTitle"
+            app:layout_anchorGravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/sSleepStartInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="취침시간"
+                        android:textAlignment="textStart"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:textSize="10sp"
+                        app:layout_anchorGravity="center" />
+
+                    <TextView
+                        android:id="@+id/sSleepEndInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="기상시간"
+                        android:textAlignment="textStart"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:textSize="10sp"
+                        app:layout_anchorGravity="center" />
+
+                    <TextView
+                        android:id="@+id/sMedicineTimeInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="약 복용시간"
+                        android:scrollbars="vertical"
+                        android:textAlignment="textStart"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF"
+                        android:textSize="10sp"
+                        app:layout_anchorGravity="center" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</androidx.wear.widget.BoxInsetLayout>

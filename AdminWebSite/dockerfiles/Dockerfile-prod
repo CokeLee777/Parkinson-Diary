@@ -1,0 +1,13 @@
+FROM openjdk:11-jdk
+
+WORKDIR /app
+
+ARG JAR_FILE=./build/libs/parkinson-1.0.jar
+
+COPY ${JAR_FILE} parkinson-spring-1.0.jar
+
+ENV PROFILE prod
+
+EXPOSE 8080
+
+CMD ["java", "-Dspring.profiles.active=${PROFILE}", "-jar", "/app/parkinson-spring-1.0.jar"]

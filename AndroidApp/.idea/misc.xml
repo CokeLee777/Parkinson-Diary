@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/activity_alarm.xml" value="0.7677824267782427" />
+        <entry key="app/src/main/res/layout/activity_diary_setting01.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_diary_setting02.xml" value="0.55" />
+        <entry key="app/src/main/res/layout/activity_diary_setting02_1.xml" value="0.7782426778242678" />
+        <entry key="app/src/main/res/layout/activity_diary_setting02_2.xml" value="0.7228033472803347" />
+        <entry key="app/src/main/res/layout/activity_diary_setting03.xml" value="0.2743362831858407" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.6629955947136564" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.55" />
+        <entry key="app/src/main/res/layout/activity_setting_page.xml" value="0.6629955947136564" />
+        <entry key="app/src/main/res/layout/activity_start.xml" value="0.641213389121339" />
+        <entry key="app/src/main/res/layout/activity_start_diary.xml" value="0.5994094488188977" />
+        <entry key="app/src/main/res/layout/activity_survey.xml" value="0.641213389121339" />
+        <entry key="app/src/main/res/layout/activity_survey01.xml" value="0.5066079295154186" />
+        <entry key="app/src/main/res/layout/activity_survey02.xml" value="0.641213389121339" />
+        <entry key="app/src/main/res/layout/activity_survey03.xml" value="0.641213389121339" />
+        <entry key="app/src/main/res/layout/item_list.xml" value="0.6607929515418502" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Parkinson Diary</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link th:href="@{/css/main.css}" rel="stylesheet"/>
+		<noscript><link rel="stylesheet" th:href="@{/css/noscript.css}"/></noscript>
+	</head>
+	<body class="landing is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+				<header id="header">
+					<h1><a th:href="@{/}">Parkinson Diary</a></h1>
+				</header>
+
+				<!-- Banner -->
+					<section id="banner">
+						<div class="inner">
+							<h2>환자 정보 추가</h2>
+							<div class="login-form">
+                                <form action="/patient/add" th:action th:object="${form}" method="post">
+
+									<label for="patientNum">환자 번호</label>
+									<input type="text" id="patientNum" name="patientNum" class="form-control" placeholder="환자 번호 입력">
+									<div class="field-error" th:errors="*{patientNum}"></div>
+
+									<label for="name">환자 이름 초성</label>
+									<input type="text" id="name" name="name" class="form-control" placeholder="환자 초성 입력">
+									<div class="field-error" th:errors="*{name}"></div>
+
+									<label for="repeatName">환자 초성 재입력</label>
+									<input type="text" id="repeatName" name="repeatName" class="form-control" placeholder="환자 초성 재입력">
+									<div class="field-error" th:errors="*{repeatName}"></div>
+
+									<label>담당 의사 지정</label>
+									<select th:name="inChargeUser" style="margin-bottom: 10px">
+										<option th:each="user : ${users}" th:value="${user.getKey()}" th:text="${user.getValue()}" style="color: black">의사명</option>
+									</select>
+
+									<span>
+										<button class="button" type="submit" id="환자 추가" value="환자 추가">환자 추가</button>
+										<button class="button" type="button" th:onclick="|location.href='@{/patient/patientList}'|">취소</button>
+									</span>
+
+								</form>
+							</div>
+						</div>
+					</section>
+					
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">JSY8869</a></li>
+					</ul>
+				</footer>
+			</div>
+
+		<!-- Scripts -->
+		<script th:src="@{/js/popup.js}"></script>
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/jquery.scrollex.min.js}"></script>
+		<script th:src="@{/js/jquery.scrolly.min.js}"></script>
+		<script th:src="@{/js/browser.min.js}"></script>
+		<script th:src="@{/js/breakpoints.min.js}"></script>
+		<script th:src="@{/js/util.js}"></script>
+		<script th:src="@{/js/main.js}"></script>
+	</body>
+</html>
