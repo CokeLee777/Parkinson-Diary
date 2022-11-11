@@ -26,7 +26,7 @@ jobs:
     - name: Build Docker Image and Push DockerHub For Node.js
       run: |
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        docker build -t parkinson-backend-prod:latest ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_NODEJS_REPOSITORY }}:latest \
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_NODEJS_REPOSITORY }}:latest \
         -f dockerfiles/Dockerfile-prod .
         docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_NODEJS_REPOSITORY }}:latest
       working-directory: ApiServer/parkinson
