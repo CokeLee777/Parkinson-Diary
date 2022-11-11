@@ -14,17 +14,6 @@ jobs:
     # 소스코드 다운로드
     - name: Checkout code
       uses: actions/checkout@v3
-    # Nodejs 세팅
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16.15.0'
-        cache: 'npm'
-        cache-dependency-path: './ApiServer/parkinson/package-lock.json'
-    - run: npm ci
-      working-directory: ApiServer/parkinson
-    - run: npm run build --if-present
-      working-directory: ApiServer/parkinson
     # ENV 세팅
     - name: Setting env file
       run: |
