@@ -2,7 +2,6 @@ package healthcare.severance.parkinson.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 import org.springframework.http.HttpStatus;
 
 import static org.springframework.http.HttpStatus.*;
