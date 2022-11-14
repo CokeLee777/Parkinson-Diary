@@ -2,17 +2,13 @@ package healthcare.severance.parkinson.dto.patient;
 
 import healthcare.severance.parkinson.domain.Patient;
 import healthcare.severance.parkinson.domain.User;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.hibernate.validator.constraints.ScriptAssert;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.time.LocalTime;
 
 @Data
-@AllArgsConstructor
 public class PatientForm {
     @NotNull(message = "환자 번호를 작성해주세요.")
     private Long patientNum;
