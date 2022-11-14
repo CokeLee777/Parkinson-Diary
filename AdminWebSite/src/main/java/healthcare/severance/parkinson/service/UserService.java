@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,11 +28,10 @@ public class UserService {
     }
 
     public HashMap<Long, String> findAllUsernamesAndIds() {
-        List<User> users = userRepository.findAll();
-        HashMap<Long, String> userMap = new HashMap<>();
-        for (User user : users) {
-            userMap.put(user.getId(), user.getUsername());
+        HashMap<Long, String> usernameIdsMap = new HashMap<>();
+        for (User user : userRepository.findAll()) {
+            usernameIdsMap.put(user.getId(), user.getUsername());
         }
-        return userMap;
+        return usernameIdsMap;
     }
 }

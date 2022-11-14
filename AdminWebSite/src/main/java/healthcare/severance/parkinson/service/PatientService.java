@@ -40,12 +40,16 @@ public class PatientService {
     @Transactional
     public void editPatient(Long patientNum, PatientEditForm form) {
         Patient patient = patientRepository.findById(patientNum).orElseThrow(() -> new CustomException(ErrorCode.PATIENT_NUM_NOT_FOUND));
-        patient.EditPatient(form.getPatientNum(), form.getInChargeUser(), form.getName(), LocalTime.parse(form.getSleepStartTime()), LocalTime.parse(form.getSleepEndTime()));
+        patient.EditPatient(form.getInChargeUser(), form.getName(), LocalTime.parse(form.getSleepStartTime()), LocalTime.parse(form.getSleepEndTime()));
     }
 
     @Transactional
     public void deletePatient(Long patientNum) {
-        patientRepository.deleteById(patientNum);
+        if (patientRepository.existsByPatientNum(patientNum)) {
+            patientRepository.deleteById(patientNum);
+        } else {
+            throw new CustomException(ErrorCode.PATIENT_NUM_NOT_FOUND);
+        }
     }
 
     private void IsExistPatient(Long patientNum) {

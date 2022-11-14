@@ -24,8 +24,7 @@
 								<form action="/patient/{id}/edit" th:action th:object="${form}" method=post>
 
 									<label>환자 번호</label>
-									<input type="text" id="patientNum" name="patientNum" th:value="${patient.patientNum}" class="form-control" placeholder="환자 번호 입력">
-									<div class="field-error" th:errors="*{patientNum}"></div>
+									<input type="text" id="patientNum" name="patientNum" th:value="${patient.patientNum}" class="form-control" placeholder="환자 번호 입력" disabled>
 
 									<label>환자 이름 초성</label>
 									<input type="text" id="name" name="name" th:value="${patient.name}" class="form-control" placeholder="환자 초성 입력">
@@ -52,18 +51,14 @@
 							</div>
 						</div>
 					</section>
-					
+
 
 				<!-- Footer -->
-					<footer id="footer">
-						<ul class="icons">
-							<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-						</ul>
-						<ul class="copyright">
-							<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">JSY8869</a></li>
-						</ul>
-					</footer>
-			</div>
+				<footer id="footer">
+					<ul class="copyright">
+						<li><a href="https://sev.severance.healthcare/sev/index.do">&copy; severance</a></li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
 
 
 		<!-- Scripts -->
