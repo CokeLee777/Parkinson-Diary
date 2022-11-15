@@ -16,3 +16,6 @@ benchmarks/graphs
 
 # env
 **.env
+
+# typescript
+dist
