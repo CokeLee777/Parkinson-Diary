@@ -4,11 +4,12 @@ WORKDIR /app
 
 COPY package.json .
 
+RUN npm update
 RUN npm install
 
 COPY . .
 
-RUN npm run build-ts
+RUN tsc
 
 ARG DEFAULT_PORT=3000
 
