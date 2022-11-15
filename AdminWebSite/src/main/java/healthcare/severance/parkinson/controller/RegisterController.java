@@ -23,7 +23,7 @@ public class RegisterController {
     @GetMapping
     public String register(@ModelAttribute("form") RegisterForm form){
         log.debug("Access register form");
-        return "/register";
+        return "register";
     }
 
     @PostMapping
@@ -31,19 +31,19 @@ public class RegisterController {
         log.info("form = {}", form.toString());
         if(bindingResult.hasErrors()){
             log.debug("필드 검증 오류={}", bindingResult);
-            return "/register";
+            return "register";
         }
 
         if(userService.isDuplicateUser(form.getIdentifier())){
             log.debug("아이디 중복 오류 identifier={}", form.getIdentifier());
             bindingResult.rejectValue("identifier", "duplicatedUser", "아이디가 중복됩니다.");
-            return "/register";
+            return "register";
         }
 
         if(!form.getPassword().equals(form.getRepeatPassword())){
             log.debug("비밀번호 불일치={},{}", form.getPassword(), form.getRepeatPassword());
             bindingResult.reject("notSamePassword", "비밀번호가 일치하지 않습니다.");
-            return "/register";
+            return "register";
         }
 
         userService.createUser(form);
