@@ -1,9 +1,18 @@
+# Module
 node_modules
+dist
 package-lock.json
-tests/**
+
+# Test code
+tests
+jest.config.js
+
+# Data
 **.sql
 
+# Git
 .git
 .gitignore
 
-dockerfiles/**
+# Docker
+dockerfiles

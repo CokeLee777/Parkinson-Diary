@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    // javascript 언어 버전 설정
+    "target": "es2016",
+    /* Specify what module code is generated. */
+    "module": "commonjs",
+    /* Allows us to compile ES6 modules to CommonJS modules */
+    "esModuleInterop": true,
+    /* Ensure that casing is correct in imports. */
+    "forceConsistentCasingInFileNames": true,
+    /* 엄격한 타입 체크 on */
+    "strict": true,
+    /* Skip type checking all .d.ts files.(기본 라이브러리의 타입 체크를 스킵한다) */
+    "skipLibCheck": true,
+    // 컴파일 후 파일이 저장되는 위치 지정
+    "outDir": "./dist",
+
+    "typeRoots": ["./node_modules/@types","./config/customRequestType"]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
