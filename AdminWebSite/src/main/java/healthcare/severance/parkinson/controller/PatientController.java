@@ -39,19 +39,19 @@ public class PatientController {
         if (!StringUtils.hasText(keyword)) {
             log.debug("load patientList with pageable");
             setPatientListPage(model, patientService.pageList(pageable));
-            return "/patient/patientList";
+            return "patient/patientList";
         }
         log.debug("load search result");
         setPatientListPage(model, patientService.findPatientByName(keyword, pageable));
         model.addAttribute("keyword", keyword);
-        return "/patient/patientList";
+        return "patient/patientList";
     }
 
     @GetMapping("/add")
     public String addPatient(@ModelAttribute("form") PatientForm form, Model model) {
         log.debug("load patient addForm");
         model.addAttribute("users", getAllUsernamesAndIds());
-        return "/patient/patientForm";
+        return "patient/patientForm";
     }
 
     @PostMapping("/add")
@@ -81,7 +81,7 @@ public class PatientController {
     public String patientDetail(@PathVariable("patientNum") Long patientNum, Model model) {
         log.debug("load patient detail page");
         model.addAttribute("patient", patientService.findPatientByPatientNum(patientNum));
-        return "/patient/patientDetail";
+        return "patient/patientDetail";
     }
 
     @GetMapping("/{patientNum}/edit")
@@ -90,7 +90,7 @@ public class PatientController {
         log.debug("load patient edit page");
         model.addAttribute("patient", patientService.findPatientByPatientNum(patientNum));
         model.addAttribute("users", getAllUsernamesAndIds());
-        return "/patient/patientEditForm";
+        return "patient/patientEditForm";
     }
 
     @PostMapping("/{patientNum}/edit")
@@ -115,7 +115,7 @@ public class PatientController {
         log.debug("buttonValue null error!");
         model.addAttribute("patient", patientService.findPatientByPatientNum(patientNum));
         model.addAttribute("users", getAllUsernamesAndIds());
-        return "/patient/patientEditForm";
+        return "patient/patientEditForm";
     }
 
     private HashMap<Long, String> getAllUsernamesAndIds() {

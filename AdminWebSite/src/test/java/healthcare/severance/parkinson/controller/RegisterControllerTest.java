@@ -38,7 +38,7 @@ class RegisterControllerTest {
     void getRegister() throws Exception {
         mvc.perform(get("/register"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/register"));
+                .andExpect(view().name("register"));
     }
 
     @Test
@@ -74,7 +74,7 @@ class RegisterControllerTest {
         //when
         //then
         mvc.perform(request)
-                .andExpect(view().name("/register"))
+                .andExpect(view().name("register"))
                 .andExpect(model().hasErrors());
     }
 
@@ -94,7 +94,7 @@ class RegisterControllerTest {
         //when
         //then
         mvc.perform(request)
-                .andExpect(view().name("/register"))
+                .andExpect(view().name("register"))
                 .andExpect(model().hasErrors());
     }
 
@@ -123,7 +123,7 @@ class RegisterControllerTest {
         //when
         //then
         mvc.perform(request)
-                .andExpect(view().name("/register"))
+                .andExpect(view().name("register"))
                 .andExpect(model().hasErrors());
     }
 
@@ -143,7 +143,7 @@ class RegisterControllerTest {
         //when
         //then
         mvc.perform(request)
-                .andExpect(view().name("/register"))
+                .andExpect(view().name("register"))
                 .andExpect(model().hasErrors());
     }
 }

@@ -23,7 +23,7 @@ public class Survey {
     @JoinColumn(name = "patient_num", nullable = false)
     private final Patient patient;
 
-    @Column(name = "survery_time", nullable = false)
+    @Column(name = "survey_time", nullable = false)
     private final LocalDateTime surveyTime;
 
     @Column(name = "medicinal_effect", nullable = false)
