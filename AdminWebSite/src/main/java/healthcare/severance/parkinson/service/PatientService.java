@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalTime;
 
 import static healthcare.severance.parkinson.exception.ErrorCode.DUPLICATE_RESOURCE;
+import static healthcare.severance.parkinson.exception.ErrorCode.PATIENT_NUM_NOT_FOUND;
 
 @Service
 @Transactional(readOnly = true)
@@ -34,12 +35,12 @@ public class PatientService {
     }
 
     public Patient findPatientByPatientNum(Long patientNum) {
-        return patientRepository.findById(patientNum).orElseThrow(() -> new CustomException(ErrorCode.PATIENT_NUM_NOT_FOUND));
+        return patientRepository.findById(patientNum).orElseThrow(() -> new CustomException(PATIENT_NUM_NOT_FOUND));
     }
 
     @Transactional
     public void editPatient(Long patientNum, PatientEditForm form) {
-        Patient patient = patientRepository.findById(patientNum).orElseThrow(() -> new CustomException(ErrorCode.PATIENT_NUM_NOT_FOUND));
+        Patient patient = patientRepository.findById(patientNum).orElseThrow(() -> new CustomException(PATIENT_NUM_NOT_FOUND));
         patient.EditPatient(form.getInChargeUser(), form.getName(), LocalTime.parse(form.getSleepStartTime()), LocalTime.parse(form.getSleepEndTime()));
     }
 
@@ -48,7 +49,7 @@ public class PatientService {
         if (patientRepository.existsByPatientNum(patientNum)) {
             patientRepository.deleteById(patientNum);
         } else {
-            throw new CustomException(ErrorCode.PATIENT_NUM_NOT_FOUND);
+            throw new CustomException(PATIENT_NUM_NOT_FOUND);
         }
     }
 

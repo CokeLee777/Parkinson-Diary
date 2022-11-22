@@ -161,7 +161,7 @@ public class PatientControllerFailureTest {
         //when
         //then
         mvc.perform(request)
-                .andExpect(view().name("/patient/patientEditForm"))
+                .andExpect(view().name("patient/patientEditForm"))
                 .andExpect(model().attribute("patient", patientService.findPatientByPatientNum(testPatientNum)));
     }
 
