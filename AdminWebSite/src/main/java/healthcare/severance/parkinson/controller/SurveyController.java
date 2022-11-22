@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -26,8 +27,7 @@ public class SurveyController {
                                  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
                                  Optional<LocalDate> selectedDate,
                              Model model) {
-        ArrayList<PatientGraphForm> surveyList =
-                surveyService.getSurvey(patientId, selectedDate.orElse(LocalDate.now()));
+        List<PatientGraphForm> surveyList = surveyService.getSurvey(patientId, selectedDate.orElse(LocalDate.now()));
         if (surveyList.isEmpty()) {
             model.addAttribute("noSurveyError", "설문조사 결과가 존재하지 않습니다.");
         }

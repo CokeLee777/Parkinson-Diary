@@ -21,11 +21,11 @@ public class PatientGraphForm {
                 + survey.getSurveyTime().getMinute()  + "분";
         this.medicinalEffect = survey.getMedicinalEffect() == true ? "있음" : "없음";
         this.abnormalMovement = survey.getAbnormalMovement() == true ? "있음" : "없음";
-        if (1.0 <= survey.getPatientCondition() && survey.getPatientCondition() < 3.3) {
+        if (0 <= survey.getPatientCondition() && survey.getPatientCondition() < 33) {
             this.patientCondition = "안좋음(" + survey.getPatientCondition() + ")";
-        } else if (3.3 <= survey.getPatientCondition() && survey.getPatientCondition() < 6.6) {
+        } else if (33 <= survey.getPatientCondition() && survey.getPatientCondition() < 66) {
             this.patientCondition = "보통(" + survey.getPatientCondition() + ")";
-        } else if (6.6 <= survey.getPatientCondition() && survey.getPatientCondition() <= 10.0) {
+        } else if (66 <= survey.getPatientCondition() && survey.getPatientCondition() <= 100) {
             this.patientCondition = "좋음(" + survey.getPatientCondition() + ")";
         } else {
             this.patientCondition = survey.getPatientCondition().toString();

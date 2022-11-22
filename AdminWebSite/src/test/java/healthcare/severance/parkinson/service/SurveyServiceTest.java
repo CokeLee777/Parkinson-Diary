@@ -89,7 +89,7 @@ class SurveyServiceTest {
         surveyRepository.save(givenSurvey);
         surveyRepository.save(givenSurvey2);
         //when
-        ArrayList<PatientGraphForm> survey = surveyService.getSurvey(testPatientNum, testDate);
+        List<PatientGraphForm> survey = surveyService.getSurvey(testPatientNum, testDate);
         //then
         Assertions.assertThat(survey.size()).isEqualTo(2);
     }
@@ -108,7 +108,7 @@ class SurveyServiceTest {
 
         surveyRepository.save(givenSurvey);
         //when
-        ArrayList<PatientGraphForm> survey = surveyService.getSurvey(testPatientNum, testDate);
+        List<PatientGraphForm> survey = surveyService.getSurvey(testPatientNum, testDate);
         //then
         Assertions.assertThat(survey.size()).isEqualTo(1);
         Assertions.assertThat(survey.get(0).getAbnormalMovement()).isEqualTo("있음");

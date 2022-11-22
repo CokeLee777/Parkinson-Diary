@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,13 +19,11 @@ import java.util.List;
 public class SurveyService {
     private final SurveyRepository surveyRepository;
     private final PatientRepository patientRepository;
-    public ArrayList<PatientGraphForm> getSurvey(Long id, LocalDate time) {
+    public List<PatientGraphForm> getSurvey(Long id, LocalDate time) {
         List<Survey> surveyByIdAndSurveyTime = surveyRepository.findByPatientAndSurveyTimeBetween(
                 patientRepository.findById(id).get(), time.atStartOfDay(), time.plusDays(1).atStartOfDay());
-        ArrayList<PatientGraphForm> patientGraphForms = new ArrayList<>();
-        for (Survey survey : surveyByIdAndSurveyTime) {
-            patientGraphForms.add(new PatientGraphForm(survey));
-        }
+        List<PatientGraphForm> patientGraphForms =
+                surveyByIdAndSurveyTime.stream().map(PatientGraphForm::new).collect(Collectors.toList());
         return patientGraphForms;
     }
 }
