@@ -15,7 +15,9 @@
     // 컴파일 후 파일이 저장되는 위치 지정
     "outDir": "./dist",
 
-    "typeRoots": ["./node_modules/@types","./config/customRequestType"]
+    "typeRoots": ["./node_modules/@types","./config/customRequestType"],
+
+    "resolveJsonModule": true
   },
   "exclude": [
     "node_modules"

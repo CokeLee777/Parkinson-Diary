@@ -13,3 +13,8 @@ data class SurveyRequest(
     @SerializedName(value = "patient_condition")
     val patientCondition: Double
 )
+
+data class FcmRegistrationRequest(
+    @SerializedName(value = "fcm_registration_token")
+    val fcmRegistrationToken: String,
+)

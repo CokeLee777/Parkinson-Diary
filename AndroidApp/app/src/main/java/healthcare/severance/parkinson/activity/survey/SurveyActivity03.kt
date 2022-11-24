@@ -67,9 +67,7 @@ class SurveyActivity03 : AppCompatActivity() {
                 response: Response<Void>
             ) {
                 if(response.isSuccessful) {
-                    val intent = Intent(this@SurveyActivity03,
-                        MainActivity::class.java)
-                    startActivity(intent)
+                    finishAffinity()
                 } else if(response.code() == 419){
                     Toast.makeText(this@SurveyActivity03, "세션이 만료되었습니다",
                         Toast.LENGTH_SHORT).show()

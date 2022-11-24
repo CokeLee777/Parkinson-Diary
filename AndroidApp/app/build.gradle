@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -51,4 +52,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     // notification 을 위한 라이브러리 추가
     implementation 'androidx.core:core:1.2.0'
+
+    implementation platform('com.google.firebase:firebase-bom:31.1.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
 }

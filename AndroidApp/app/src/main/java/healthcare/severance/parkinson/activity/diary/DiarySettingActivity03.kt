@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.messaging.FirebaseMessaging
 import healthcare.severance.parkinson.R
 import healthcare.severance.parkinson.activity.MainActivity
 import healthcare.severance.parkinson.activity.auth.LoginActivity
@@ -66,19 +67,23 @@ class DiarySettingActivity03 : AppCompatActivity() {
     fun finishSettingButtonPressed(view: View){
         val beforeIntent = intent
         val requestTakeTimes = convertRequestData(beforeIntent)
-        //알림 세팅
         if(sessionManager.isAlarmActive()){
+            //약 복용시간 알람 세팅
             alarmController.setMedicineAlarm(requestTakeTimes)
-            alarmController.setSurveyAlarm(
-                beforeIntent.getStringExtra("sleep_end_time")!!.substring(0, 2).toInt(),
-                beforeIntent.getStringExtra("sleep_end_time")!!.substring(3, 5).toInt()
-            )
         }
-        if(!beforeIntent.getBooleanExtra("is_update", true)){
-            createDiary(beforeIntent, requestTakeTimes)
-        } else {
-            updateDiary(beforeIntent, requestTakeTimes)
-        }
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.e("FCM TOKEN", "FCM Registration Token get failed", task.exception)
+                    return@addOnCompleteListener
+                } else {
+                    if (!beforeIntent.getBooleanExtra("is_update", true)) {
+                        createDiary(beforeIntent, requestTakeTimes)
+                    } else {
+                        updateDiary(beforeIntent, requestTakeTimes)
+                    }
+                }
+            }
     }
 
     private fun convertRequestData(beforeIntent: Intent): ArrayList<TakeTime>{

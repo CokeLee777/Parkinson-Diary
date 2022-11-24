@@ -117,8 +117,6 @@ class MainActivity : Activity() {
             sessionManager.updateAlarmIsActive(false)
             //등록된 알람 서비스 취소하기
             alarmController.cancelMedicineAlarm(diaryInfo.takeTimes)
-            //설문조사 알림 서비스 취소하기
-            alarmController.cancelSurveyAlarm()
             //UI 변경
             alarmButton.setImageResource(R.drawable.inactive_alarm_button)
         } else {
@@ -126,12 +124,6 @@ class MainActivity : Activity() {
             sessionManager.updateAlarmIsActive(true)
             //사용자가 설정한 알람 서비스 등록하기
             alarmController.setMedicineAlarm(diaryInfo.takeTimes)
-            //설문조사 알림 서비스 등록하기
-            alarmController
-                .setSurveyAlarm(
-                    diaryInfo.sleepEndTime.substring(0, 2).toInt(),
-                    diaryInfo.sleepEndTime.substring(3, 5).toInt()
-                )
             //UI 변경
             alarmButton.setImageResource(R.drawable.active_alarm_button)
         }

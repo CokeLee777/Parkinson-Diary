@@ -21,6 +21,18 @@ router.route('/').post(verifyToken, async (request: Request, response: Response,
     
 });
 
+router.route('/notification').post(verifyToken, async (request: Request, response: Response, next: NextFunction) => {
+    const registrationToken = request.body.fcm_registration_token;
+    try {
+        await surveyService
+            .notifySurvey(registrationToken)
+
+        return response.sendStatus(200);
+    } catch(error) {
+        next(error);
+    }
+})
+
 async function parseRequestBody(request: Request){
     const requestBody = request.body;
     
