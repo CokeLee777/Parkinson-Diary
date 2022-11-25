@@ -1,6 +1,6 @@
 import {SurveyModel} from "../models/SurveyModel";
 import {SurveyCreateRequest} from "../dto/SurveyRequestDto";
-import schedule, {scheduleJob} from "node-schedule";
+import schedule from "node-schedule";
 import {fcmAdmin} from "../config/FcmConfig";
 
 export class SurveyService {
@@ -38,21 +38,31 @@ export class SurveyService {
       },
       token: registrationToken
     }
-    // 설문조사를 시행할 간격 설정
+
+    // 이미 등록된 스케줄러가 있다면 취소
+    if(schedule.scheduledJobs[registrationToken] !== undefined){
+      schedule.scheduledJobs[registrationToken].cancel();
+    }
+    // 스케줄링 규칙 설정 - 9~21시까지 1시간마다 반복
     const rule = new schedule.RecurrenceRule();
     rule.tz = 'Asia/Seoul';
     rule.hour = new schedule.Range(9, 21, 1);
-    rule.minute = 0;
-    // 설문조사 스케줄러 시작
-    scheduleJob(rule, async () => {
+
+    schedule.scheduleJob(registrationToken, rule, async () => {
       await fcmAdmin.messaging()
           .send(message)
           .then((response) => {
-            console.debug('설문조사 알림 전송 완료');
+            console.debug(`${new Date()}: 설문조사 알림 전송 완료`);
           })
           .catch((error) => {
-            console.error('설문조사 알림 전송 실패');
-          })
+            console.error(`${new Date()}: 설문조사 알림 전송 실패`);
+          });
     });
+  }
+
+  public async stopNotifySurvey(registrationToken: string) {
+    // 설문조사 스케줄러 취소
+    console.debug(`${new Date()}: 설문조사 알림 취소`);
+    schedule.scheduledJobs[registrationToken].cancel();
   }
 }

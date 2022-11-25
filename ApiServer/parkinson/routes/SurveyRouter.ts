@@ -31,7 +31,17 @@ router.route('/notification').post(verifyToken, async (request: Request, respons
     } catch(error) {
         next(error);
     }
-})
+}).delete(verifyToken, async (request: Request, response: Response, next: NextFunction) => {
+    const registrationToken = request.body.fcm_registration_token;
+    try {
+        await surveyService
+            .stopNotifySurvey(registrationToken)
+
+        return response.sendStatus(200);
+    } catch(error) {
+        next(error);
+    }
+});
 
 async function parseRequestBody(request: Request){
     const requestBody = request.body;
