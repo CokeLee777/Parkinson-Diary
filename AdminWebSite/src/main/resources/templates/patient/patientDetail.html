@@ -34,7 +34,7 @@
 									<input type="text" name="sleepEndTime" readonly th:value="${patient.sleepEndTime}"  style="margin-bottom: 10px">
 									<span>
 										<a class="button" type="button" th:href="@{|/patient/${patient.patientNum}/edit|}">수정</a>
-                                        <a class="button" th:href="@{|/patient/${patient.patientNum}/survey|}">측정값 확인</a>
+                                        <a class="button" th:href="@{|/patient/${patient.patientNum}/graph|}">측정값 확인</a>
 										<a class="button" th:href="@{/patient/patientList}">취소</a>
 									</span>
 								</form>

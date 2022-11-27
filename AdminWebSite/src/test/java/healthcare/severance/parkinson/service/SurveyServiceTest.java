@@ -4,7 +4,7 @@ import healthcare.severance.parkinson.domain.Patient;
 import healthcare.severance.parkinson.domain.RoleType;
 import healthcare.severance.parkinson.domain.Survey;
 import healthcare.severance.parkinson.domain.User;
-import healthcare.severance.parkinson.dto.patient.PatientGraphForm;
+import healthcare.severance.parkinson.dto.patient.PatientSurveyTableForm;
 import healthcare.severance.parkinson.repository.PatientRepository;
 import healthcare.severance.parkinson.repository.SurveyRepository;
 import healthcare.severance.parkinson.repository.UserRepository;
@@ -17,11 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles(value = "test")
@@ -89,7 +85,7 @@ class SurveyServiceTest {
         surveyRepository.save(givenSurvey);
         surveyRepository.save(givenSurvey2);
         //when
-        List<PatientGraphForm> survey = surveyService.getSurvey(testPatientNum, testDate);
+        List<PatientSurveyTableForm> survey = surveyService.getSurveyTable(testPatientNum, testDate);
         //then
         Assertions.assertThat(survey.size()).isEqualTo(2);
     }
@@ -108,7 +104,7 @@ class SurveyServiceTest {
 
         surveyRepository.save(givenSurvey);
         //when
-        List<PatientGraphForm> survey = surveyService.getSurvey(testPatientNum, testDate);
+        List<PatientSurveyTableForm> survey = surveyService.getSurveyTable(testPatientNum, testDate);
         //then
         Assertions.assertThat(survey.size()).isEqualTo(1);
         Assertions.assertThat(survey.get(0).getAbnormalMovement()).isEqualTo("있음");
