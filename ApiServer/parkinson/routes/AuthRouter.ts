@@ -1,11 +1,17 @@
 import jwt from 'jsonwebtoken';
 import { TokenExpiredError, InvalidTokenError, BindingTokenError } from '../error/CommonError';
 import {NextFunction, Request, Response} from "express";
+import {AppConfig} from '../config/AppConfig';
+const patientService = AppConfig.patientService;
 
-export const verifyToken = (request: Request, response: Response, next: NextFunction) => {
+export const verifyToken = async (request: Request, response: Response, next: NextFunction) => {
   try {
 
-    request.decodedToken = verifyHeader(request);
+    request.decodedToken = await verifyHeader(request);
+    const patientNum = (<any>request.decodedToken).patientNum;
+    // Redis DB에 엑세스 토큰이 존재하는지 확인
+    await patientService.authorizeAccessToken(patientNum);
+
     return next();
   } catch (error: any | Error) {
     if (error instanceof TokenExpiredError) {
@@ -20,7 +26,7 @@ export const verifyToken = (request: Request, response: Response, next: NextFunc
   }
 }
 
-function verifyHeader(request: Request){
+async function verifyHeader(request: Request){
   const accessToken = request.header("ACCESS_TOKEN");
   if(accessToken === undefined){
     throw new BindingTokenError('토큰 정보가 존재하지 않습니다.');

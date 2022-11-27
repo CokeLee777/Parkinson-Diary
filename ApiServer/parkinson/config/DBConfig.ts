@@ -1,4 +1,5 @@
 import Knex from "knex";
+import * as redis from "redis";
 import path from 'path';
 import dotenv from 'dotenv';
 
@@ -29,4 +30,8 @@ export const knex = Knex({
             max: 10
         }
     }
+});
+
+export const redisClient = redis.createClient({
+    url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_DATABASE_PORT}`
 });
