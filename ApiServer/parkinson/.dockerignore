@@ -1,6 +1,5 @@
 # Module
 node_modules
-dist
 package-lock.json
 
 # Test code

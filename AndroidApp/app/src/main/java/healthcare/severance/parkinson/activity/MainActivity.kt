@@ -7,11 +7,13 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
+import com.google.firebase.messaging.FirebaseMessaging
 import healthcare.severance.parkinson.R
 import healthcare.severance.parkinson.activity.auth.LoginActivity
 import healthcare.severance.parkinson.activity.diary.DiarySettingActivity01
 import healthcare.severance.parkinson.activity.diary.SettingPageActivity
-import healthcare.severance.parkinson.controller.AlarmController
+import healthcare.severance.parkinson.controller.MedicineNotificationController
+import healthcare.severance.parkinson.controller.SurveyNotificationController
 import healthcare.severance.parkinson.databinding.ActivityMainBinding
 import healthcare.severance.parkinson.dto.DiaryResponse
 import healthcare.severance.parkinson.service.RetrofitClient
@@ -25,7 +27,8 @@ class MainActivity : Activity() {
     // lateinit : 초기화 지연
     private lateinit var binding: ActivityMainBinding
     private lateinit var sessionManager: SessionManager
-    private lateinit var alarmController: AlarmController
+    private lateinit var medicineNotificationController: MedicineNotificationController
+    private lateinit var surveyNotificationController: SurveyNotificationController
     private lateinit var alarmButton: ImageButton
     private lateinit var diaryInfo: DiaryResponse
     private var isUpdate: Boolean = false
@@ -35,19 +38,21 @@ class MainActivity : Activity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        // 각 객체들 초기화
-        init()
 
         //로그인한 사용자만 접근 가능
+        sessionManager = SessionManager(applicationContext)
         if(!sessionManager.isAuthenticated()){
             val intent = Intent(this@MainActivity, LoginActivity::class.java)
             startActivity(intent)
         }
+
+        //각 객체들 초기화
+        init()
     }
 
     fun init(){
-        sessionManager = SessionManager(applicationContext)
-        alarmController = AlarmController(applicationContext)
+        medicineNotificationController = MedicineNotificationController(applicationContext)
+        surveyNotificationController = SurveyNotificationController(applicationContext)
 
         //알람 버튼 UI 세팅
         alarmButton = findViewById(R.id.mAlarmButton)
@@ -56,6 +61,7 @@ class MainActivity : Activity() {
         } else {
             alarmButton.setImageResource(R.drawable.inactive_alarm_button)
         }
+
         //메인 페이지에 접속할 때, 사용자 정보를 가져오도록 함
         this.getDiaryInfo(sessionManager.getAccessToken()!!)
     }
@@ -77,10 +83,15 @@ class MainActivity : Activity() {
                         //다이어리 정보 저장
                         diaryInfo = diaryResponse
 
-                    } else if(response.code() == 419){
+                    } else if(response.code() == 401 || response.code() == 419){
                         Toast.makeText(this@MainActivity, "세션이 만료되었습니다",
                             Toast.LENGTH_SHORT).show()
-                        sessionManager.unAuthenticate()
+                        if(sessionManager.isAuthenticated()){
+                            sessionManager.unAuthenticate()
+                        }
+                        val intent = Intent(this@MainActivity,
+                            LoginActivity::class.java)
+                        startActivity(intent)
                     }
             }
 
@@ -112,18 +123,26 @@ class MainActivity : Activity() {
 
     fun alarmButtonPressed(view: View){
         val alarmButton = findViewById<ImageButton>(view.id)
+
+        val accessToken = sessionManager.getAccessToken()!!
         if(sessionManager.isAlarmActive()){
+            //등록된 알림 서비스 취소하기
+            medicineNotificationController
+                .cancelMedicineNotification(accessToken)
+            surveyNotificationController
+                .cancelSurveyNotification(accessToken)
             //세션에 있는 알림정보 inactive로 변경
             sessionManager.updateAlarmIsActive(false)
-            //등록된 알람 서비스 취소하기
-            alarmController.cancelMedicineAlarm(diaryInfo.takeTimes)
             //UI 변경
             alarmButton.setImageResource(R.drawable.inactive_alarm_button)
         } else {
-            //세션에 있는 알림정보 inactive로 변경
-            sessionManager.updateAlarmIsActive(true)
             //사용자가 설정한 알람 서비스 등록하기
-            alarmController.setMedicineAlarm(diaryInfo.takeTimes)
+            medicineNotificationController
+                .registrantMedicineNotification(accessToken)
+            surveyNotificationController
+                .registrantSurveyNotification(accessToken)
+            //세션에 있는 알림정보 active로 변경
+            sessionManager.updateAlarmIsActive(true)
             //UI 변경
             alarmButton.setImageResource(R.drawable.active_alarm_button)
         }

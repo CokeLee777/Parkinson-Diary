@@ -1,11 +1,10 @@
-import express, {Express, NextFunction, Request, Response} from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 const router = express.Router();
 import { SurveyCreateRequest } from '../dto/SurveyRequestDto';
-import {NotEnoughInputDataError, InvalidInputTypeError, DatabaseConnectError} from '../error/CommonError';
+import {NotEnoughInputDataError, InvalidInputTypeError} from '../error/CommonError';
 import { verifyToken } from './AuthRouter';
 
 import {AppConfig} from '../config/AppConfig';
-import {InvalidPatientNumberError} from "../error/PatientServiceError";
 const surveyService = AppConfig.surveyService;
 
 router.route('/').post(verifyToken, async (request: Request, response: Response, next: NextFunction) => {
@@ -21,27 +20,29 @@ router.route('/').post(verifyToken, async (request: Request, response: Response,
     
 });
 
+
 router.route('/notification').post(verifyToken, async (request: Request, response: Response, next: NextFunction) => {
-    const registrationToken = request.body.fcm_registration_token;
+    const patientNum = (<any>request.decodedToken).patientNum;
     try {
         await surveyService
-            .notifySurvey(registrationToken)
+            .notifySurvey(patientNum);
 
         return response.sendStatus(200);
     } catch(error) {
         next(error);
     }
 }).delete(verifyToken, async (request: Request, response: Response, next: NextFunction) => {
-    const registrationToken = request.body.fcm_registration_token;
+    const patientNum = (<any>request.decodedToken).patientNum;
     try {
         await surveyService
-            .stopNotifySurvey(registrationToken)
+            .stopNotifySurvey(patientNum);
 
         return response.sendStatus(200);
     } catch(error) {
         next(error);
     }
 });
+
 
 async function parseRequestBody(request: Request){
     const requestBody = request.body;

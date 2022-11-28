@@ -23,22 +23,18 @@ class DiarySettingActivity02_2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary_setting02_2)
 
-        init()
         //로그인한 사용자만 접근 가능
+        sessionManager = SessionManager(applicationContext)
         if(!sessionManager.isAuthenticated()){
             val intent = Intent(this@DiarySettingActivity02_2,
                 LoginActivity::class.java)
             startActivity(intent)
         }
 
-        initRecyclerView(intent)
+        init(intent)
     }
 
-    fun init(){
-        sessionManager = SessionManager(applicationContext)
-    }
-
-    private fun initRecyclerView(intent: Intent){
+    private fun init(intent: Intent){
         //리사이클러뷰 초기화
         recyclerView = findViewById(R.id.dRecyclerView)
         val linearLayoutManager = LinearLayoutManager(this)

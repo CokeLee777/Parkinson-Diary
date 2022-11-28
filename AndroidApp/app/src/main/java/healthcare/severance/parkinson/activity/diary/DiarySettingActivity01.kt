@@ -30,26 +30,25 @@ class DiarySettingActivity01 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary_setting01)
 
-        init()
         //로그인한 사용자만 접근 가능
+        sessionManager = SessionManager(applicationContext)
         if(!sessionManager.isAuthenticated()){
             val intent = Intent(this@DiarySettingActivity01,
                 LoginActivity::class.java)
             startActivity(intent)
         }
 
+        init()
     }
 
     fun init(){
-        sessionManager = SessionManager(applicationContext)
+
         //버튼 초기화
         sleepStartSelectButton = findViewById(R.id.dSleepStartSelectButton)
         sleepEndSelectButton = findViewById(R.id.dSleepEndSelectButton)
         //취침시간, 기상시간 기본값 설정
         sleepStartSelectButton.text = DEFAULT_SLEEP_START_TIME
-        sleepStartSelectButton.textSize = 15f
         sleepEndSelectButton.text = DEFAULT_SLEEP_END_TIME
-        sleepEndSelectButton.textSize = 15f
     }
 
     fun sleepStartSelectButtonPressed(view: View){

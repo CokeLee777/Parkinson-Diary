@@ -7,11 +7,10 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.messaging.FirebaseMessaging
 import healthcare.severance.parkinson.R
 import healthcare.severance.parkinson.activity.MainActivity
 import healthcare.severance.parkinson.activity.auth.LoginActivity
-import healthcare.severance.parkinson.controller.AlarmController
+import healthcare.severance.parkinson.controller.MedicineNotificationController
 import healthcare.severance.parkinson.dto.DiaryRequest
 import healthcare.severance.parkinson.dto.TakeTime
 import healthcare.severance.parkinson.service.RetrofitClient
@@ -27,23 +26,24 @@ class DiarySettingActivity03 : AppCompatActivity() {
     private lateinit var medicineTimeInfo: TextView
     //토큰 정보를 불러오기 위한 세션 매니저 선언
     private lateinit var sessionManager: SessionManager
-    private lateinit var alarmController: AlarmController
+    private lateinit var medicineNotificationController: MedicineNotificationController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary_setting03)
 
-        init(intent)
-
+        sessionManager = SessionManager(applicationContext)
         if(!sessionManager.isAuthenticated()){
             val intent = Intent(this@DiarySettingActivity03, LoginActivity::class.java)
             startActivity(intent)
         }
+
+        init(intent)
     }
 
     fun init(intent: Intent){
-        sessionManager = SessionManager(applicationContext)
-        alarmController = AlarmController(applicationContext)
+
+        medicineNotificationController = MedicineNotificationController(applicationContext)
 
         sleepStartInfo = findViewById(R.id.dSleepStartInfo)
         sleepEndInfo = findViewById(R.id.dSleepEndInfo)
@@ -69,21 +69,14 @@ class DiarySettingActivity03 : AppCompatActivity() {
         val requestTakeTimes = convertRequestData(beforeIntent)
         if(sessionManager.isAlarmActive()){
             //약 복용시간 알람 세팅
-            alarmController.setMedicineAlarm(requestTakeTimes)
+            medicineNotificationController
+                .registrantMedicineNotification(sessionManager.getAccessToken()!!)
         }
-        FirebaseMessaging.getInstance().token
-            .addOnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Log.e("FCM TOKEN", "FCM Registration Token get failed", task.exception)
-                    return@addOnCompleteListener
-                } else {
-                    if (!beforeIntent.getBooleanExtra("is_update", true)) {
-                        createDiary(beforeIntent, requestTakeTimes)
-                    } else {
-                        updateDiary(beforeIntent, requestTakeTimes)
-                    }
-                }
-            }
+        if (!beforeIntent.getBooleanExtra("is_update", true)) {
+            createDiary(beforeIntent, requestTakeTimes)
+        } else {
+            updateDiary(beforeIntent, requestTakeTimes)
+        }
     }
 
     private fun convertRequestData(beforeIntent: Intent): ArrayList<TakeTime>{
@@ -114,10 +107,18 @@ class DiarySettingActivity03 : AppCompatActivity() {
                     val intent = Intent(this@DiarySettingActivity03,
                         MainActivity::class.java)
                     startActivity(intent)
-                } else if(response.code() == 419){
+                } else if(response.code() == 401 || response.code() == 419){
                     Toast.makeText(this@DiarySettingActivity03, "세션이 만료되었습니다",
                         Toast.LENGTH_SHORT).show()
-                    sessionManager.unAuthenticate()
+                    if(sessionManager.isAuthenticated()){
+                        sessionManager.unAuthenticate()
+                    }
+                    val intent = Intent(this@DiarySettingActivity03,
+                        LoginActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this@DiarySettingActivity03, "알수없는 이유로 요청이 불가합니다",
+                        Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -147,10 +148,18 @@ class DiarySettingActivity03 : AppCompatActivity() {
                     val intent = Intent(this@DiarySettingActivity03,
                         MainActivity::class.java)
                     startActivity(intent)
-                } else if(response.code() == 419){
+                } else if(response.code() == 401 || response.code() == 419){
                     Toast.makeText(this@DiarySettingActivity03, "세션이 만료되었습니다",
                         Toast.LENGTH_SHORT).show()
-                    sessionManager.unAuthenticate()
+                    if(sessionManager.isAuthenticated()){
+                        sessionManager.unAuthenticate()
+                    }
+                    val intent = Intent(this@DiarySettingActivity03,
+                        LoginActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this@DiarySettingActivity03, "알수없는 이유로 요청이 불가합니다",
+                        Toast.LENGTH_SHORT).show()
                 }
             }
 

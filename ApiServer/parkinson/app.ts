@@ -11,7 +11,7 @@ import healthCheckRouter from "./routes/HealthCheckRouter";
 import diaryRouter from "./routes/DiaryRouter";
 import surveyRouter from "./routes/SurveyRouter";
 import patientsRouter from "./routes/PatientsRouter";
-import redis from "redis";
+import medicineRouter from "./routes/MedicineRouter";
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 // 라우터 세팅
 app.use('/api', healthCheckRouter);
 app.use('/api/diary', diaryRouter);
+app.use('/api/medicine', medicineRouter);
 app.use('/api/survey', surveyRouter);
 app.use('/api/patients', patientsRouter);
 

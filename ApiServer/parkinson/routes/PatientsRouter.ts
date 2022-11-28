@@ -4,6 +4,7 @@ import {NotEnoughInputDataError, InvalidInputTypeError, DatabaseConnectError} fr
 import { InvalidPatientNumberError } from '../error/PatientServiceError';
 
 import {AppConfig} from '../config/AppConfig';
+import {verifyToken} from "./AuthRouter";
 const patientService = AppConfig.patientService;
 
 /**
@@ -11,15 +12,29 @@ const patientService = AppConfig.patientService;
  * 환자가 갤럭시워치에 로그인할 때 요청하는 API
  */
 router.post('/login', async (request: Request, response: Response, next: NextFunction) => {
-    
+
     try {
         const patientNum = await parseRequestBody(request);
-        const loginResponse = await patientService.login(patientNum);
+        const fcmRegistrationToken = request.body.fcm_registration_token;
+        const loginResponse = await patientService.login(patientNum, fcmRegistrationToken);
 
         return response
             .status(200)
             .contentType('application/json')
             .send(loginResponse.serialize());
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.route('/fcm-token/re-issue').post(verifyToken, async (request: Request, response: Response, next: NextFunction) => {
+    try {
+        const patientNum = (<any>request.decodedToken).patientNum;
+        const fcmRegistrationToken = request.body.fcm_registration_token;
+        await patientService
+            .reIssueFcmRegistrationToken(patientNum, fcmRegistrationToken);
+
+        return response.sendStatus(200);
     } catch (error) {
         next(error);
     }

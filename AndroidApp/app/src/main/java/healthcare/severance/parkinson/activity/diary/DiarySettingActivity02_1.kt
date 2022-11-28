@@ -19,18 +19,18 @@ class DiarySettingActivity02_1 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary_setting02_1)
 
-        init()
-
         //로그인한 사용자만 접근 가능
+        sessionManager = SessionManager(applicationContext)
         if(!sessionManager.isAuthenticated()){
             val intent = Intent(this@DiarySettingActivity02_1,
                 LoginActivity::class.java)
             startActivity(intent)
         }
+
+        init()
     }
 
     fun init(){
-        sessionManager = SessionManager(applicationContext)
         medicineCountTextView = findViewById(R.id.dMedicineCountForm)
     }
 
