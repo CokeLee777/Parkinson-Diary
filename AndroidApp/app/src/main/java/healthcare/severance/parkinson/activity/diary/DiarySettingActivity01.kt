@@ -101,13 +101,16 @@ class DiarySettingActivity01 : AppCompatActivity() {
             Toast.makeText(this@DiarySettingActivity01, "기상시간을 선택해주세요",
                 Toast.LENGTH_SHORT).show()
         } else {
-            val beforeIntent = intent
-            val intent = Intent(this, DiarySettingActivity02_1::class.java)
+            val intent = Intent(this@DiarySettingActivity01, DiarySettingActivity02_1::class.java)
             intent.putExtra("sleep_start_time", sleepStartTime)
             intent.putExtra("sleep_end_time", sleepEndTime)
-            intent.putExtra("is_update", beforeIntent.getBooleanExtra("is_update", true))
+            maintainIntentExtra(intent)
 
             startActivity(intent)
         }
+    }
+
+    private fun maintainIntentExtra(nextIntent: Intent){
+        nextIntent.putExtra("is_update", intent.getBooleanExtra("is_update", true))
     }
 }

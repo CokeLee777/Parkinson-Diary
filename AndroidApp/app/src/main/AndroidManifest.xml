@@ -24,10 +24,6 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".activity.diary.DiarySettingActivity02_1"
-            android:exported="true"
-            android:theme="@style/Theme.Design.Light.NoActionBar" />
-        <activity
             android:name=".activity.diary.SettingPageActivity"
             android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
@@ -50,10 +46,13 @@
         <activity
             android:name=".activity.diary.DiarySettingActivity03"
             android:exported="true"
-            android:label="@string/title_activity_diary_setting03"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".activity.diary.DiarySettingActivity02_2"
+            android:exported="true"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".activity.diary.DiarySettingActivity02_1"
             android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity

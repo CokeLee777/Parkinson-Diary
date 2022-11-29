@@ -38,10 +38,10 @@ class DiarySettingActivity03 : AppCompatActivity() {
             startActivity(intent)
         }
 
-        init(intent)
+        init()
     }
 
-    fun init(intent: Intent){
+    fun init(){
 
         medicineNotificationController = MedicineNotificationController(applicationContext)
 
@@ -61,26 +61,26 @@ class DiarySettingActivity03 : AppCompatActivity() {
 
     fun backButtonPressed(view: View){
         val intent = Intent(this, DiarySettingActivity02_2::class.java)
+        maintainIntentExtra(intent)
         startActivity(intent)
     }
 
     fun finishSettingButtonPressed(view: View){
-        val beforeIntent = intent
-        val requestTakeTimes = convertRequestData(beforeIntent)
+        val requestTakeTimes = convertRequestData()
         if(sessionManager.isAlarmActive()){
             //약 복용시간 알람 세팅
             medicineNotificationController
                 .registrantMedicineNotification(sessionManager.getAccessToken()!!)
         }
-        if (!beforeIntent.getBooleanExtra("is_update", true)) {
-            createDiary(beforeIntent, requestTakeTimes)
+        if (!intent.getBooleanExtra("is_update", true)) {
+            createDiary(requestTakeTimes)
         } else {
-            updateDiary(beforeIntent, requestTakeTimes)
+            updateDiary(requestTakeTimes)
         }
     }
 
-    private fun convertRequestData(beforeIntent: Intent): ArrayList<TakeTime>{
-        val userInputTakeTimes = beforeIntent.getIntegerArrayListExtra("take_times")
+    private fun convertRequestData(): ArrayList<TakeTime>{
+        val userInputTakeTimes = intent.getIntegerArrayListExtra("take_times")
         val requestTakeTimes = arrayListOf<TakeTime>()
         for(i in 0 until userInputTakeTimes!!.size){
             requestTakeTimes.add(TakeTime(userInputTakeTimes[i].toString()))
@@ -89,13 +89,13 @@ class DiarySettingActivity03 : AppCompatActivity() {
         return requestTakeTimes
     }
 
-    fun createDiary(beforeIntent: Intent, requestTakeTimes: ArrayList<TakeTime>){
+    fun createDiary(requestTakeTimes: ArrayList<TakeTime>){
         //서버로 요청
         RetrofitClient.diaryService.createDiary(
             sessionManager.getAccessToken()!!,
             DiaryRequest(
-                beforeIntent.getStringExtra("sleep_start_time")!!,
-                beforeIntent.getStringExtra("sleep_end_time")!!,
+                intent.getStringExtra("sleep_start_time")!!,
+                intent.getStringExtra("sleep_end_time")!!,
                 requestTakeTimes
             )
         ).enqueue(object: Callback<Void> {
@@ -130,13 +130,13 @@ class DiarySettingActivity03 : AppCompatActivity() {
         })
     }
 
-    fun updateDiary(beforeIntent: Intent, requestTakeTimes: ArrayList<TakeTime>){
+    fun updateDiary(requestTakeTimes: ArrayList<TakeTime>){
         //서버로 요청
         RetrofitClient.diaryService.updateDiary(
             sessionManager.getAccessToken()!!,
             DiaryRequest(
-                beforeIntent.getStringExtra("sleep_start_time")!!,
-                beforeIntent.getStringExtra("sleep_end_time")!!,
+                intent.getStringExtra("sleep_start_time")!!,
+                intent.getStringExtra("sleep_end_time")!!,
                 requestTakeTimes
             )
         ).enqueue(object: Callback<Void> {
@@ -169,6 +169,13 @@ class DiarySettingActivity03 : AppCompatActivity() {
                     Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun maintainIntentExtra(nextIntent: Intent){
+        nextIntent.putExtra("sleep_start_time", intent.getStringExtra("sleep_start_time"))
+        nextIntent.putExtra("sleep_end_time", intent.getStringExtra("sleep_end_time"))
+        nextIntent.putExtra("medicine_take_count", intent.getIntExtra("medicine_take_count", 1))
+        nextIntent.putExtra("is_update", intent.getBooleanExtra("is_update", true))
     }
 
 }

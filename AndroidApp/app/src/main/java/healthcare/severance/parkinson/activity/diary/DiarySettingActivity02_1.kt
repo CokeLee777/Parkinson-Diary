@@ -2,6 +2,7 @@ package healthcare.severance.parkinson.activity.diary
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -32,11 +33,16 @@ class DiarySettingActivity02_1 : AppCompatActivity() {
 
     fun init(){
         medicineCountTextView = findViewById(R.id.dMedicineCountForm)
+        val medicineCount = intent.getIntExtra("medicine_take_count", -1)
+        if(medicineCount != -1){
+            medicineCountTextView.setText(medicineCount.toString())
+        }
     }
 
 
     fun backButtonPressed(view: View){
         val intent = Intent(this, DiarySettingActivity01::class.java)
+        maintainIntentExtra(intent)
         startActivity(intent)
     }
 
@@ -45,15 +51,21 @@ class DiarySettingActivity02_1 : AppCompatActivity() {
         if(medicineCount.isBlank() || medicineCount.isEmpty()){
             Toast.makeText(this@DiarySettingActivity02_1, "복용횟수를 입력해주세요",
                 Toast.LENGTH_SHORT).show()
+        } else if(medicineCount.toString().toInt() <= 0) {
+            Toast.makeText(this@DiarySettingActivity02_1, "복용횟수는 1회 이상이어야 합니다",
+                Toast.LENGTH_SHORT).show()
         } else {
-            val beforeIntent = intent
-            val intent = Intent(this, DiarySettingActivity02_2::class.java)
+            val intent = Intent(this@DiarySettingActivity02_1, DiarySettingActivity02_2::class.java)
             intent.putExtra("medicine_take_count", medicineCount.toString().toInt())
-            intent.putExtra("sleep_start_time", beforeIntent.getStringExtra("sleep_start_time"))
-            intent.putExtra("sleep_end_time", beforeIntent.getStringExtra("sleep_end_time"))
-            intent.putExtra("is_update", beforeIntent.getBooleanExtra("is_update", true))
-
+            //이전에 입력한 값을 유지
+            maintainIntentExtra(intent)
             startActivity(intent)
         }
+    }
+
+    private fun maintainIntentExtra(nextIntent: Intent){
+        nextIntent.putExtra("sleep_start_time", intent.getStringExtra("sleep_start_time"))
+        nextIntent.putExtra("sleep_end_time", intent.getStringExtra("sleep_end_time"))
+        nextIntent.putExtra("is_update", intent.getBooleanExtra("is_update", true))
     }
 }

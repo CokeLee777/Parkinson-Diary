@@ -73,15 +73,12 @@ class MessagingService: FirebaseMessagingService() {
         val requestId: Int = Random.nextInt(10000000)
         val pendingIntent: PendingIntent =
         Intent(this, AlarmReceiver::class.java).let { intent ->
-            intent.action = Intent.ACTION_MAIN
-            intent.addCategory(Intent.CATEGORY_LAUNCHER)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             //보류중인 intent 지정, 특정 이벤트(지정된 알림 시간) 발생 시 실행
             PendingIntent.getBroadcast(
                 this,
                 requestId,
                 intent,
-                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+                PendingIntent.FLAG_ONE_SHOT)
         }
 
         medicineNotificationController.startNotify(title!!, requestId, pendingIntent)
@@ -96,7 +93,7 @@ class MessagingService: FirebaseMessagingService() {
                     this,
                     requestId,
                     intent,
-                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_CANCEL_CURRENT)
+                    PendingIntent.FLAG_ONE_SHOT)
             }
 
         surveyNotificationController.startNotify(title!!, requestId, pendingIntent)

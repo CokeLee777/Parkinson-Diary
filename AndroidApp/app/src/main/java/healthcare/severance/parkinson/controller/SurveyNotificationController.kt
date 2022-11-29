@@ -24,7 +24,7 @@ class SurveyNotificationController(private val context: Context?) {
     private val notificationManager: NotificationManager
         = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-    public fun startNotify(title: String, requestId: Int, pendingIntent: PendingIntent) {
+    fun startNotify(title: String, requestId: Int, pendingIntent: PendingIntent) {
         // 알림 채널 생성
         val notificationChannelId = createNotificationChannel()
         //알림 객체 생성
