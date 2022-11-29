@@ -48,10 +48,10 @@ export class MedicineService {
                 await fcmAdmin.messaging()
                     .send(message)
                     .then((response) => {
-                        console.debug(`${new Date()}: 설문조사 알림 전송 완료`);
+                        console.debug(`${new Date()}: 약 복용시간 알람 전송 완료`);
                     })
                     .catch((error) => {
-                        console.error(`${new Date()}: 설문조사 알림 전송 실패`);
+                        console.error(`${new Date()}: 약 복용시간 알람 전송 실패`);
                     });
             });
         }
@@ -68,7 +68,7 @@ export class MedicineService {
             const scheduleName = `medicine_${patientNum}_${medicines[i].take_time}`;
             const scheduledSurveyJob: Job = schedule.scheduledJobs[scheduleName];
             if(schedule.cancelJob(scheduledSurveyJob)){
-                console.debug(`${new Date()}: 설문조사 알림 취소`);
+                console.debug(`${new Date()}: 약 복용시간 알람 취소`);
             }
         }
     }
