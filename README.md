@@ -49,11 +49,11 @@
 | 분류 | 개발환경 | 
 |---|---|
 | 운영체제 | Windows 10 64bit / Mac OS |
-| 개발도구 | Intellij IDEA, Android Studio, Gradle, Figma |
+| 개발도구 | Intellij IDEA, WebStorm, VSCode, Android Studio, Gradle, Figma |
 | 프레임워크 | Spring Boot 2.7.1, Express.js 4.16.4 |
-| 데이터베이스 | MySQL (Release 8.0.29) |
+| 데이터베이스 | MySQL (Release 8.0.29), Redis (Release 7.0.5) |
 | 버전 관리 | Github, Git |
-| 배포 및 운영 | AWS EC2, AWS RDS, Docker |
+| 배포 및 운영 | AWS RDS, AWS ECS, Docker |
 | 오픈소스 및 외부 라이브러리 | Google Wear OS API |
 
 
@@ -71,18 +71,25 @@
 
 #### API 서버
 
-- **JavaScript**
+- **TypeScript**
 - **Node.js**
   - Express.js
 
 ### 데이터베이스(Database)
 
 - **MySQL (Release 8.0.29)**
+- **Redis (Release 7.0.5)**
 
 ### 프론트엔드(Front-end)
 
+#### 관리자 웹 사이트
+
 - **Thymeleaf**
 - **Bootstrap**
+
+#### 파킨슨 다이어리
+
+- **Kotlin & Android**
 
 ### ETC
 
