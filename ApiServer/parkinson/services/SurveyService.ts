@@ -47,29 +47,41 @@ export class SurveyService {
       token: fcmRegistrationToken
     }
     // 스케줄링 규칙 설정 - 9~21시까지 1시간마다 반복
-    const scheduleName = `survey_${patientNum}`;
+    const startHour = Number(patient[0].sleep_end_time.substring(0, 2));
+    const endHour = Number(patient[0].sleep_start_time.substring(0, 2));
+    for(let hour = startHour + 1; hour < endHour; hour++){
+      const scheduleName = `survey_${patientNum}_${hour}`;
+      const rule = new schedule.RecurrenceRule();
+      rule.dayOfWeek = [0, new schedule.Range(0, 6)];
+      rule.tz = 'Asia/Seoul';
+      rule.hour = hour;
+      rule.minute = 0;
+      schedule.scheduleJob(scheduleName, rule, async () => {
+        await fcmAdmin.messaging()
+            .send(message)
+            .then((response) => {
+              console.debug(`${getLocalTime()}: 설문조사 알림 전송 완료`);
+            })
+            .catch((error) => {
+              console.error(`${getLocalTime()}: 설문조사 알림 전송 실패`);
+            });
+      });
+    }
 
-    const startHour = Number(patient[0].sleep_end_time.substring(0, 2)) + 1;
-    const endHour = Number(patient[0].sleep_start_time.substring(0, 2)) - 1;
-    let rule = `*/59 ${startHour}-${endHour} * * *`;
-    schedule.scheduleJob(scheduleName, rule, async () => {
-      await fcmAdmin.messaging()
-          .send(message)
-          .then((response) => {
-            console.debug(`${getLocalTime()}: 설문조사 알림 전송 완료`);
-          })
-          .catch((error) => {
-            console.error(`${getLocalTime()}: 설문조사 알림 전송 실패`);
-          });
-    });
   }
 
   public async stopNotifySurvey(patientNum: number) {
-    // 설문조사 스케줄러 취소
-    const scheduleName = `survey_${patientNum}`;
-    const scheduledSurveyJob: Job = schedule.scheduledJobs[scheduleName];
-    if(schedule.cancelJob(scheduledSurveyJob)){
-      console.debug(`${getLocalTime()}: 설문조사 알림 취소`);
+    console.debug(`${getLocalTime()}: 설문조사 알림 취소`);
+    const patient = await this.patientModel.findByPatientNum(patientNum);
+
+    const startHour = Number(patient[0].sleep_end_time.substring(0, 2));
+    const endHour = Number(patient[0].sleep_start_time.substring(0, 2));
+    for(let hour = startHour + 1; hour < endHour; hour++){
+      // 설문조사 스케줄러 취소
+      const scheduleName = `survey_${patientNum}_${hour}`;
+      const scheduledSurveyJob: Job = schedule.scheduledJobs[scheduleName];
+      schedule.cancelJob(scheduledSurveyJob);
     }
+
   }
 }
