@@ -4,7 +4,7 @@ import healthcare.severance.parkinson.domain.Survey;
 import lombok.Data;
 
 @Data
-public class PatientGraphForm {
+public class PatientSurveyTableForm {
     private final String surveyTime;
 
     private final String medicinalEffect;
@@ -13,7 +13,8 @@ public class PatientGraphForm {
 
     private final String patientCondition;
 
-    public PatientGraphForm(Survey survey) {
+    public PatientSurveyTableForm(Survey survey) {
+        // 설문 폼 생성
         this.surveyTime = survey.getSurveyTime().getYear() + "년 "
                 + survey.getSurveyTime().getMonthValue() + "월 "
                 + survey.getSurveyTime().getDayOfMonth()  + "일 "

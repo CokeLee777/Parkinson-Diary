@@ -1,12 +1,9 @@
 package healthcare.severance.parkinson.service;
 
-import healthcare.severance.parkinson.domain.Patient;
-import healthcare.severance.parkinson.domain.RoleType;
-import healthcare.severance.parkinson.domain.Survey;
-import healthcare.severance.parkinson.domain.User;
-import healthcare.severance.parkinson.dto.patient.PatientSurveyTableForm;
+import healthcare.severance.parkinson.domain.*;
+import healthcare.severance.parkinson.dto.patient.PatientMedicineTableForm;
+import healthcare.severance.parkinson.repository.MedicineRepository;
 import healthcare.severance.parkinson.repository.PatientRepository;
-import healthcare.severance.parkinson.repository.SurveyRepository;
 import healthcare.severance.parkinson.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,12 +19,11 @@ import java.util.List;
 @SpringBootTest
 @ActiveProfiles(value = "test")
 @Transactional
-class SurveyServiceTest {
-
+class MedicineServiceTest {
     @Autowired
-    SurveyService surveyService;
+    MedicineService medicineService;
     @Autowired
-    SurveyRepository surveyRepository;
+    MedicineRepository medicineRepository;
     @Autowired
     PatientRepository patientRepository;
     @Autowired
@@ -41,6 +37,7 @@ class SurveyServiceTest {
     String testUserName = "테스트";
     String testUserEmail = "testtest@gmail.com";
     LocalDate testDate = LocalDate.of(1950, 11, 15);
+    final Patient testPatient = patientRepository.findById(testPatientNum).get();
 
     @BeforeEach
     void beforeEach() {
@@ -64,28 +61,23 @@ class SurveyServiceTest {
     @Test
     void getSurveyList() {
         //given
-        Survey givenSurvey = Survey.builder()
+        Medicine givenMedicine = Medicine.builder()
                 .id(1L)
-                .patient(patientRepository.findById(testPatientNum).get())
-                .patientCondition(2.0)
-                .medicinalEffect(true)
-                .abnormalMovement(true)
-                .surveyTime(testDate.atTime(11,0))
+                .isTake(true)
+                .takeTime(testDate.atTime(11, 0))
+                .patient(testPatient)
                 .build();
-
-        Survey givenSurvey2 = Survey.builder()
+        Medicine givenMedicine2 = Medicine.builder()
                 .id(2L)
-                .patient(patientRepository.findById(testPatientNum).get())
-                .patientCondition(2.0)
-                .medicinalEffect(true)
-                .abnormalMovement(true)
-                .surveyTime(testDate.atTime(12,0))
+                .isTake(false)
+                .takeTime(testDate.atTime(12, 0))
+                .patient(testPatient)
                 .build();
 
-        surveyRepository.save(givenSurvey);
-        surveyRepository.save(givenSurvey2);
+        medicineRepository.save(givenMedicine);
+        medicineRepository.save(givenMedicine2);
         //when
-        List<PatientSurveyTableForm> survey = surveyService.getSurveyTable(testPatientNum, testDate);
+        List<PatientMedicineTableForm> survey = medicineService.getMedicineTable(testPatientNum, testDate);
         //then
         Assertions.assertThat(survey.size()).isEqualTo(2);
     }
@@ -93,20 +85,18 @@ class SurveyServiceTest {
     @Test
     void getSurvey() {
         //given
-        Survey givenSurvey = Survey.builder()
+        Medicine givenMedicine = Medicine.builder()
                 .id(1L)
-                .patient(patientRepository.findById(testPatientNum).get())
-                .patientCondition(2.0)
-                .medicinalEffect(true)
-                .abnormalMovement(true)
-                .surveyTime(testDate.atTime(11,0))
+                .isTake(true)
+                .takeTime(testDate.atTime(11, 0))
+                .patient(testPatient)
                 .build();
 
-        surveyRepository.save(givenSurvey);
+        medicineRepository.save(givenMedicine);
         //when
-        List<PatientSurveyTableForm> survey = surveyService.getSurveyTable(testPatientNum, testDate);
+        List<PatientMedicineTableForm> survey = medicineService.getMedicineTable(testPatientNum, testDate);
         //then
         Assertions.assertThat(survey.size()).isEqualTo(1);
-        Assertions.assertThat(survey.get(0).getAbnormalMovement()).isEqualTo("있음");
+        Assertions.assertThat(survey.get(0).getIsTake()).isEqualTo("O");
     }
 }

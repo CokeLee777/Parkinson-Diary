@@ -37,6 +37,7 @@
                             <div class="inner">
                                 <section>
                                     <div class="table-wrapper">
+                                        <h2>설문 조사 정보</h2>
                                         <div th:if="${noSurveyError}">
                                             <p th:text="${noSurveyError}" class="field-error" />
                                         </div>
@@ -50,10 +51,30 @@
                                             </tr>
                                             </thead>
                                             <tr th:each="survey : ${surveys}">
-                                                <td th:text="${survey.surveyTime}">환자명</td>
-                                                <td th:text="${survey.medicinalEffect}">담당 의사명</td>
-                                                <td th:text="${survey.abnormalMovement}">10</td>
-                                                <td th:text="${survey.patientCondition}">10</td>
+                                                <td th:text="${survey.surveyTime}"></td>
+                                                <td th:text="${survey.medicinalEffect}"></td>
+                                                <td th:text="${survey.abnormalMovement}"></td>
+                                                <td th:text="${survey.patientCondition}"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </section>
+                                <section>
+                                    <div class="table-wrapper">
+                                        <h2>약 복용 정보</h2>
+                                        <div th:if="${noMedicineError}">
+                                            <p th:text="${noMedicineError}" class="field-error" />
+                                        </div>
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <th>복용 시간</th>
+                                                <th>복용 유무</th>
+                                            </tr>
+                                            </thead>
+                                            <tr th:each="medicine : ${medicines}">
+                                                <td th:text="${medicine.medicineTakeTime}"></td>
+                                                <td th:text="${medicine.isTake}"></td>
                                             </tr>
                                         </table>
                                     </div>
