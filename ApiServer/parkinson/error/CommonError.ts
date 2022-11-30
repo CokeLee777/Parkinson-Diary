@@ -1,4 +1,4 @@
-import { JsonWebTokenError } from "jsonwebtoken";
+import {JsonWebTokenError} from "jsonwebtoken";
 
 export class InternalServerError extends Error {
 

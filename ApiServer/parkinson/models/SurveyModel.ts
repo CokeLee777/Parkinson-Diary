@@ -1,4 +1,5 @@
 import {knex} from '../config/DBConfig';
+import {getLocalTime} from "../config/TimeConfig";
 
 export class SurveyModel {
 
@@ -23,7 +24,7 @@ export class SurveyModel {
         abnormal_movement: hasAbnormalMovement,
         medicinal_effect: hasMedicinalEffect,
         patient_condition: patientCondition,
-        survey_time: new Date(),
+        survey_time: getLocalTime(),
         patient_num: patientNum
       })
       .into('survey')

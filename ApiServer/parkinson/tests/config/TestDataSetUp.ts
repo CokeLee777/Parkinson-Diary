@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import {knex} from '../../config/DBConfig';
+import {knex, redisClient} from '../../config/DBConfig';
 import {TestDataConfig} from './TestDataConfig';
 
 export const TestDataSetUp = {
@@ -18,7 +18,13 @@ export const TestDataSetUp = {
       .into('medicine')
       .catch((error) => {
         console.error(error);
-      })
+      });
+    if(!redisClient.isOpen){
+        redisClient.connect()
+            .then(() => {
+                console.log(`CONNECTED TO REDIS`);
+            });
+    }
   }),
 
   afterEach: afterEach(async () => {
@@ -42,6 +48,11 @@ export const TestDataSetUp = {
       .catch((error) => {
         console.error(error);
       });
+
+    redisClient.disconnect()
+        .then(() => {
+            console.log('DISCONNECTED TO REDIS');
+        })
   }),
 
   issueJwtToken: async function(patientNum: number){

@@ -1,9 +1,6 @@
 import express, {Express, NextFunction, Request, Response} from 'express';
 import logger from 'morgan';
-import {knex} from './config/DBConfig';
-
-const app: Express = express();
-
+import {knex, redisClient} from './config/DBConfig';
 import {DatabaseConnectError, InvalidInputTypeError, NotEnoughInputDataError} from "./error/CommonError";
 import {InvalidPatientNumberError} from "./error/PatientServiceError";
 
@@ -11,6 +8,9 @@ import healthCheckRouter from "./routes/HealthCheckRouter";
 import diaryRouter from "./routes/DiaryRouter";
 import surveyRouter from "./routes/SurveyRouter";
 import patientsRouter from "./routes/PatientsRouter";
+import medicineRouter from "./routes/MedicineRouter";
+
+const app: Express = express();
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 // 라우터 세팅
 app.use('/api', healthCheckRouter);
 app.use('/api/diary', diaryRouter);
+app.use('/api/medicine', medicineRouter);
 app.use('/api/survey', surveyRouter);
 app.use('/api/patients', patientsRouter);
 
@@ -45,15 +46,25 @@ app.use((request: Request, response: Response) => {
 });
 
 knex.raw('SELECT 1')
-  .then(() => {
-    if(process.env.NODE_ENV !== 'test'){
-      app.listen(process.env.SERVER_PORT);
-    }
-    console.log('CONNECTED TO MYSQL');
-    console.log(`CONNECT TO node.js SERVER PORT=${process.env.SERVER_PORT}`);
-  })
-  .catch((error: Error) => {
-    console.error(`CONNECTED FAILED TO MYSQL=${error}`);
-  })
+    .then(() => {
+        console.log('CONNECTED TO MYSQL');
+    })
+    .then(() => {
+        redisClient.connect()
+            .then(() => {
+                console.log(`CONNECTED TO REDIS`);
+            });
+    })
+    .then(() => {
+        if(process.env.NODE_ENV !== 'test') {
+            app.listen(process.env.SERVER_PORT);
+            console.log(`CONNECT TO node.js SERVER PORT=${process.env.SERVER_PORT}`);
+        }
+    })
+    .catch((error: Error) => {
+        console.error(`CONNECTED FAILED TO MYSQL=${error}`);
+    });
+
+
 
 export default app;

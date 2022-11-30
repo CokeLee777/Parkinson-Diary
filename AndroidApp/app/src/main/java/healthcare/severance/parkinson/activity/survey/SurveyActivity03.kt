@@ -67,13 +67,19 @@ class SurveyActivity03 : AppCompatActivity() {
                 response: Response<Void>
             ) {
                 if(response.isSuccessful) {
-                    val intent = Intent(this@SurveyActivity03,
-                        MainActivity::class.java)
-                    startActivity(intent)
-                } else if(response.code() == 419){
-                    Toast.makeText(this@SurveyActivity03, "세션이 만료되었습니다",
+                    finishAffinity()
+                } else if(response.code() == 401 || response.code() == 419){
+                    Toast.makeText(this@SurveyActivity03, "로그인이 필요합니다.",
                         Toast.LENGTH_SHORT).show()
-                    sessionManager.unAuthenticate()
+                    if(sessionManager.isAuthenticated()){
+                        sessionManager.unAuthenticate()
+                    }
+                    val intent = Intent(this@SurveyActivity03,
+                        LoginActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this@SurveyActivity03, "알수없는 이유로 요청이 불가합니다",
+                        Toast.LENGTH_SHORT).show()
                 }
             }
 

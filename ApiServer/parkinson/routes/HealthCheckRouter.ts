@@ -1,4 +1,5 @@
-import express, {Express, NextFunction, Request, Response} from 'express';
+import express, {NextFunction, Request, Response} from 'express';
+
 const router = express.Router();
 
 router.get("/health-check", (request: Request, response: Response, next: NextFunction) => {

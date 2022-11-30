@@ -1,12 +1,13 @@
-import express, {Express, NextFunction, Request, Response} from 'express';
-const router = express.Router();
-import { DiaryCreateRequest } from '../dto/DiaryRequestDto';
-import {NotEnoughInputDataError, DatabaseConnectError, InvalidInputTypeError} from '../error/CommonError';
-import {InvalidPatientNumberError} from "../error/PatientServiceError";
-import { verifyToken } from './AuthRouter';
+import express, {NextFunction, Request, Response} from 'express';
+import {DiaryCreateRequest} from '../dto/DiaryRequestDto';
+import {NotEnoughInputDataError} from '../error/CommonError';
+import {verifyToken} from './AuthRouter';
 
 import {AppConfig} from '../config/AppConfig';
+
+const router = express.Router();
 const diaryService = AppConfig.diaryService;
+const medicineService = AppConfig.medicineService;
 
 /**
  * ENDPOINT: /api/diary
@@ -34,6 +35,8 @@ router.route('/').get(verifyToken, async (request: Request, response: Response, 
   try {
     const diaryCreateRequest = await parseRequestBody(request);
     await diaryService.createDiary(patientNum, diaryCreateRequest);
+    //알람 스케줄러 등록
+    await medicineService.notifyMedicineTakeTime(patientNum);
 
     return response.sendStatus(200);
   } catch (error) {
@@ -44,8 +47,13 @@ router.route('/').get(verifyToken, async (request: Request, response: Response, 
 
   const patientNum = (<any>request.decodedToken).patientNum;
   try {
-    const diaryCreateRequest = await parseRequestBody(request);
+    //기존 알람 스케줄러 삭제
+    await medicineService.stopNotifyMedicineTakeTime(patientNum);
+    // 다이어리 정보 업데이트
+    const diaryCreateRequest: DiaryCreateRequest = await parseRequestBody(request);
     await diaryService.updateDiary(patientNum, diaryCreateRequest);
+    //알람 스케줄러 업데이트
+    await medicineService.notifyMedicineTakeTime(patientNum);
 
     return response.sendStatus(200);
   } catch (error) {

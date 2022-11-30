@@ -30,26 +30,25 @@ class DiarySettingActivity01 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary_setting01)
 
-        init()
         //로그인한 사용자만 접근 가능
+        sessionManager = SessionManager(applicationContext)
         if(!sessionManager.isAuthenticated()){
             val intent = Intent(this@DiarySettingActivity01,
                 LoginActivity::class.java)
             startActivity(intent)
         }
 
+        init()
     }
 
     fun init(){
-        sessionManager = SessionManager(applicationContext)
+
         //버튼 초기화
         sleepStartSelectButton = findViewById(R.id.dSleepStartSelectButton)
         sleepEndSelectButton = findViewById(R.id.dSleepEndSelectButton)
         //취침시간, 기상시간 기본값 설정
         sleepStartSelectButton.text = DEFAULT_SLEEP_START_TIME
-        sleepStartSelectButton.textSize = 15f
         sleepEndSelectButton.text = DEFAULT_SLEEP_END_TIME
-        sleepEndSelectButton.textSize = 15f
     }
 
     fun sleepStartSelectButtonPressed(view: View){
@@ -102,13 +101,16 @@ class DiarySettingActivity01 : AppCompatActivity() {
             Toast.makeText(this@DiarySettingActivity01, "기상시간을 선택해주세요",
                 Toast.LENGTH_SHORT).show()
         } else {
-            val beforeIntent = intent
-            val intent = Intent(this, DiarySettingActivity02_1::class.java)
+            val intent = Intent(this@DiarySettingActivity01, DiarySettingActivity02_1::class.java)
             intent.putExtra("sleep_start_time", sleepStartTime)
             intent.putExtra("sleep_end_time", sleepEndTime)
-            intent.putExtra("is_update", beforeIntent.getBooleanExtra("is_update", true))
+            maintainIntentExtra(intent)
 
             startActivity(intent)
         }
+    }
+
+    private fun maintainIntentExtra(nextIntent: Intent){
+        nextIntent.putExtra("is_update", intent.getBooleanExtra("is_update", true))
     }
 }

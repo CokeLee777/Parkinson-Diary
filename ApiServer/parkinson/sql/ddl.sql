@@ -17,6 +17,7 @@ CREATE TABLE patients (
   patient_name VARCHAR(255) NOT NULL,
   sleep_start_time TIME DEFAULT NULL,
   sleep_end_time TIME DEFAULT NULL,
+  fcm_registration_token VARCHAR DEFAULT NULL,
   FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 

@@ -1,5 +1,6 @@
 package healthcare.severance.parkinson.adapter
 
+import android.app.AlertDialog
 import android.app.TimePickerDialog
 import android.graphics.Color
 import android.util.TypedValue
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TimePicker
 import androidx.recyclerview.widget.RecyclerView
 import healthcare.severance.parkinson.R
 import java.text.SimpleDateFormat
