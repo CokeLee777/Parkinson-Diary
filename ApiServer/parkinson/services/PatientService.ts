@@ -4,8 +4,6 @@ import {PatientModel} from "../models/PatientModel";
 import {LoginResponse} from '../dto/LoginResponseDto';
 import {InvalidPatientNumberError} from "../error/PatientServiceError";
 import {TokenExpiredError} from "../error/CommonError";
-import schedule from "node-schedule";
-import {fcmAdmin} from "../config/FcmConfig";
 
 export class PatientService {
 

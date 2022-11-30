@@ -1,10 +1,10 @@
-import express, {Express, NextFunction, Request, Response} from 'express';
-const router = express.Router();
-import {NotEnoughInputDataError, InvalidInputTypeError, DatabaseConnectError} from '../error/CommonError';
-import { InvalidPatientNumberError } from '../error/PatientServiceError';
+import express, {NextFunction, Request, Response} from 'express';
+import {InvalidInputTypeError, NotEnoughInputDataError} from '../error/CommonError';
 
 import {AppConfig} from '../config/AppConfig';
 import {verifyToken} from "./AuthRouter";
+
+const router = express.Router();
 const patientService = AppConfig.patientService;
 
 /**

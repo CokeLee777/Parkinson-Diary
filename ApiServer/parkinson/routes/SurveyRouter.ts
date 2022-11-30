@@ -1,10 +1,11 @@
 import express, {NextFunction, Request, Response} from 'express';
-const router = express.Router();
-import { SurveyCreateRequest } from '../dto/SurveyRequestDto';
-import {NotEnoughInputDataError, InvalidInputTypeError} from '../error/CommonError';
-import { verifyToken } from './AuthRouter';
+import {SurveyCreateRequest} from '../dto/SurveyRequestDto';
+import {InvalidInputTypeError, NotEnoughInputDataError} from '../error/CommonError';
+import {verifyToken} from './AuthRouter';
 
 import {AppConfig} from '../config/AppConfig';
+
+const router = express.Router();
 const surveyService = AppConfig.surveyService;
 
 router.route('/').post(verifyToken, async (request: Request, response: Response, next: NextFunction) => {

@@ -2,6 +2,7 @@ import {PatientModel} from "../models/PatientModel";
 import {MedicineModel} from "../models/MedicineModel";
 import schedule, {Job} from "node-schedule";
 import {fcmAdmin} from "../config/FcmConfig";
+import {getLocalTime} from "../config/TimeConfig";
 
 export class MedicineService {
 
@@ -48,10 +49,10 @@ export class MedicineService {
                 await fcmAdmin.messaging()
                     .send(message)
                     .then((response) => {
-                        console.debug(`${new Date()}: 약 복용시간 알람 전송 완료`);
+                        console.debug(`${getLocalTime()}: 약 복용시간 알람 전송 완료`);
                     })
                     .catch((error) => {
-                        console.error(`${new Date()}: 약 복용시간 알람 전송 실패`);
+                        console.error(`${getLocalTime()}: 약 복용시간 알람 전송 실패`);
                     });
             });
         }
@@ -68,7 +69,7 @@ export class MedicineService {
             const scheduleName = `medicine_${patientNum}_${medicines[i].take_time}`;
             const scheduledSurveyJob: Job = schedule.scheduledJobs[scheduleName];
             if(schedule.cancelJob(scheduledSurveyJob)){
-                console.debug(`${new Date()}: 약 복용시간 알람 취소`);
+                console.debug(`${getLocalTime()}: 약 복용시간 알람 취소`);
             }
         }
     }

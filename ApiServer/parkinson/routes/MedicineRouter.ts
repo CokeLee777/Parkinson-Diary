@@ -1,8 +1,9 @@
 import express, {NextFunction, Request, Response} from 'express';
-const router = express.Router();
-import { verifyToken } from './AuthRouter';
+import {verifyToken} from './AuthRouter';
 
 import {AppConfig} from '../config/AppConfig';
+
+const router = express.Router();
 const medicineService = AppConfig.medicineService;
 
 

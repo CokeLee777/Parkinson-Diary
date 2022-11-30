@@ -1,10 +1,11 @@
 import express, {NextFunction, Request, Response} from 'express';
-const router = express.Router();
-import { DiaryCreateRequest } from '../dto/DiaryRequestDto';
+import {DiaryCreateRequest} from '../dto/DiaryRequestDto';
 import {NotEnoughInputDataError} from '../error/CommonError';
-import { verifyToken } from './AuthRouter';
+import {verifyToken} from './AuthRouter';
 
 import {AppConfig} from '../config/AppConfig';
+
+const router = express.Router();
 const diaryService = AppConfig.diaryService;
 const medicineService = AppConfig.medicineService;
 

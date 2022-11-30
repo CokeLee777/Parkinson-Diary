@@ -3,7 +3,7 @@ import {MedicineModel} from "../models/MedicineModel";
 import {DiaryCreateRequest} from "../dto/DiaryRequestDto";
 
 import {DiaryInfoResponse} from '../dto/DiaryResponseDto';
-import { InvalidPatientNumberError } from '../error/PatientServiceError';
+import {InvalidPatientNumberError} from '../error/PatientServiceError';
 
 export class DiaryService {
 

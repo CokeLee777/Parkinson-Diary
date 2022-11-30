@@ -1,8 +1,8 @@
 export class SurveyCreateRequest {
 
-  private _hasAbnormalMovement: boolean;
-  private _hasMedicinalEffect: boolean;
-  private _patientCondition: number;
+  private readonly _hasAbnormalMovement: boolean;
+  private readonly _hasMedicinalEffect: boolean;
+  private readonly _patientCondition: number;
 
   public constructor(hasAbnormalMovement: boolean, hasMedicinalEffect: boolean, patientCondition: number){
     this._hasAbnormalMovement = hasAbnormalMovement;

@@ -3,6 +3,7 @@ import {SurveyCreateRequest} from "../dto/SurveyRequestDto";
 import schedule, {Job} from "node-schedule";
 import {fcmAdmin} from "../config/FcmConfig";
 import {PatientModel} from "../models/PatientModel";
+import {getLocalTime} from "../config/TimeConfig";
 
 export class SurveyService {
 
@@ -55,10 +56,10 @@ export class SurveyService {
       await fcmAdmin.messaging()
           .send(message)
           .then((response) => {
-            console.debug(`${new Date()}: 설문조사 알림 전송 완료`);
+            console.debug(`${getLocalTime()}: 설문조사 알림 전송 완료`);
           })
           .catch((error) => {
-            console.error(`${new Date()}: 설문조사 알림 전송 실패`);
+            console.error(`${getLocalTime()}: 설문조사 알림 전송 실패`);
           });
     });
   }
@@ -68,7 +69,7 @@ export class SurveyService {
     const scheduleName = `survey_${patientNum}`;
     const scheduledSurveyJob: Job = schedule.scheduledJobs[scheduleName];
     if(schedule.cancelJob(scheduledSurveyJob)){
-      console.debug(`${new Date()}: 설문조사 알림 취소`);
+      console.debug(`${getLocalTime()}: 설문조사 알림 취소`);
     }
   }
 }

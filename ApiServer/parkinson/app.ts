@@ -1,9 +1,6 @@
 import express, {Express, NextFunction, Request, Response} from 'express';
 import logger from 'morgan';
 import {knex, redisClient} from './config/DBConfig';
-
-const app: Express = express();
-
 import {DatabaseConnectError, InvalidInputTypeError, NotEnoughInputDataError} from "./error/CommonError";
 import {InvalidPatientNumberError} from "./error/PatientServiceError";
 
@@ -12,6 +9,8 @@ import diaryRouter from "./routes/DiaryRouter";
 import surveyRouter from "./routes/SurveyRouter";
 import patientsRouter from "./routes/PatientsRouter";
 import medicineRouter from "./routes/MedicineRouter";
+
+const app: Express = express();
 
 app.use(logger('dev'));
 app.use(express.json());

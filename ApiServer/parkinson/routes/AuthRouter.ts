@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
-import { TokenExpiredError, InvalidTokenError, BindingTokenError } from '../error/CommonError';
+import {BindingTokenError, InvalidTokenError, TokenExpiredError} from '../error/CommonError';
 import {NextFunction, Request, Response} from "express";
 import {AppConfig} from '../config/AppConfig';
+
 const patientService = AppConfig.patientService;
 
 export const verifyToken = async (request: Request, response: Response, next: NextFunction) => {
