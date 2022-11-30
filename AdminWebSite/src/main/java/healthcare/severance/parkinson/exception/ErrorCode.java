@@ -22,6 +22,7 @@ public enum ErrorCode {
 
     /* 404 NOT_FOUND : Resource 를 찾을 수 없음 */
     PATIENT_NUM_NOT_FOUND(NOT_FOUND, "환자 번호를 찾을 수 없습니다."),
+    SURVEY_NOT_FOUND(NOT_FOUND, "설문 정보를 불러올 수 없습니다."),
 
     /* 409 CONFLICT : Resource 의 현재 상태와 충돌. 보통 중복된 데이터 존재 */
     DUPLICATE_RESOURCE(CONFLICT, "데이터가 이미 존재합니다"),

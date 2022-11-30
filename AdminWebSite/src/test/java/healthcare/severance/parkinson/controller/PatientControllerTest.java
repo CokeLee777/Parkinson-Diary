@@ -49,7 +49,7 @@ class PatientControllerTest {
     @WithMockUser
     void patientList() throws Exception {
         mvc.perform(get("/patient/patientList"))
-                .andExpect(view().name("/patient/patientList"));
+                .andExpect(view().name("patient/patientList"));
     }
 
     @Test
@@ -62,7 +62,7 @@ class PatientControllerTest {
         //then
         mvc.perform(get("/patient/patientList")
                         .param("keyword", testPatientName))
-                .andExpect(view().name("/patient/patientList"))
+                .andExpect(view().name("patient/patientList"))
                 .andExpect(model().attributeExists("keyword"));
 
     }
@@ -71,7 +71,7 @@ class PatientControllerTest {
     @WithMockUser
     void addPatientForm() throws Exception {
         mvc.perform(get("/patient/add"))
-                .andExpect(view().name("/patient/patientForm"));
+                .andExpect(view().name("patient/patientForm"));
     }
 
     @Test
@@ -83,7 +83,7 @@ class PatientControllerTest {
         //when
         //then
         mvc.perform(get("/patient/1111/edit"))
-                .andExpect(view().name("/patient/patientEditForm"))
+                .andExpect(view().name("patient/patientEditForm"))
                 .andExpect(model().attributeExists("users"))
                 .andExpect(model().attributeExists("patient"))
                 .andExpect(status().isOk());
@@ -115,7 +115,7 @@ class PatientControllerTest {
         //when
         //then
         mvc.perform(get("/patient/1111"))
-                .andExpect(view().name("/patient/patientDetail"))
+                .andExpect(view().name("patient/patientDetail"))
                 .andExpect(model().attribute("patient",patientService.findPatientByPatientNum(testPatientNum)))
                 .andExpect(status().isOk());
     }

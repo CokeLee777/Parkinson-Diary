@@ -1,4 +1,4 @@
-import {knex} from '../config/DBConfig';
+import {knex, redisClient} from '../config/DBConfig';
 
 export class PatientModel {
 
@@ -36,5 +36,35 @@ export class PatientModel {
       .catch((error: Error) => {
         throw error;
       });
+  }
+
+  public async saveFcmRegistrationToken(patientNum: number, fcmRegistrationToken: string) {
+      await knex('patients AS p')
+          .update({
+              fcm_registration_token: fcmRegistrationToken
+          })
+          .where('p.patient_num', patientNum)
+          .catch((error: Error) => {
+              throw error;
+          });
+  }
+
+  public async saveAccessToken(patientNum: number, accessToken: string) {
+    await redisClient
+        .set(String(patientNum), accessToken)
+        .catch((error: Error) => {
+          throw error;
+        });
+  }
+
+  public async getAccessToken(patientNum: number){
+    return await redisClient
+        .get(String(patientNum))
+        .then((accessToken) => {
+          return accessToken;
+        })
+        .catch((error: Error) => {
+          throw error;
+        })
   }
 }

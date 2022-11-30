@@ -3,14 +3,22 @@ package healthcare.severance.parkinson.activity.diary
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.messaging.FirebaseMessaging
 import healthcare.severance.parkinson.R
 import healthcare.severance.parkinson.activity.MainActivity
 import healthcare.severance.parkinson.activity.auth.LoginActivity
+import healthcare.severance.parkinson.dto.FcmRegistrationRequest
 import healthcare.severance.parkinson.dto.TakeTime
+import healthcare.severance.parkinson.service.RetrofitClient
 import healthcare.severance.parkinson.service.SessionManager
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SettingPageActivity : AppCompatActivity() {
 
@@ -26,7 +34,7 @@ class SettingPageActivity : AppCompatActivity() {
         setContentView(R.layout.activity_setting_page)
 
         //로그인한 사용자만 접근 가능
-        sessionManager = SessionManager(this)
+        sessionManager = SessionManager(applicationContext)
         if(!sessionManager.isAuthenticated()){
             val intent = Intent(this@SettingPageActivity, LoginActivity::class.java)
             startActivity(intent)
@@ -52,14 +60,62 @@ class SettingPageActivity : AppCompatActivity() {
     }
 
     fun logout(view: View) {
+        //설문조사 푸시알림 취소
+        cancelSurveyNotification(sessionManager.getAccessToken()!!)
+
         if(sessionManager.isAuthenticated()){
             sessionManager.unAuthenticate()
         }
+    }
 
-        // intent: 개별 구성요소간의 런타임 바인딩을 제공해주는 객체
-        val intent = Intent(this, LoginActivity::class.java)
-        // 다이어리 세팅 시작
-        startActivity(intent)
+    private fun cancelSurveyNotification(accessToken: String) {
+        RetrofitClient.surveyService.cancelSurveyNotification(
+            accessToken
+        ).enqueue(object: Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if(response.isSuccessful || response.code() == 400 || response.code() == 419) {
+                    cancelMedicineNotification(accessToken)
+                } else {
+                    Toast.makeText(this@SettingPageActivity, "알수없는 이유로 요청이 불가합니다",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Server error", t.message.toString())
+                Toast.makeText(this@SettingPageActivity, "서버 내부 오류",
+                    Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun cancelMedicineNotification(accessToken: String) {
+        RetrofitClient.medicineService.cancelMedicineNotification(
+            accessToken
+        ).enqueue(object: Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                //요청 성공시 메인 페이지로 이동
+                if(response.isSuccessful) {
+                    val intent = Intent(this@SettingPageActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this@SettingPageActivity, "유효하지 않은 기기입니다.",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Server error", t.message.toString())
+                Toast.makeText(this@SettingPageActivity, "서버 내부 오류",
+                    Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     fun backButtonPressed(view: View){

@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import {PatientModel} from "../models/PatientModel";
 import {LoginResponse} from '../dto/LoginResponseDto';
 import {InvalidPatientNumberError} from "../error/PatientServiceError";
+import {TokenExpiredError} from "../error/CommonError";
 
 export class PatientService {
 
@@ -21,7 +22,7 @@ export class PatientService {
     this.patientModel = patientModel;
   }
 
-  public async login(patientNum: number){
+  public async login(patientNum: number, fcmRegistrationToken: string){
 
     const patient = await this.patientModel
       .findByPatientNum(patientNum);
@@ -30,20 +31,37 @@ export class PatientService {
     }
 
     const accessToken = await this.issueJwtToken(patient[0]);
+    //Redis DB에 엑세스 토큰 저장
+    await this.patientModel.saveAccessToken(patientNum, accessToken);
+    // FCM 등록 토큰 저장
+    await this.patientModel.saveFcmRegistrationToken(patientNum, fcmRegistrationToken);
+
     return new LoginResponse(accessToken);
   }
 
+  public async authorizeAccessToken(patientNum: number){
+    const accessToken = await this.patientModel.getAccessToken(patientNum);
+    if(accessToken == null){
+      throw new TokenExpiredError("토큰이 만료되었습니다.");
+    }
+  }
+
+  public async reIssueFcmRegistrationToken(patientNum: number, fcmRegistrationToken: string) {
+    await this.patientModel
+        .saveFcmRegistrationToken(patientNum, fcmRegistrationToken);
+  }
+
   // JWT 토큰 발급 메서드
-  private async issueJwtToken(patient: Patient){
+  private async issueJwtToken(patient: Patient) {
 
     const accessToken = jwt.sign({
-        type: 'JWT',
-        patientNum: patient.patient_num,
-        patientName: patient.patient_name,
-        userId: patient.user_id
+      type: 'JWT',
+      patientNum: patient.patient_num,
+      patientName: patient.patient_name,
+      userId: patient.user_id
     }, String(process.env.JWT_SECRET_KEY), {
-        expiresIn: process.env.JWT_ACCESS_EXPIRATION,
-        issuer: process.env.JWT_ISSUER
+      expiresIn: process.env.JWT_ACCESS_EXPIRATION,
+      issuer: process.env.JWT_ISSUER
     });
 
     return process.env.JWT_PREFIX + accessToken;

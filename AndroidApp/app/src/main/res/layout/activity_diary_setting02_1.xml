@@ -52,7 +52,7 @@
             android:id="@+id/dMedicineCountForm"
             android:layout_width="250px"
             android:layout_height="80px"
-            android:background="@drawable/medicine_time_form"
+            android:background="@drawable/medicine_count_form"
             android:gravity="center|fill"
             android:ems="10"
             android:inputType="number"

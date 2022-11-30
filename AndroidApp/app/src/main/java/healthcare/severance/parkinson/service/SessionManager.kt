@@ -16,7 +16,7 @@ class SessionManager(context: Context) {
     }
 
     fun getAccessToken(): String? {
-        return prefs.getString(ACCESS_TOKEN, "NO_VALUE")
+        return prefs.getString(ACCESS_TOKEN, "DEFAULT")
     }
 
     fun isAuthenticated(): Boolean {

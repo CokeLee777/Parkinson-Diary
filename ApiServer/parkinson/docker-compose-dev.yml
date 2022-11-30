@@ -11,6 +11,15 @@ services:
       - "3306:3306"
     networks:
       - api_dev
+  cache-database:
+    container_name: parkinson-redis-api-dev
+    image: "redis"
+    env_file:
+      - ./env/dev.env
+    ports:
+      - "6379:6379"
+    networks:
+      - api_dev
   backend-api-dev:
     container_name: parkinson-nodejs-dev
     build:
@@ -26,6 +35,7 @@ services:
       - 8080
     depends_on:
       - database
+      - cache-database
     networks:
       - api_dev
 

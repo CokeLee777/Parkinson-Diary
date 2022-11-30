@@ -19,3 +19,6 @@ benchmarks/graphs
 
 # typescript
 dist
+
+# FCM
+parkinson-diary-firebase-adminsdk.json

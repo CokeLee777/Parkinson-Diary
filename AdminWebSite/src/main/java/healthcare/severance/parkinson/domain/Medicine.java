@@ -24,8 +24,8 @@ public class Medicine {
     @JoinColumn(name = "patient_num", nullable = false)
     private final Patient patient;
 
-    @Column(name = "take_time",nullable = false)
-    private final LocalDateTime takeTime = LocalDateTime.now();
+    @Column(name = "take_time", nullable = false)
+    private final LocalDateTime takeTime;
 
     @ColumnDefault("false")
     @Column(name = "is_take",nullable = false)

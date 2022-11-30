@@ -13,7 +13,8 @@ describe('PatientsRouter test', () => {
       .post('/api/patients/login')
       .set('Accept', 'application/json')
       .send({
-        patient_num: TestDataConfig.Patients.patient_num
+        patient_num: TestDataConfig.Patients.patient_num,
+        fcm_registration_token: 'test'
       });
     
       await expect(response.status).toBe(200);

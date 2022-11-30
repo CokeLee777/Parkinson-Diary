@@ -8,6 +8,7 @@ export const TestDataConfig = {
     patient_name: 'admin',
     sleep_start_time: new Date(`July 1, 1999, 22:00`),
     sleep_end_time: new Date(`July 1, 1999, 08:00`),
+    fcm_registration_token: 'test',
     user_id: 1
   },
 
