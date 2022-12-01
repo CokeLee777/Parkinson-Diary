@@ -99,7 +99,7 @@ class LoginActivity : AppCompatActivity() {
                 call: Call<Void>,
                 response: Response<Void>
             ) {
-                if(response.isSuccessful || response.code() == 400 || response.code() == 419) {
+                if(response.isSuccessful) {
                     registrantMedicineNotification(accessToken)
                 } else {
                     Toast.makeText(this@LoginActivity, "알수없는 이유로 요청이 불가합니다",

@@ -95,7 +95,7 @@
         <receiver
             android:name=".activity.alarm.AlarmReceiver"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
 
                 <!-- 재부팅 후에도 PendingIntent가 남아있도록 설정 -->
