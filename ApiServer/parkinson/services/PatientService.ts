@@ -27,6 +27,7 @@ export class PatientService {
     const patient = await this.patientModel
       .findByPatientNum(patientNum);
     if(patient.length == 0 || patient[0] === undefined) {
+      console.error('Invalid patient number');
       throw new InvalidPatientNumberError('유효하지 않은 환자번호 입니다.');
     }
 
@@ -42,6 +43,7 @@ export class PatientService {
   public async authorizeAccessToken(patientNum: number){
     const accessToken = await this.patientModel.getAccessToken(patientNum);
     if(accessToken == null){
+      console.error('Token not found in redis db');
       throw new TokenExpiredError("토큰이 만료되었습니다.");
     }
   }

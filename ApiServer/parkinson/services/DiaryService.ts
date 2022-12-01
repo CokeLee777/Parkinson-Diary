@@ -29,6 +29,7 @@ export class DiaryService {
     const medicine = await this.medicineModel.findByPatientNum(patientNum);
     
     if(patient.length == 0 || patient[0] === undefined) {
+      console.error('Invalid patient number');
       throw new InvalidPatientNumberError('유효하지 않은 환자번호 입니다.');
     }
 
