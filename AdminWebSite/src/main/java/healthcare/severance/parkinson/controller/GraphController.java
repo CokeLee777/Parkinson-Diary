@@ -42,6 +42,7 @@ public class GraphController {
 
         model.addAttribute("surveys", surveyList);
         model.addAttribute("medicines", medicineList);
+        model.addAttribute("selectedDate", selectedDate.orElse(LocalDate.now()));
         return "patient/patientGraph";
     }
 }
