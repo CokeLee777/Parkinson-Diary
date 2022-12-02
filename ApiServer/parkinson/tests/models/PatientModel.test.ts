@@ -6,8 +6,8 @@ const patientModel = AppConfig.patientModel;
 
 describe('PatientModel test', () => {
 
-  TestDataSetUp.beforeEach;
-  TestDataSetUp.afterEach;
+  TestDataSetUp.beforeAll;
+  TestDataSetUp.afterAll;
 
   test('유효한 환자번호로 환자 조회', async () => {
     const patient = await patientModel

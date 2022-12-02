@@ -6,8 +6,8 @@ const medicineModel = AppConfig.medicineModel;
 
 describe('MedicineModel test', () => {
 
-  TestDataSetUp.beforeEach;
-  TestDataSetUp.afterEach;
+  TestDataSetUp.beforeAll;
+  TestDataSetUp.afterAll;
   
   test('유효한 환자번호로 환자의 약 복용정보 조회', async () => {
     const medicine = await medicineModel

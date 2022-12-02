@@ -8,8 +8,8 @@ const surveyService = AppConfig.surveyService;
 
 describe('SurveyService test', () => {
 
-  TestDataSetUp.beforeEach;
-  TestDataSetUp.afterEach;
+  TestDataSetUp.beforeAll;
+  TestDataSetUp.afterAll;
 
   test('설문조사 정보 추가', async () => {
 

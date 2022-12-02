@@ -5,8 +5,8 @@ import {TestDataConfig} from "../config/TestDataConfig";
 
 describe('PatientsRouter test', () => {
 
-  TestDataSetUp.beforeEach;
-  TestDataSetUp.afterEach;
+  TestDataSetUp.beforeAll;
+  TestDataSetUp.afterAll;
 
   test('정상 로그인', async () => {
     const response = await request(app)
@@ -14,7 +14,7 @@ describe('PatientsRouter test', () => {
       .set('Accept', 'application/json')
       .send({
         patient_num: TestDataConfig.Patients.patient_num,
-        fcm_registration_token: 'test'
+        fcm_registration_token: TestDataConfig.Patients.fcm_registration_token
       });
     
       await expect(response.status).toBe(200);
