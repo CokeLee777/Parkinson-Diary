@@ -1,11 +1,8 @@
 package healthcare.severance.parkinson.controller;
 
 import healthcare.severance.parkinson.domain.*;
-import healthcare.severance.parkinson.repository.MedicineRepository;
-import healthcare.severance.parkinson.repository.PatientRepository;
-import healthcare.severance.parkinson.repository.SurveyRepository;
-import healthcare.severance.parkinson.repository.UserRepository;
-import healthcare.severance.parkinson.service.MedicineService;
+import healthcare.severance.parkinson.repository.*;
+import healthcare.severance.parkinson.service.MedicineHistoryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +30,9 @@ class GraphControllerTest {
     MockMvc mvc;
 
     @Autowired
-    MedicineRepository medicineRepository;
+    MedicineHistoryRepository medicineHistoryRepository;
     @Autowired
-    MedicineService medicineService;
+    MedicineHistoryService medicineHistoryService;
     @Autowired
     SurveyRepository surveyRepository;
     @Autowired
@@ -51,7 +48,6 @@ class GraphControllerTest {
     String testUserName = "테스트";
     String testUserEmail = "testtest@gmail.com";
     LocalDate testDate = LocalDate.of(1950, 11, 15);
-    final Patient testPatient = patientRepository.findById(testPatientNum).get();
 
     @BeforeEach
     void beforeEach() {
@@ -76,6 +72,7 @@ class GraphControllerTest {
     @WithMockUser
     void surveyForm() throws Exception {
         //given
+        Patient testPatient = patientRepository.findById(testPatientNum).get();
         Survey givenSurvey = Survey.builder()
                 .id(1L)
                 .patient(testPatient)
@@ -96,21 +93,23 @@ class GraphControllerTest {
         surveyRepository.save(givenSurvey);
         surveyRepository.save(givenSurvey2);
 
-        Medicine givenMedicine = Medicine.builder()
-                .id(1L)
+        MedicineHistory givenMedicine = MedicineHistory.builder()
+                .id("1")
                 .isTake(true)
-                .takeTime(testDate.atTime(11, 0))
+                .reservedTakeTime(testDate.atTime(11, 0))
+                .actualTakeTime(testDate.atTime(12, 0))
                 .patient(testPatient)
                 .build();
-        Medicine givenMedicine2 = Medicine.builder()
-                .id(2L)
+        MedicineHistory givenMedicine2 = MedicineHistory.builder()
+                .id("2")
                 .isTake(false)
-                .takeTime(testDate.atTime(12, 0))
+                .reservedTakeTime(testDate.atTime(12, 0))
+                .actualTakeTime(testDate.atTime(13, 0))
                 .patient(testPatient)
                 .build();
 
-        medicineRepository.save(givenMedicine);
-        medicineRepository.save(givenMedicine2);
+        medicineHistoryRepository.save(givenMedicine);
+        medicineHistoryRepository.save(givenMedicine2);
 
         RequestBuilder request = post("/patient/1111/graph")
                 .param("selectedDate", String.valueOf(testDate))

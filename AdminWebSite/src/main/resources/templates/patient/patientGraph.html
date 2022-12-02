@@ -68,12 +68,14 @@
                                         <table>
                                             <thead>
                                             <tr>
-                                                <th>복용 시간</th>
+                                                <th>입력 복용 시간</th>
+                                                <th>실제 복용 시간</th>
                                                 <th>복용 유무</th>
                                             </tr>
                                             </thead>
                                             <tr th:each="medicine : ${medicines}">
-                                                <td th:text="${medicine.medicineTakeTime}"></td>
+                                                <td th:text="${medicine.getReservedTakeTime}"></td>
+                                                <td th:text="${medicine.getActualTakeTime}"></td>
                                                 <td th:text="${medicine.isTake}"></td>
                                             </tr>
                                         </table>

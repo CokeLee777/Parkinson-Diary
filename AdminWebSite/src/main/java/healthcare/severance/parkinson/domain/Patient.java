@@ -31,6 +31,9 @@ public class Patient {
     @Column(name = "sleep_end_time")
     private LocalTime sleepEndTime;
 
+    @Column(name = "fcm_registration_token")
+    private String fcmRegistrationToken;
+
     public void EditPatient(User user, String name, LocalTime sleepStartTime, LocalTime sleepEndTime) {
         this.user = user;
         this.name = name;
