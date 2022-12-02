@@ -49,6 +49,13 @@ export const TestDataSetUp = {
       .catch((error) => {
         console.error(error);
       });
+
+    await knex('medicine_history AS mh')
+      .where('mh.patient_num', TestDataConfig.Patients.patient_num)
+      .del()
+      .catch((error) => {
+          console.error(error);
+      });
     
     await knex('patients AS p')
       .where('p.patient_num', TestDataConfig.Medicine.patient_num)
