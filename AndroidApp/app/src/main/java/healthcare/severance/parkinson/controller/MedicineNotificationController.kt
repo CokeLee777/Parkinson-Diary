@@ -56,7 +56,7 @@ class MedicineNotificationController(private val context: Context){
         title: String,
         pendingIntent: PendingIntent
     ) = NotificationCompat.Builder(context!!, channelId)
-        .setSmallIcon(R.drawable.active_alarm_button)
+        .setSmallIcon(R.drawable.medicine_notification_icon)
         .setContentTitle(title)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
         .setContentIntent(pendingIntent)
@@ -93,6 +93,7 @@ class MedicineNotificationController(private val context: Context){
                     Log.d(TAG, "복용시간 알람 등록")
                 } else {
                     val intent = Intent(context, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context.startActivity(intent)
                 }
             }
@@ -115,6 +116,7 @@ class MedicineNotificationController(private val context: Context){
                     Log.d(TAG, "복용시간 알람 취소")
                 } else {
                     val intent = Intent(context, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context.startActivity(intent)
                 }
             }
