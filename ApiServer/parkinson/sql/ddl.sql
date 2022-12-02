@@ -29,6 +29,15 @@ CREATE TABLE medicine (
   FOREIGN KEY (patient_num) REFERENCES patients (patient_num)
 );
 
+CREATE TABLE medicine_history (
+    medicine_history_id VARCHAR(255) PRIMARY KEY,
+    patient_num BIGINT NOT NULL,
+    reserved_take_time DATETIME NOT NULL,
+    actual_take_time DATETIME DEFAULT NULL,
+    is_take BIT DEFAULT 0,
+    FOREIGN KEY (patient_num) REFERENCES patients (patient_num)
+)
+
 CREATE TABLE survey (
   survey_id BIGINT AUTO_INCREMENT PRIMARY KEY,
   patient_num BIGINT NOT NULL,
