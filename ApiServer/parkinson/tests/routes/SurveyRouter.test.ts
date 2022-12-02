@@ -5,12 +5,12 @@ import {TestDataConfig} from "../config/TestDataConfig";
 
 describe('SurveyRouter test', () => {
 
-    TestDataSetUp.beforeEach;
-    TestDataSetUp.afterEach;
+    TestDataSetUp.beforeAll;
+    TestDataSetUp.afterAll;
 
   test('설문조사 추가', async () => {
     const accessToken = await TestDataSetUp
-      .issueJwtToken(TestDataConfig.Patients.patient_num);
+      .getJwtToken(TestDataConfig.Patients.patient_num);
     
     const response = await request(app)
       .post('/api/survey')
@@ -27,7 +27,7 @@ describe('SurveyRouter test', () => {
 
   test('잘못된 형식으로 설문조사 추가 #1', async () => {
     const accessToken = await TestDataSetUp
-      .issueJwtToken(TestDataConfig.Patients.patient_num);
+      .getJwtToken(TestDataConfig.Patients.patient_num);
     
     const response = await request(app)
       .post('/api/survey')
@@ -44,7 +44,7 @@ describe('SurveyRouter test', () => {
 
   test('잘못된 형식으로 설문조사 추가 #2', async () => {
     const accessToken = await TestDataSetUp
-      .issueJwtToken(TestDataConfig.Patients.patient_num);
+      .getJwtToken(TestDataConfig.Patients.patient_num);
     
     const response = await request(app)
       .post('/api/survey')

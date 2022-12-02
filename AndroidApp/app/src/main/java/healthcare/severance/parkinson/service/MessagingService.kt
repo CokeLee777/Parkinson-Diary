@@ -85,10 +85,16 @@ class MessagingService: FirebaseMessagingService() {
     }
 
     private fun showMedicineAlarmNotification(title: String?, body: String?){
+        val sessionManager = SessionManager(applicationContext)
+
+        //약 복용 히스토리 추가
+        val medicineHistoryId = medicineNotificationController
+            .createMedicineNotificationHistory(sessionManager.getAccessToken()!!)
 
         val requestId: Int = Random.nextInt(10000000)
         val pendingIntent: PendingIntent =
         Intent(this, AlarmReceiver::class.java).let { intent ->
+            intent.putExtra("medicine_history_id", medicineHistoryId)
             //보류중인 intent 지정, 특정 이벤트(지정된 알림 시간) 발생 시 실행
             PendingIntent.getBroadcast(
                 this,

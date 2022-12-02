@@ -1,26 +1,23 @@
 package healthcare.severance.parkinson.controller
 
-import android.app.*
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
-import android.os.Build
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import healthcare.severance.parkinson.R
-import healthcare.severance.parkinson.activity.MainActivity
-import healthcare.severance.parkinson.activity.alarm.AlarmReceiver
 import healthcare.severance.parkinson.activity.auth.LoginActivity
-import healthcare.severance.parkinson.activity.survey.SurveyActivity01
-import healthcare.severance.parkinson.dto.TakeTime
+import healthcare.severance.parkinson.dto.MedicineHistoryRequest
 import healthcare.severance.parkinson.service.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
-import kotlin.random.Random
 
 class MedicineNotificationController(private val context: Context){
 
@@ -79,6 +76,59 @@ class MedicineNotificationController(private val context: Context){
         }
 
         return channelId
+    }
+
+    fun createMedicineNotificationHistory(accessToken: String): String {
+        val uuid: String = UUID.randomUUID().toString()
+        RetrofitClient.medicineHistoryService.createMedicineNotificationHistory(
+            accessToken, MedicineHistoryRequest(
+                uuid
+            )
+        ).enqueue(object: Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if(response.isSuccessful) {
+                    Log.d(TAG, "복용시간 알람 히스토리 등록")
+                } else {
+                    val intent = Intent(context, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context.startActivity(intent)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Server error", t.message.toString())
+            }
+        })
+
+        return uuid
+    }
+
+    fun updateMedicineNotificationHistory(accessToken: String, medicineHistoryId: String) {
+        RetrofitClient.medicineHistoryService.updateMedicineNotificationHistory(
+            accessToken, MedicineHistoryRequest(
+                medicineHistoryId
+            )
+        ).enqueue(object: Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if(response.isSuccessful) {
+                    Log.d(TAG, "복용시간 알람 히스토리 업데이트")
+                } else {
+                    val intent = Intent(context, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context.startActivity(intent)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Server error", t.message.toString())
+            }
+        })
     }
 
     fun registrantMedicineNotification(accessToken: String) {
