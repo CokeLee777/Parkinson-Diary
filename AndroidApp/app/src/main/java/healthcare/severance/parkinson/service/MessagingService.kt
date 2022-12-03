@@ -2,7 +2,9 @@ package healthcare.severance.parkinson.service
 
 import android.app.PendingIntent
 import android.content.Intent
+import android.os.PowerManager
 import android.util.Log
+import android.view.WindowManager
 import android.widget.Toast
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -17,6 +19,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.random.Random
 
+
 class MessagingService: FirebaseMessagingService() {
 
     private val TAG: String = "FirebaseMessagingService"
@@ -25,6 +28,14 @@ class MessagingService: FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
+        // 알림(알람)과 동시에 화면 켜짐 이벤트 실행
+        val powerManager: PowerManager = getSystemService(POWER_SERVICE) as PowerManager
+        val wakeLock = powerManager.newWakeLock(
+            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, "parkinson-diary::WakeLock"
+        )
+
+        // wakeLock 60초 뒤에 해제되지 않는다면 자동으로 해제
+        wakeLock.acquire(1 * 10 * 1000L)
 
         medicineNotificationController = MedicineNotificationController(this)
         surveyNotificationController = SurveyNotificationController(this)
@@ -39,6 +50,11 @@ class MessagingService: FirebaseMessagingService() {
         } else if(type.equals("medicine")){
             showMedicineAlarmNotification(title, body)
         }
+        // 모든 알림이 끝나고 wakeLock 을 아직 가지고있다면 반환
+        if(wakeLock.isHeld){
+            wakeLock.release()
+        }
+
     }
 
     override fun onNewToken(token: String) {
@@ -69,10 +85,16 @@ class MessagingService: FirebaseMessagingService() {
     }
 
     private fun showMedicineAlarmNotification(title: String?, body: String?){
+        val sessionManager = SessionManager(applicationContext)
+
+        //약 복용 히스토리 추가
+        val medicineHistoryId = medicineNotificationController
+            .createMedicineNotificationHistory(sessionManager.getAccessToken()!!)
 
         val requestId: Int = Random.nextInt(10000000)
         val pendingIntent: PendingIntent =
         Intent(this, AlarmReceiver::class.java).let { intent ->
+            intent.putExtra("medicine_history_id", medicineHistoryId)
             //보류중인 intent 지정, 특정 이벤트(지정된 알림 시간) 발생 시 실행
             PendingIntent.getBroadcast(
                 this,

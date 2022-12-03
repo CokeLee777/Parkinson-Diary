@@ -5,10 +5,10 @@ import {knex} from '../../config/DBConfig';
 
 const surveyModel = AppConfig.surveyModel;
 
-describe('MedicineModel test', () => {
+describe('SurveyModel test', () => {
 
-  TestDataSetUp.beforeEach;
-  TestDataSetUp.afterEach;
+  TestDataSetUp.beforeAll;
+  TestDataSetUp.afterAll;
 
   test('유효한 환자번호로 설문조사 정보 추가', async () => {
     await surveyModel

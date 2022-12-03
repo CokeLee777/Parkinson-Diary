@@ -8,8 +8,8 @@ const diaryService = AppConfig.diaryService;
 
 describe('DiaryService test', () => {
 
-  TestDataSetUp.beforeEach;
-  TestDataSetUp.afterEach;
+  TestDataSetUp.beforeAll;
+  TestDataSetUp.afterAll;
 
   test('정상 다이어리 조회', async () => {
 

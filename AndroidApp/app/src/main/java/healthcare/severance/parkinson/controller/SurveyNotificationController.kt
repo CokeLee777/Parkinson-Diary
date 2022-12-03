@@ -44,7 +44,7 @@ class SurveyNotificationController(private val context: Context?) {
         title: String,
         pendingIntent: PendingIntent
     ) = NotificationCompat.Builder(context!!, channelId)
-        .setSmallIcon(R.drawable.active_alarm_button)
+        .setSmallIcon(R.drawable.survey_notification_icon)
         .setContentTitle(title)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
         .setContentIntent(pendingIntent)
@@ -80,6 +80,7 @@ class SurveyNotificationController(private val context: Context?) {
                     Log.d(TAG, "설문조사 알림 등록")
                 } else {
                     val intent = Intent(context, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context?.startActivity(intent)
                 }
             }
@@ -102,6 +103,7 @@ class SurveyNotificationController(private val context: Context?) {
                     Log.d(TAG, "설문조사 알림 등록 취소")
                 } else {
                     val intent = Intent(context, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context?.startActivity(intent)
                 }
             }

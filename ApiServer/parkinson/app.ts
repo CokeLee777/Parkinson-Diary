@@ -9,6 +9,7 @@ import diaryRouter from "./routes/DiaryRouter";
 import surveyRouter from "./routes/SurveyRouter";
 import patientsRouter from "./routes/PatientsRouter";
 import medicineRouter from "./routes/MedicineRouter";
+import medicineHistoryRouter from "./routes/MedicineHistoryRouter";
 
 const app: Express = express();
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api', healthCheckRouter);
 app.use('/api/diary', diaryRouter);
 app.use('/api/medicine', medicineRouter);
+app.use('/api/medicine-history', medicineHistoryRouter);
 app.use('/api/survey', surveyRouter);
 app.use('/api/patients', patientsRouter);
 

@@ -29,7 +29,7 @@ class SurveyActivity03 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_survey03)
 
-        sessionManager = SessionManager(this)
+        sessionManager = SessionManager(applicationContext)
         if(!sessionManager.isAuthenticated()){
             val intent = Intent(this@SurveyActivity03, LoginActivity::class.java)
             startActivity(intent)

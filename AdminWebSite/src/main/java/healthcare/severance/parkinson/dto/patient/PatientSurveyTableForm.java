@@ -20,8 +20,8 @@ public class PatientSurveyTableForm {
                 + survey.getSurveyTime().getDayOfMonth()  + "일 "
                 + survey.getSurveyTime().getHour()  + "시 "
                 + survey.getSurveyTime().getMinute()  + "분";
-        this.medicinalEffect = survey.getMedicinalEffect() == true ? "있음" : "없음";
-        this.abnormalMovement = survey.getAbnormalMovement() == true ? "있음" : "없음";
+        this.medicinalEffect = survey.getMedicinalEffect() ? "O" : "X";
+        this.abnormalMovement = survey.getAbnormalMovement() ? "O" : "X";
         if (0 <= survey.getPatientCondition() && survey.getPatientCondition() < 33) {
             this.patientCondition = "안좋음(" + survey.getPatientCondition() + ")";
         } else if (33 <= survey.getPatientCondition() && survey.getPatientCondition() < 66) {

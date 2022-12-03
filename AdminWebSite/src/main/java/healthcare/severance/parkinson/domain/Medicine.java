@@ -1,7 +1,6 @@
 package healthcare.severance.parkinson.domain;
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -26,8 +25,4 @@ public class Medicine {
 
     @Column(name = "take_time", nullable = false)
     private final LocalDateTime takeTime;
-
-    @ColumnDefault("false")
-    @Column(name = "is_take",nullable = false)
-    private final Boolean isTake;
 }

@@ -5,12 +5,12 @@ import {TestDataConfig} from "../config/TestDataConfig";
 
 describe('DiaryRouter test', () => {
 
-  TestDataSetUp.beforeEach;
-  TestDataSetUp.afterEach;
+  TestDataSetUp.beforeAll;
+  TestDataSetUp.afterAll;
 
   test('다이어리 조회', async () => {
     const accessToken = await TestDataSetUp
-      .issueJwtToken(TestDataConfig.Patients.patient_num);
+      .getJwtToken(TestDataConfig.Patients.patient_num);
     
     const response: Response = await request(app)
       .get('/api/diary')
@@ -29,7 +29,7 @@ describe('DiaryRouter test', () => {
 
   test('다이어리 추가', async () => {
     const accessToken = await TestDataSetUp
-      .issueJwtToken(TestDataConfig.Patients.patient_num);
+      .getJwtToken(TestDataConfig.Patients.patient_num);
     const postResponse = await request(app)
       .post('/api/diary')
       .set('Accept', 'application/json')
@@ -58,7 +58,7 @@ describe('DiaryRouter test', () => {
 
   test('다이어리 수정', async () => {
     const accessToken = await TestDataSetUp
-      .issueJwtToken(TestDataConfig.Patients.patient_num);
+      .getJwtToken(TestDataConfig.Patients.patient_num);
     const postResponse = await request(app)
       .put('/api/diary')
       .set('Accept', 'application/json')
