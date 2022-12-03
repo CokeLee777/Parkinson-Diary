@@ -107,6 +107,6 @@ class SurveyServiceTest {
         List<PatientSurveyTableForm> survey = surveyService.getSurveyTable(testPatientNum, testDate);
         //then
         Assertions.assertThat(survey.size()).isEqualTo(1);
-        Assertions.assertThat(survey.get(0).getAbnormalMovement()).isEqualTo("있음");
+        Assertions.assertThat(survey.get(0).getAbnormalMovement()).isEqualTo("O");
     }
 }

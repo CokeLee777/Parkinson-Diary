@@ -15,10 +15,10 @@ import java.util.List;
 @SpringBootTest
 @ActiveProfiles(value = "test")
 @Transactional
-class MedicineRepositoryTest {
+class MedicineHistoryRepositoryTest {
 
     @Autowired
-    MedicineRepository medicineRepository;
+    MedicineHistoryRepository medicineHistoryRepository;
     @Autowired
     PatientRepository patientRepository;
     @Autowired
@@ -32,7 +32,6 @@ class MedicineRepositoryTest {
     String testUserName = "테스트";
     String testUserEmail = "testtest@gmail.com";
     LocalDate testDate = LocalDate.of(1950, 11, 15);
-    final Patient testPatient = patientRepository.findById(testPatientNum).get();
 
     @BeforeEach
     void beforeEach() {
@@ -56,23 +55,26 @@ class MedicineRepositoryTest {
     @Test
     void findByPatientAndTakeTimeBetween() {
         //given
-        Medicine givenMedicine = Medicine.builder()
-                .id(1L)
+        Patient testPatient = patientRepository.findById(testPatientNum).get();
+        MedicineHistory givenMedicine = MedicineHistory.builder()
+                .id("1")
                 .isTake(true)
-                .takeTime(testDate.atTime(11, 0))
+                .reservedTakeTime(testDate.atTime(11, 0))
+                .actualTakeTime(testDate.atTime(11, 0))
                 .patient(testPatient)
                 .build();
-        Medicine givenMedicine2 = Medicine.builder()
-                .id(2L)
+        MedicineHistory givenMedicine2 = MedicineHistory.builder()
+                .id("2")
                 .isTake(false)
-                .takeTime(testDate.atTime(12, 0))
+                .reservedTakeTime(testDate.atTime(12, 0))
+                .actualTakeTime(testDate.atTime(11, 0))
                 .patient(testPatient)
                 .build();
 
-        medicineRepository.save(givenMedicine);
-        medicineRepository.save(givenMedicine2);
+        medicineHistoryRepository.save(givenMedicine);
+        medicineHistoryRepository.save(givenMedicine2);
         //when
-        List<Medicine> medicineList = medicineRepository.findByPatientAndTakeTimeBetween(
+        List<MedicineHistory> medicineList = medicineHistoryRepository.findByPatientAndReservedTakeTimeBetween(
                 patientRepository.findById(this.testPatientNum).get(),
                 testDate.atStartOfDay(),
                 testDate.plusDays(1).atStartOfDay());
