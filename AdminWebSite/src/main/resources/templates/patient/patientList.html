@@ -49,9 +49,9 @@
 											<td th:text="${patient.patientNum}">10</td>
 										</tr>
 									</table>
-									<th:block th:if="${keyword == null}" th:each="page:${#numbers.sequence(startPage,endPage)}">
-										<a th:if="${page != nowPage}" th:href="@{/patient/patientList(page=${page-1})}" th:text ="${page}"></a>
-										<strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+									<th:block th:if="${keyword == null}" th:each="page:${#numbers.sequence(startPage, endPage)}">
+										<a th:if="${page != nowPage+2}" th:href="@{/patient/patientList(page=${page-1})}" th:text ="${page}"></a>
+										<strong th:if="${page==nowPage+2}" th:text ="${page}" style="color:red"></strong>
 									</th:block>
 								</div>
 							</section>
