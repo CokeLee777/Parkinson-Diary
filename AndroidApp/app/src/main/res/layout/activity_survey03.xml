@@ -28,11 +28,14 @@
 
         <SeekBar
             android:id="@+id/sPatientCondition"
-            android:layout_width="190px"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:min="0"
-            android:max="100"
-            android:progress="50"
+            android:min="1"
+            android:max="5"
+            android:progress="3"
+            android:progressDrawable="@drawable/seekbar_style"
+            android:thumb="@drawable/seekbar_thumb_style"
+            android:tickMark="@drawable/seekbar_tick_mark_style"
             app:layout_anchor="@+id/sTitle"
             app:layout_anchorGravity="center" />
 

@@ -108,7 +108,7 @@ class DiarySettingActivity03 : AppCompatActivity() {
                         MainActivity::class.java)
                     startActivity(intent)
                 } else if(response.code() == 401 || response.code() == 419){
-                    Toast.makeText(this@DiarySettingActivity03, "세션이 만료되었습니다",
+                    Toast.makeText(this@DiarySettingActivity03, "로그인이 필요합니다",
                         Toast.LENGTH_SHORT).show()
                     if(sessionManager.isAuthenticated()){
                         sessionManager.unAuthenticate()

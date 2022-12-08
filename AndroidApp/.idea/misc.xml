@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/seekbar_tick_mark_style.xml" value="0.241" />
+        <entry key="app/src/main/res/drawable/tick_mark.xml" value="0.241" />
         <entry key="app/src/main/res/layout/activity_alarm.xml" value="0.7677824267782427" />
         <entry key="app/src/main/res/layout/activity_diary_setting01.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_diary_setting02.xml" value="0.55" />
@@ -17,7 +19,7 @@
         <entry key="app/src/main/res/layout/activity_survey.xml" value="0.641213389121339" />
         <entry key="app/src/main/res/layout/activity_survey01.xml" value="0.5066079295154186" />
         <entry key="app/src/main/res/layout/activity_survey02.xml" value="0.641213389121339" />
-        <entry key="app/src/main/res/layout/activity_survey03.xml" value="0.641213389121339" />
+        <entry key="app/src/main/res/layout/activity_survey03.xml" value="0.55" />
         <entry key="app/src/main/res/layout/item_list.xml" value="0.6607929515418502" />
       </map>
     </option>

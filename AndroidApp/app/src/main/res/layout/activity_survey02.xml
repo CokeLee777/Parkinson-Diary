@@ -28,7 +28,7 @@
 
         <Button
             android:id="@+id/sYesButton"
-            android:layout_width="130px"
+            android:layout_width="140px"
             android:layout_height="wrap_content"
             android:onClick="yesButtonPressed"
             android:text="네"
@@ -37,7 +37,7 @@
 
         <Button
             android:id="@+id/sNoButton"
-            android:layout_width="130px"
+            android:layout_width="140px"
             android:layout_height="wrap_content"
             android:onClick="noButtonPressed"
             android:text="아니오"
