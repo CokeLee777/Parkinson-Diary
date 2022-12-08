@@ -50,17 +50,22 @@ app.use((request: Request, response: Response) => {
 knex.raw('SELECT 1')
     .then(() => {
         console.log('CONNECTED TO MYSQL');
-    })
-    .then(() => {
         redisClient.connect()
             .then(() => {
                 console.log(`CONNECTED TO REDIS`);
+            })
+            .catch((error: Error) => {
+                console.error(`CONNECTED FAILED TO REDIS=${error}`);
             });
     })
     .then(() => {
         if(process.env.NODE_ENV !== 'test') {
-            app.listen(process.env.SERVER_PORT);
-            console.log(`CONNECT TO node.js SERVER PORT=${process.env.SERVER_PORT}`);
+            redisClient.flushAll()
+                .then(() => {
+                    app.listen(process.env.SERVER_PORT);
+                    console.log(`CONNECT TO node.js SERVER PORT=${process.env.SERVER_PORT}`);
+                });
+
         }
     })
     .catch((error: Error) => {
