@@ -30,6 +30,7 @@ class MainActivity : Activity() {
     private lateinit var medicineNotificationController: MedicineNotificationController
     private lateinit var surveyNotificationController: SurveyNotificationController
     private lateinit var alarmButton: ImageButton
+    private lateinit var startButton: ImageButton
     private lateinit var diaryInfo: DiaryResponse
     private var isUpdate: Boolean = false
 
@@ -54,6 +55,9 @@ class MainActivity : Activity() {
         medicineNotificationController = MedicineNotificationController(applicationContext)
         surveyNotificationController = SurveyNotificationController(applicationContext)
 
+        //메인 페이지에 접속할 때, 사용자 정보를 가져오도록 함
+        this.getDiaryInfo(sessionManager.getAccessToken()!!)
+
         //알람 버튼 UI 세팅
         alarmButton = findViewById(R.id.mAlarmButton)
         if(sessionManager.isAlarmActive()){
@@ -62,8 +66,6 @@ class MainActivity : Activity() {
             alarmButton.setImageResource(R.drawable.inactive_alarm_button)
         }
 
-        //메인 페이지에 접속할 때, 사용자 정보를 가져오도록 함
-        this.getDiaryInfo(sessionManager.getAccessToken()!!)
     }
 
     private fun getDiaryInfo(accessToken: String){
@@ -76,15 +78,19 @@ class MainActivity : Activity() {
 
                     val diaryResponse: DiaryResponse? = response.body()
                     if(response.isSuccessful) {
-                        //복용 정보가 있는경우 재설정으로 전달
+                        //복용 정보가 있는경우 재설정으로 전달 -> UI 세팅
+                        startButton = findViewById(R.id.mStartButton)
                         if(diaryResponse!!.takeTimes.isNotEmpty()){
                             isUpdate = true
+                            startButton.setImageResource(R.drawable.restart_button)
+                        } else {
+                            startButton.setImageResource(R.drawable.start_button)
                         }
                         //다이어리 정보 저장
                         diaryInfo = diaryResponse
 
                     } else if(response.code() == 401 || response.code() == 419){
-                        Toast.makeText(this@MainActivity, "세션이 만료되었습니다",
+                        Toast.makeText(this@MainActivity, "로그인이 필요합니다",
                             Toast.LENGTH_SHORT).show()
                         if(sessionManager.isAuthenticated()){
                             sessionManager.unAuthenticate()

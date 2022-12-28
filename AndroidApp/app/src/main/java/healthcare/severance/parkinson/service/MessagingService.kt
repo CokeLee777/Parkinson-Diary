@@ -30,8 +30,13 @@ class MessagingService: FirebaseMessagingService() {
         super.onMessageReceived(message)
         // 알림(알람)과 동시에 화면 켜짐 이벤트 실행
         val powerManager: PowerManager = getSystemService(POWER_SERVICE) as PowerManager
+//        val wakeLock = powerManager.newWakeLock(
+//            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, "parkinson-diary::WakeLock"
+//        )
+
         val wakeLock = powerManager.newWakeLock(
-            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, "parkinson-diary::WakeLock"
+            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                    or PowerManager.ACQUIRE_CAUSES_WAKEUP, "parkinson-diary::WakeLock"
         )
 
         // wakeLock 60초 뒤에 해제되지 않는다면 자동으로 해제
@@ -91,7 +96,8 @@ class MessagingService: FirebaseMessagingService() {
         val medicineHistoryId = medicineNotificationController
             .createMedicineNotificationHistory(sessionManager.getAccessToken()!!)
 
-        val requestId: Int = Random.nextInt(10000000)
+//        val requestId: Int = Random.nextInt(10000000)
+        val requestId: Int = 1
         val pendingIntent: PendingIntent =
         Intent(this, AlarmReceiver::class.java).let { intent ->
             intent.putExtra("medicine_history_id", medicineHistoryId)
@@ -100,14 +106,15 @@ class MessagingService: FirebaseMessagingService() {
                 this,
                 requestId,
                 intent,
-                PendingIntent.FLAG_ONE_SHOT)
+                PendingIntent.FLAG_IMMUTABLE)
         }
 
         medicineNotificationController.startNotify(title!!, requestId, pendingIntent)
     }
 
     private fun showSurveyNotification(title: String?, body: String?){
-        val requestId: Int = Random.nextInt(10000000)
+//        val requestId: Int = Random.nextInt(10000000)
+        val requestId: Int = 2
         val pendingIntent: PendingIntent =
             Intent(this, SurveyActivity01::class.java).let { intent ->
                 //보류중인 intent 지정, 특정 이벤트(지정된 알림 시간) 발생 시 실행
@@ -115,7 +122,7 @@ class MessagingService: FirebaseMessagingService() {
                     this,
                     requestId,
                     intent,
-                    PendingIntent.FLAG_ONE_SHOT)
+                    PendingIntent.FLAG_IMMUTABLE)
             }
 
         surveyNotificationController.startNotify(title!!, requestId, pendingIntent)

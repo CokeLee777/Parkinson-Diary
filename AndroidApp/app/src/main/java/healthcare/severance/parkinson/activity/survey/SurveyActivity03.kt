@@ -69,7 +69,7 @@ class SurveyActivity03 : AppCompatActivity() {
                 if(response.isSuccessful) {
                     finishAffinity()
                 } else if(response.code() == 401 || response.code() == 419){
-                    Toast.makeText(this@SurveyActivity03, "로그인이 필요합니다.",
+                    Toast.makeText(this@SurveyActivity03, "로그인이 필요합니다",
                         Toast.LENGTH_SHORT).show()
                     if(sessionManager.isAuthenticated()){
                         sessionManager.unAuthenticate()

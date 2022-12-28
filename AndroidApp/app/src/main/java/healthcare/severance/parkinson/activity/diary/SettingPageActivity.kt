@@ -105,7 +105,7 @@ class SettingPageActivity : AppCompatActivity() {
                     val intent = Intent(this@SettingPageActivity, LoginActivity::class.java)
                     startActivity(intent)
                 } else {
-                    Toast.makeText(this@SettingPageActivity, "유효하지 않은 기기입니다.",
+                    Toast.makeText(this@SettingPageActivity, "알수없는 이유로 요청이 불가합니다",
                         Toast.LENGTH_SHORT).show()
                 }
             }

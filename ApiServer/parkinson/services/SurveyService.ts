@@ -4,6 +4,7 @@ import schedule, {Job} from "node-schedule";
 import {fcmAdmin} from "../config/FcmConfig";
 import {PatientModel} from "../models/PatientModel";
 import {getLocalTime} from "../config/TimeConfig";
+import {Message} from "firebase-admin/lib/messaging";
 
 export class SurveyService {
 
@@ -38,15 +39,18 @@ export class SurveyService {
     const patient = await this.patientModel.findByPatientNum(patientNum);
     const fcmRegistrationToken = patient[0].fcm_registration_token;
 
-    const message = {
+    const message: Message = {
       data: {
         type: 'survey',
         title: '설문조사 알림',
         body: '설문조사에 답해주세요'
       },
-      token: fcmRegistrationToken
-    }
-    // 스케줄링 규칙 설정 - 9~21시까지 1시간마다 반복
+      token: fcmRegistrationToken,
+      android: {
+        priority: 'high'
+      }
+    };
+    // 스케줄링 규칙 설정 - 1시간마다 반복
     const startHour = Number(patient[0].sleep_end_time.substring(0, 2));
     const endHour = Number(patient[0].sleep_start_time.substring(0, 2));
     for(let hour = startHour + 1; hour < endHour; hour++){
