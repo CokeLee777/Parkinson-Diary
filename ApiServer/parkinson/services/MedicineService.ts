@@ -3,6 +3,7 @@ import {MedicineModel} from "../models/MedicineModel";
 import schedule, {Job} from "node-schedule";
 import {fcmAdmin} from "../config/FcmConfig";
 import {getLocalTime} from "../config/TimeConfig";
+import {Message} from "firebase-admin/lib/messaging";
 
 export class MedicineService {
 
@@ -28,13 +29,16 @@ export class MedicineService {
         const medicines = await this.medicineModel.findByPatientNum(patientNum);
 
         const fcmRegistrationToken = patient[0].fcm_registration_token;
-        const message = {
+        const message: Message = {
             data: {
                 type: 'medicine',
                 title: '약 복용시간 알람',
                 body: '약을 복용해주세요'
             },
-            token: fcmRegistrationToken
+            token: fcmRegistrationToken,
+            android: {
+                priority: 'high'
+            }
         }
 
         for (let i = 0; i < medicines.length; i++) {
