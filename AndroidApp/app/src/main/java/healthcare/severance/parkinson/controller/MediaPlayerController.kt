@@ -4,6 +4,11 @@ import android.content.Context
 
 import android.media.MediaPlayer
 import android.media.RingtoneManager
+import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
+import kotlin.concurrent.thread
 
 class MediaPlayerController private constructor(private var context: Context?) {
 
@@ -23,9 +28,15 @@ class MediaPlayerController private constructor(private var context: Context?) {
     fun playMusic() {
         mediaPlayer = MediaPlayer.create(context,
             RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
-        mediaPlayer!!.apply {
-            isLooping = true
-        }.start()
+
+        thread {
+            mediaPlayer!!.apply {
+                isLooping = true
+            }.start()
+            //10초 뒤에 자동으로 종료
+            Thread.sleep(10000)
+            mediaPlayer!!.stop()
+        }
     }
 
     fun stopMusic() {

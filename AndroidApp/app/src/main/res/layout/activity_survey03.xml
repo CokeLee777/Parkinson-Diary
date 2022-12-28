@@ -28,34 +28,18 @@
 
         <SeekBar
             android:id="@+id/sPatientCondition"
-            android:layout_width="120dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:max="10"
             android:min="1"
-            android:max="5"
-            android:progress="3"
+            android:progress="5"
             android:progressDrawable="@drawable/seekbar_style"
             android:thumb="@drawable/seekbar_thumb_style"
             android:tickMark="@drawable/seekbar_tick_mark_style"
             app:layout_anchor="@+id/sTitle"
             app:layout_anchorGravity="center" />
-
-        <TextView
-            android:id="@+id/sWorseTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="나쁨"
-            android:textColor="#FFFFFF"
-            app:layout_anchor="@+id/sTitle"
-            app:layout_anchorGravity="start|center" />
-
-        <TextView
-            android:id="@+id/sGreatTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:text="좋음"
-            app:layout_anchor="@+id/sTitle"
-            app:layout_anchorGravity="end|center" />
 
         <ImageButton
             android:id="@+id/finishSurvey"
