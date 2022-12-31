@@ -98,7 +98,6 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-
                 <!-- 재부팅 후에도 PendingIntent가 남아있도록 설정 -->
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

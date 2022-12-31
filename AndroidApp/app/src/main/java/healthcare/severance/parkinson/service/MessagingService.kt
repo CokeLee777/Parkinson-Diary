@@ -30,9 +30,6 @@ class MessagingService: FirebaseMessagingService() {
         super.onMessageReceived(message)
         // 알림(알람)과 동시에 화면 켜짐 이벤트 실행
         val powerManager: PowerManager = getSystemService(POWER_SERVICE) as PowerManager
-//        val wakeLock = powerManager.newWakeLock(
-//            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, "parkinson-diary::WakeLock"
-//        )
 
         val wakeLock = powerManager.newWakeLock(
             WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
@@ -96,7 +93,6 @@ class MessagingService: FirebaseMessagingService() {
         val medicineHistoryId = medicineNotificationController
             .createMedicineNotificationHistory(sessionManager.getAccessToken()!!)
 
-//        val requestId: Int = Random.nextInt(10000000)
         val requestId: Int = 1
         val pendingIntent: PendingIntent =
         Intent(this, AlarmReceiver::class.java).let { intent ->
@@ -113,7 +109,6 @@ class MessagingService: FirebaseMessagingService() {
     }
 
     private fun showSurveyNotification(title: String?, body: String?){
-//        val requestId: Int = Random.nextInt(10000000)
         val requestId: Int = 2
         val pendingIntent: PendingIntent =
             Intent(this, SurveyActivity01::class.java).let { intent ->

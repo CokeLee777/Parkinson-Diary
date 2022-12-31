@@ -28,8 +28,8 @@
 
         <ImageButton
             android:id="@+id/dBackButton"
-            android:layout_width="60px"
-            android:layout_height="60px"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:background="#CB181F2A"
             android:onClick="backButtonPressed"
             android:scaleType="fitCenter"
@@ -39,8 +39,8 @@
 
         <ImageButton
             android:id="@+id/dNextButton"
-            android:layout_width="60px"
-            android:layout_height="60px"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:background="#CB181F2A"
             android:onClick="nextButtonPressed"
             android:scaleType="fitCenter"
@@ -50,8 +50,8 @@
 
         <Button
             android:id="@+id/dSleepStartSelectButton"
-            android:layout_width="250px"
-            android:layout_height="80px"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
             android:background="@drawable/sleep_start_time_form"
             android:hint="취침시간을 선택해주세요"
             android:onClick="sleepStartSelectButtonPressed"
@@ -66,8 +66,8 @@
 
         <Button
             android:id="@+id/dSleepEndSelectButton"
-            android:layout_width="250px"
-            android:layout_height="80px"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
             android:background="@drawable/sleep_end_time_form"
             android:hint="기상시간을 선택해주세요"
             android:onClick="sleepEndSelectButtonPressed"

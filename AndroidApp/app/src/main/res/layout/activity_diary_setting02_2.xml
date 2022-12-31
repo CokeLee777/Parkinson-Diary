@@ -28,8 +28,8 @@
 
         <ImageButton
             android:id="@+id/dBackButton"
-            android:layout_width="60px"
-            android:layout_height="60px"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:onClick="backButtonPressed"
             android:background="#CB181F2A"
             android:scaleType="fitCenter"
@@ -39,8 +39,8 @@
 
         <ImageButton
             android:id="@+id/dNextButton"
-            android:layout_width="60px"
-            android:layout_height="60px"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:onClick="nextButtonPressed"
             android:background="#CB181F2A"
             android:scaleType="fitCenter"
@@ -52,7 +52,7 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="240px"
+            android:layout_height="120dp"
             android:orientation="vertical"
             app:layout_anchor="@+id/dTitle"
             app:layout_anchorGravity="bottom|center">

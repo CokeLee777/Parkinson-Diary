@@ -28,8 +28,8 @@
 
         <ImageButton
             android:id="@+id/dBackButton"
-            android:layout_width="60px"
-            android:layout_height="60px"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:background="#CB181F2A"
             android:onClick="backButtonPressed"
             android:scaleType="fitCenter"
@@ -39,8 +39,8 @@
 
         <ImageButton
             android:id="@+id/dNextButton"
-            android:layout_width="60px"
-            android:layout_height="60px"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:onClick="nextButtonPressed"
             android:background="#CB181F2A"
             android:scaleType="fitCenter"
@@ -50,8 +50,8 @@
 
         <EditText
             android:id="@+id/dMedicineCountForm"
-            android:layout_width="250px"
-            android:layout_height="80px"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
             android:background="@drawable/medicine_count_form"
             android:gravity="center|fill"
             android:ems="10"

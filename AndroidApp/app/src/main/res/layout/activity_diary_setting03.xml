@@ -39,8 +39,8 @@
 
         <ImageButton
             android:id="@+id/finishSetting"
-            android:layout_width="80px"
-            android:layout_height="50px"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:background="#CB181F2A"
             android:onClick="finishSettingButtonPressed"
             android:scaleType="fitCenter"

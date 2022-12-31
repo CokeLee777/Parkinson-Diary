@@ -64,8 +64,8 @@ class MedicineNotificationController(private val context: Context){
         .build()
 
     private fun createNotificationChannel(): String {
-        val channelId = "survey_channel_id"
-        val channelName = "survey_channel_name"
+        val channelId = "medicine_channel_id"
+        val channelName = "medicine_channel_name"
 
         NotificationChannel(
             channelId,

@@ -6,8 +6,8 @@
 
     <Button
         android:id="@+id/dMedicineTimeButton"
-        android:layout_width="250px"
-        android:layout_height="80px"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:background="@drawable/medicine_time_form"
         android:gravity="center"
@@ -16,6 +16,6 @@
         android:paddingTop="5dp"
         android:textAlignment="center"
         android:textColorHint="#FFFFFF"
-        android:textSize="7sp" />
+        android:textSize="8sp" />
 
 </LinearLayout>
