@@ -14,7 +14,7 @@
         android:text="파킨슨 일기"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="50px"
+        android:textSize="30sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

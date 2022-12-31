@@ -31,8 +31,8 @@
 
         <ImageButton
             android:id="@+id/mStartButton"
-            android:layout_width="250px"
-            android:layout_height="100px"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
             android:onClick="startDiary"
             android:background="#CB181F2A"
             android:scaleType="fitCenter"
@@ -42,8 +42,8 @@
 
         <ImageButton
             android:id="@+id/mSettingButton"
-            android:layout_width="60px"
-            android:layout_height="60px"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:onClick="setDiary"
             android:background="#CB181F2A"
             android:scaleType="fitCenter"
@@ -53,8 +53,8 @@
 
         <ImageButton
             android:id="@+id/mAlarmButton"
-            android:layout_width="60px"
-            android:layout_height="60px"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="#CB181F2A"
             android:onClick="alarmButtonPressed"
             android:scaleType="fitCenter"

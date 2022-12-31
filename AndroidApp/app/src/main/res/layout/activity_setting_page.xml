@@ -30,8 +30,8 @@
 
         <ImageButton
             android:id="@+id/sBackButton"
-            android:layout_width="50px"
-            android:layout_height="50px"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:onClick="backButtonPressed"
             android:background="#CB181F2A"
             android:scaleType="fitCenter"
@@ -41,8 +41,8 @@
 
         <ImageButton
             android:id="@+id/sLogoutButton"
-            android:layout_width="150px"
-            android:layout_height="60px"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
             android:background="#CB181F2A"
             android:onClick="logout"
             android:scaleType="fitCenter"
@@ -74,7 +74,7 @@
                         android:textAlignment="textStart"
                         android:textColor="#FFFFFF"
                         android:textColorHint="#FFFFFF"
-                        android:textSize="10sp"
+                        android:textSize="11sp"
                         app:layout_anchorGravity="center" />
 
                     <TextView
@@ -85,7 +85,7 @@
                         android:textAlignment="textStart"
                         android:textColor="#FFFFFF"
                         android:textColorHint="#FFFFFF"
-                        android:textSize="10sp"
+                        android:textSize="11sp"
                         app:layout_anchorGravity="center" />
 
                     <TextView
@@ -97,7 +97,7 @@
                         android:textAlignment="textStart"
                         android:textColor="#FFFFFF"
                         android:textColorHint="#FFFFFF"
-                        android:textSize="10sp"
+                        android:textSize="11sp"
                         app:layout_anchorGravity="center" />
 
                 </LinearLayout>

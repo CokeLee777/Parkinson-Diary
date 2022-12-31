@@ -31,8 +31,8 @@
 
         <EditText
             android:id="@+id/lLoginForm"
-            android:layout_width="250px"
-            android:layout_height="90px"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
             android:background="@drawable/login_form"
             android:gravity="center|fill"
             android:ems="10"
@@ -47,8 +47,8 @@
 
         <ImageButton
             android:id="@+id/lLoginButton"
-            android:layout_width="150px"
-            android:layout_height="70px"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
             android:background="#CB181F2A"
             android:onClick="login"
             android:scaleType="fitCenter"

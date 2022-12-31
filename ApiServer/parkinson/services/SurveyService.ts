@@ -53,7 +53,7 @@ export class SurveyService {
     // 스케줄링 규칙 설정 - 1시간마다 반복
     const startHour = Number(patient[0].sleep_end_time.substring(0, 2));
     const endHour = Number(patient[0].sleep_start_time.substring(0, 2));
-    for(let hour = startHour + 1; hour < endHour; hour++){
+    for(let hour = startHour; hour < endHour; hour++){
       const scheduleName = `survey_${patientNum}_${hour}`;
       const rule = new schedule.RecurrenceRule();
       rule.dayOfWeek = [0, new schedule.Range(0, 6)];
@@ -80,7 +80,7 @@ export class SurveyService {
 
     const startHour = Number(patient[0].sleep_end_time.substring(0, 2));
     const endHour = Number(patient[0].sleep_start_time.substring(0, 2));
-    for(let hour = startHour + 1; hour < endHour; hour++){
+    for(let hour = startHour; hour < endHour; hour++){
       // 설문조사 스케줄러 취소
       const scheduleName = `survey_${patientNum}_${hour}`;
       const scheduledSurveyJob: Job = schedule.scheduledJobs[scheduleName];
