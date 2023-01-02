@@ -43,8 +43,8 @@ export class MedicineService {
 
         for (let i = 0; i < medicines.length; i++) {
             const scheduleName = `medicine_${patientNum}_${medicines[i].take_time}`;
-            // 스케줄링 규칙 설정 - 9~21시까지 1시간마다 반복
             const rule = new schedule.RecurrenceRule();
+            rule.dayOfWeek = [0, new schedule.Range(0, 6)];
             rule.tz = 'Asia/Seoul';
             rule.hour = Number(medicines[i].take_time.substring(0, 2));
             rule.minute = Number(medicines[i].take_time.substring(3, 5));
@@ -71,9 +71,9 @@ export class MedicineService {
     private cancelMedicineSchedule(patientNum: number, medicines: Array<any>) {
         for(let i = 0; i < medicines.length; i++){
             const scheduleName = `medicine_${patientNum}_${medicines[i].take_time}`;
-            const scheduledSurveyJob: Job = schedule.scheduledJobs[scheduleName];
-            if(schedule.cancelJob(scheduledSurveyJob)){
-                console.debug(`${getLocalTime()}: 약 복용시간 알람 취소`);
+            const scheduledMedicineJob: Job = schedule.scheduledJobs[scheduleName];
+            if(schedule.cancelJob(scheduledMedicineJob)){
+                console.debug(`${getLocalTime()}: 약 복용시간 알람 취소=${medicines[i].take_time}`);
             }
         }
     }

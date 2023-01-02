@@ -81,7 +81,7 @@ class DiarySettingActivity01 : AppCompatActivity() {
 
             //선택한 시간 Display
             button.text = SimpleDateFormat("HH:mm").format(cal.time)
-            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10f)
+            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8f)
         }
     }
 
