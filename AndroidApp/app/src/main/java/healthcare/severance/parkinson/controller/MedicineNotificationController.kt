@@ -56,7 +56,6 @@ class MedicineNotificationController(private val context: Context){
         .setSmallIcon(R.drawable.medicine_notification_icon)
         .setContentTitle(title)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
-        .setContentIntent(pendingIntent)
         .setDeleteIntent(pendingIntent)
         .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
         .setVibrate(longArrayOf(500, 500, 500, 500, 500, 500, 500, 500, 500))

@@ -52,7 +52,7 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="110dp"
             android:orientation="vertical"
             app:layout_anchor="@+id/dTitle"
             app:layout_anchorGravity="bottom|center">
