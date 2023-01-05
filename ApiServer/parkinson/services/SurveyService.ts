@@ -84,7 +84,7 @@ export class SurveyService {
       // 설문조사 스케줄러 취소
       const scheduleName = `survey_${patientNum}_${hour}`;
       const scheduledSurveyJob: Job = schedule.scheduledJobs[scheduleName];
-      schedule.cancelJob(scheduledSurveyJob);
+      scheduledSurveyJob.cancel(false);
     }
 
   }
