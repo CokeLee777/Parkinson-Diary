@@ -72,9 +72,8 @@ export class MedicineService {
         for(let i = 0; i < medicines.length; i++){
             const scheduleName = `medicine_${patientNum}_${medicines[i].take_time}`;
             const scheduledMedicineJob: Job = schedule.scheduledJobs[scheduleName];
-            if(schedule.cancelJob(scheduledMedicineJob)){
-                console.debug(`${getLocalTime()}: 약 복용시간 알람 취소=${medicines[i].take_time}`);
-            }
+            scheduledMedicineJob.cancel(false);
+            console.debug(`${getLocalTime()}: 약 복용시간 알람 취소=${medicines[i].take_time}`);
         }
     }
 
