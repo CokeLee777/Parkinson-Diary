@@ -72,11 +72,10 @@ export class MedicineService {
         for(let i = 0; i < medicines.length; i++) {
             const scheduleName = `medicine_${patientNum}_${medicines[i].take_time}`;
             const scheduledMedicineJob: Job = schedule.scheduledJobs[scheduleName];
-            const isCanceled = scheduledMedicineJob.cancel();
-            const cancelByJob = schedule.cancelJob(scheduledMedicineJob);
-            console.log(`isCanceled=${isCanceled}, cancelByJob=${cancelByJob}`);
+            if(schedule.cancelJob(scheduledMedicineJob)){
+                console.debug(`${getLocalTime()}: 약 복용시간 알람 취소=${medicines[i].take_time}`);
+            }
 
-            console.debug(`${getLocalTime()}: 약 복용시간 알람 취소=${medicines[i].take_time}`);
         }
 
         console.log(`스케줄러 잡 개수=${Object.keys(schedule.scheduledJobs).length}`);
