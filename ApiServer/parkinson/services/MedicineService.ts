@@ -1,6 +1,6 @@
 import {PatientModel} from "../models/PatientModel";
 import {MedicineModel} from "../models/MedicineModel";
-import schedule, {Job} from "node-schedule";
+import schedule, {Job, scheduledJobs} from "node-schedule";
 import {fcmAdmin} from "../config/FcmConfig";
 import {getLocalTime} from "../config/TimeConfig";
 import {Message} from "firebase-admin/lib/messaging";
@@ -69,12 +69,18 @@ export class MedicineService {
     }
 
     private cancelMedicineSchedule(patientNum: number, medicines: Array<any>) {
-        for(let i = 0; i < medicines.length; i++){
+        for(let i = 0; i < medicines.length; i++) {
             const scheduleName = `medicine_${patientNum}_${medicines[i].take_time}`;
             const scheduledMedicineJob: Job = schedule.scheduledJobs[scheduleName];
-            const isCanceled = schedule.cancelJob(scheduledMedicineJob);
-            console.debug(`${getLocalTime()}: 약 복용시간 알람 취소 ${isCanceled}=${medicines[i].take_time}`);
+            scheduledMedicineJob.cancel();
+            const cancelByName = schedule.cancelJob(scheduleName);
+            const cancelByJob = schedule.cancelJob(scheduledMedicineJob);
+            console.log(`cancelByName=${cancelByName}, cancelByJob=${cancelByJob}`);
+
+            console.debug(`${getLocalTime()}: 약 복용시간 알람 취소=${medicines[i].take_time}`);
         }
+
+        console.log(`스케줄러 잡 개수=${Object.keys(schedule.scheduledJobs).length}`);
     }
 
 }
