@@ -69,14 +69,14 @@ class DiarySettingActivity03 : AppCompatActivity() {
         val requestTakeTimes = convertRequestData()
         if(sessionManager.isAlarmActive()){
             //약 복용시간 알람 세팅
-            medicineNotificationController
-                .registrantMedicineNotification(sessionManager.getAccessToken()!!)
+
+            if (!intent.getBooleanExtra("is_update", true)) {
+                createDiary(requestTakeTimes)
+            } else {
+                updateDiary(requestTakeTimes)
+            }
         }
-        if (!intent.getBooleanExtra("is_update", true)) {
-            createDiary(requestTakeTimes)
-        } else {
-            updateDiary(requestTakeTimes)
-        }
+
     }
 
     private fun convertRequestData(): ArrayList<TakeTime>{
