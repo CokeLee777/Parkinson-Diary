@@ -2,9 +2,11 @@ package healthcare.severance.parkinson.service;
 
 import healthcare.severance.parkinson.domain.*;
 import healthcare.severance.parkinson.dto.patient.PatientMedicineTableForm;
-import healthcare.severance.parkinson.repository.MedicineHistoryRepository;
-import healthcare.severance.parkinson.repository.PatientRepository;
-import healthcare.severance.parkinson.repository.UserRepository;
+import healthcare.severance.parkinson.repository.medicinehistory.MedicineHistoryJpaRepository;
+import healthcare.severance.parkinson.repository.medicinehistory.MedicineHistoryRepository;
+import healthcare.severance.parkinson.repository.patient.PatientRepository;
+import healthcare.severance.parkinson.repository.user.UserRepository;
+import healthcare.severance.parkinson.service.graph.MedicineHistoryService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,6 +30,8 @@ class MedicineHistoryServiceTest {
     PatientRepository patientRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    MedicineHistoryJpaRepository medicineHistoryJpaRepository;
 
     // test values
     String testPatientName = "ㅌㅅㅌ";
@@ -52,7 +56,7 @@ class MedicineHistoryServiceTest {
         Patient patient = Patient.builder()
                 .patientNum(testPatientNum)
                 .name(testPatientName)
-                .user(userRepository.findByIdentifier(testUserIdentifier).get())
+                .user(userRepository.findByIdentifier(testUserIdentifier))
                 .build();
         patientRepository.save(patient);
     }
@@ -60,7 +64,7 @@ class MedicineHistoryServiceTest {
     @Test
     void getSurveyList() {
         //given
-        Patient testPatient = patientRepository.findById(testPatientNum).get();
+        Patient testPatient = patientRepository.findByPatientNum(testPatientNum);
         MedicineHistory givenMedicine = MedicineHistory.builder()
                 .id("1")
                 .isTake(true)
@@ -76,8 +80,8 @@ class MedicineHistoryServiceTest {
                 .patient(testPatient)
                 .build();
 
-        medicineHistoryRepository.save(givenMedicine);
-        medicineHistoryRepository.save(givenMedicine2);
+        medicineHistoryJpaRepository.save(givenMedicine);
+        medicineHistoryJpaRepository.save(givenMedicine2);
         //when
         List<PatientMedicineTableForm> survey = medicineHistoryService.getMedicineTable(testPatientNum, testDate);
         //then
@@ -87,7 +91,7 @@ class MedicineHistoryServiceTest {
     @Test
     void getSurvey() {
         //given
-        Patient testPatient = patientRepository.findById(testPatientNum).get();
+        Patient testPatient = patientRepository.findByPatientNum(testPatientNum);
         MedicineHistory givenMedicine = MedicineHistory.builder()
                 .id("1")
                 .isTake(true)
@@ -96,7 +100,7 @@ class MedicineHistoryServiceTest {
                 .patient(testPatient)
                 .build();
 
-        medicineHistoryRepository.save(givenMedicine);
+        medicineHistoryJpaRepository.save(givenMedicine);
         //when
         List<PatientMedicineTableForm> survey = medicineHistoryService.getMedicineTable(testPatientNum, testDate);
         //then

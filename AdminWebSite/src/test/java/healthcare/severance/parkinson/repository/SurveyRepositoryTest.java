@@ -4,6 +4,10 @@ import healthcare.severance.parkinson.domain.Patient;
 import healthcare.severance.parkinson.domain.RoleType;
 import healthcare.severance.parkinson.domain.Survey;
 import healthcare.severance.parkinson.domain.User;
+import healthcare.severance.parkinson.repository.patient.PatientRepository;
+import healthcare.severance.parkinson.repository.survey.SurveyJpaRepository;
+import healthcare.severance.parkinson.repository.survey.SurveyRepository;
+import healthcare.severance.parkinson.repository.user.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,6 +30,8 @@ class SurveyRepositoryTest {
     PatientRepository patientRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    SurveyJpaRepository surveyJpaRepository;
 
     // test values
     String testPatientName = "ㅌㅅㅌ";
@@ -51,7 +56,7 @@ class SurveyRepositoryTest {
         Patient patient = Patient.builder()
                 .patientNum(testPatientNum)
                 .name(testPatientName)
-                .user(userRepository.findByIdentifier(testUserIdentifier).get())
+                .user(userRepository.findByIdentifier(testUserIdentifier))
                 .build();
         patientRepository.save(patient);
     }
@@ -61,7 +66,7 @@ class SurveyRepositoryTest {
         //given
         Survey givenSurvey = Survey.builder()
                 .id(1L)
-                .patient(patientRepository.findById(testPatientNum).get())
+                .patient(patientRepository.findByPatientNum(testPatientNum))
                 .patientCondition(2.0)
                 .medicinalEffect(true)
                 .abnormalMovement(true)
@@ -70,18 +75,19 @@ class SurveyRepositoryTest {
 
         Survey givenSurvey2 = Survey.builder()
                 .id(2L)
-                .patient(patientRepository.findById(testPatientNum).get())
+                .patient(patientRepository.findByPatientNum(testPatientNum))
                 .patientCondition(2.0)
                 .medicinalEffect(true)
                 .abnormalMovement(true)
                 .surveyTime(testDate.atTime(12,0))
                 .build();
 
-        surveyRepository.save(givenSurvey);
-        surveyRepository.save(givenSurvey2);
+
+        surveyJpaRepository.save(givenSurvey);
+        surveyJpaRepository.save(givenSurvey2);
         //when
         List<Survey> surveyList = surveyRepository.findByPatientAndSurveyTimeBetween(
-                patientRepository.findById(testPatientNum).get(),
+                patientRepository.findByPatientNum(testPatientNum),
                 testDate.atStartOfDay(),
                 testDate.plusDays(1).atStartOfDay());
         //then

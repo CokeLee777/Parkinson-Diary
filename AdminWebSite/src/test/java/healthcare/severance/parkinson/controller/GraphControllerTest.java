@@ -1,8 +1,13 @@
 package healthcare.severance.parkinson.controller;
 
 import healthcare.severance.parkinson.domain.*;
-import healthcare.severance.parkinson.repository.*;
-import healthcare.severance.parkinson.service.MedicineHistoryService;
+import healthcare.severance.parkinson.repository.medicinehistory.MedicineHistoryJpaRepository;
+import healthcare.severance.parkinson.repository.medicinehistory.MedicineHistoryRepository;
+import healthcare.severance.parkinson.repository.patient.PatientRepository;
+import healthcare.severance.parkinson.repository.survey.SurveyJpaRepository;
+import healthcare.severance.parkinson.repository.survey.SurveyRepository;
+import healthcare.severance.parkinson.repository.user.UserRepository;
+import healthcare.severance.parkinson.service.graph.MedicineHistoryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +44,10 @@ class GraphControllerTest {
     PatientRepository patientRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    SurveyJpaRepository surveyJpaRepository;
+    @Autowired
+    MedicineHistoryJpaRepository medicineHistoryJpaRepository;
 
     // test values
     String testPatientName = "ㅌㅅㅌ";
@@ -63,7 +72,7 @@ class GraphControllerTest {
         Patient patient = Patient.builder()
                 .patientNum(testPatientNum)
                 .name(testPatientName)
-                .user(userRepository.findByIdentifier(testUserIdentifier).get())
+                .user(userRepository.findByIdentifier(testUserIdentifier))
                 .build();
         patientRepository.save(patient);
     }
@@ -72,7 +81,7 @@ class GraphControllerTest {
     @WithMockUser
     void surveyForm() throws Exception {
         //given
-        Patient testPatient = patientRepository.findById(testPatientNum).get();
+        Patient testPatient = patientRepository.findByPatientNum(testPatientNum);
         Survey givenSurvey = Survey.builder()
                 .id(1L)
                 .patient(testPatient)
@@ -90,8 +99,8 @@ class GraphControllerTest {
                 .abnormalMovement(true)
                 .surveyTime(testDate.atTime(12,0))
                 .build();
-        surveyRepository.save(givenSurvey);
-        surveyRepository.save(givenSurvey2);
+        surveyJpaRepository.save(givenSurvey);
+        surveyJpaRepository.save(givenSurvey2);
 
         MedicineHistory givenMedicine = MedicineHistory.builder()
                 .id("1")
@@ -108,8 +117,8 @@ class GraphControllerTest {
                 .patient(testPatient)
                 .build();
 
-        medicineHistoryRepository.save(givenMedicine);
-        medicineHistoryRepository.save(givenMedicine2);
+        medicineHistoryJpaRepository.save(givenMedicine);
+        medicineHistoryJpaRepository.save(givenMedicine2);
 
         RequestBuilder request = post("/patient/1111/graph")
                 .param("selectedDate", String.valueOf(testDate))

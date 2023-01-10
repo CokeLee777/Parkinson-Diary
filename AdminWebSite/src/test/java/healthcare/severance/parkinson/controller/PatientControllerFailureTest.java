@@ -5,10 +5,9 @@ import healthcare.severance.parkinson.domain.RoleType;
 import healthcare.severance.parkinson.domain.User;
 import healthcare.severance.parkinson.dto.patient.PatientForm;
 import healthcare.severance.parkinson.exception.CustomException;
-import healthcare.severance.parkinson.repository.UserRepository;
+import healthcare.severance.parkinson.repository.user.UserRepository;
 import healthcare.severance.parkinson.service.PatientService;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -112,7 +111,7 @@ public class PatientControllerFailureTest {
                 .param("sleepStartTime", sleepStartTime)
                 .param("sleepEndTime", sleepEndTime)
                 .param("inChargeUser",
-                        objectMapper.writeValueAsString(userRepository.findByIdentifier(testUserIdentifier).get().getId()))
+                        objectMapper.writeValueAsString(userRepository.findByIdentifier(testUserIdentifier).getId()))
                 .with(SecurityMockMvcRequestPostProcessors.csrf());
         //when
         //then
@@ -134,7 +133,7 @@ public class PatientControllerFailureTest {
                 .param("sleepStartTime", sleepStartTime)
                 .param("sleepEndTime", sleepEndTime)
                 .param("inChargeUser",
-                        objectMapper.writeValueAsString(userRepository.findByIdentifier(testUserIdentifier).get().getId()))
+                        objectMapper.writeValueAsString(userRepository.findByIdentifier(testUserIdentifier).getId()))
                 .with(SecurityMockMvcRequestPostProcessors.csrf());
         //when
         //then
@@ -156,7 +155,7 @@ public class PatientControllerFailureTest {
                 .param("sleepStartTime", sleepStartTime)
                 .param("sleepEndTime", sleepEndTime)
                 .param("inChargeUser",
-                        objectMapper.writeValueAsString(userRepository.findByIdentifier(testUserIdentifier).get().getId()))
+                        objectMapper.writeValueAsString(userRepository.findByIdentifier(testUserIdentifier).getId()))
                 .with(SecurityMockMvcRequestPostProcessors.csrf());
         //when
         //then
@@ -181,6 +180,7 @@ public class PatientControllerFailureTest {
                 .username("정세영")
                 .email("test@gmail.com")
                 .build();
-        return userRepository.save(user);
+        userRepository.save(user);
+        return user;
     }
 }

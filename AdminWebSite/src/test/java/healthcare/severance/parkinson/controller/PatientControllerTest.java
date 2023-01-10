@@ -5,7 +5,7 @@ import healthcare.severance.parkinson.domain.RoleType;
 import healthcare.severance.parkinson.domain.User;
 import healthcare.severance.parkinson.dto.patient.PatientForm;
 import healthcare.severance.parkinson.exception.CustomException;
-import healthcare.severance.parkinson.repository.UserRepository;
+import healthcare.severance.parkinson.repository.user.UserRepository;
 import healthcare.severance.parkinson.service.PatientService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -135,7 +135,7 @@ class PatientControllerTest {
                 .param("sleepStartTime", sleepStartTime)
                 .param("sleepEndTime", sleepEndTime)
                 .param("inChargeUser",
-                        objectMapper.writeValueAsString(userRepository.findByIdentifier(testUserIdentifier).get().getId()))
+                        objectMapper.writeValueAsString(userRepository.findByIdentifier(testUserIdentifier).getId()))
                 .with(SecurityMockMvcRequestPostProcessors.csrf());
         //when
         mvc.perform(request)
@@ -157,7 +157,7 @@ class PatientControllerTest {
                 .param("sleepStartTime", sleepStartTime)
                 .param("sleepEndTime", sleepEndTime)
                 .param("inChargeUser",
-                        objectMapper.writeValueAsString(userRepository.findByIdentifier(testUserIdentifier).get().getId()))
+                        objectMapper.writeValueAsString(userRepository.findByIdentifier(testUserIdentifier).getId()))
                 .with(SecurityMockMvcRequestPostProcessors.csrf());
         //when
         mvc.perform(request)
@@ -183,6 +183,7 @@ class PatientControllerTest {
                 .username("정세영")
                 .email("test@gmail.com")
                 .build();
-        return userRepository.save(user);
+        userRepository.save(user);
+        return user;
     }
 }

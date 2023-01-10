@@ -2,12 +2,19 @@ package healthcare.severance.parkinson.service;
 
 import healthcare.severance.parkinson.domain.User;
 import healthcare.severance.parkinson.dto.user.RegisterForm;
-import healthcare.severance.parkinson.repository.UserRepository;
+import healthcare.severance.parkinson.exception.CustomException;
+import healthcare.severance.parkinson.repository.user.UserJpaRepository;
+import healthcare.severance.parkinson.repository.user.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.hibernate.exception.ConstraintViolationException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +31,8 @@ class UserServiceTest {
     UserRepository userRepository;
     @Autowired
     UserService userService;
+    @Autowired
+    UserJpaRepository userJpaRepository;
 
     // test values
     String testUserIdentifier = "testId";
@@ -31,31 +40,24 @@ class UserServiceTest {
     String testUserName = "테스트";
     String testUserEmail = "testtest@gmail.com";
 
-    @Test
-    void createUser() {
-        //given
+    @BeforeEach
+    void BeforeEach() {
         RegisterForm registerForm = getRegisterForm(testUserIdentifier,testUserPassword,testUserName,testUserEmail);
-        //when
         userService.createUser(registerForm);
-        User testId = userRepository.findByIdentifier(testUserIdentifier).get();
-        //then
-        assertThat(testId.getUsername()).isEqualTo(registerForm.getUsername());
+    }
+
+    @AfterEach
+    void AfterEach() {
+        userJpaRepository.delete(userJpaRepository.findByIdentifier(testUserIdentifier).get());
     }
 
     @Test
-    void createUserByDuplicatedIdentifier() {
+    void createUser() {
         //given
-        String newEmail = "test@gmail.com";
-
-        RegisterForm registerForm = getRegisterForm(testUserIdentifier,testUserPassword,testUserName,testUserEmail);
-        RegisterForm duplicatedForm = getRegisterForm(testUserIdentifier,testUserPassword,testUserName,newEmail);
-
         //when
-        userService.createUser(registerForm);
+        User testId = userRepository.findByIdentifier(testUserIdentifier);
         //then
-        Assertions.assertThatThrownBy(
-                () -> userService.createUser(duplicatedForm))
-                .hasCauseExactlyInstanceOf(ConstraintViolationException.class);
+        assertThat(testId.getUsername()).isEqualTo(testUserName);
     }
 
     @Test
@@ -66,11 +68,9 @@ class UserServiceTest {
         String testUserEmail2 = "testtest2@gmail.com";
         String testUserEmail3 = "testtest3@gmail.com";
 
-        RegisterForm registerForm1 = getRegisterForm(testUserIdentifier,testUserPassword,testUserName,testUserEmail);
         RegisterForm registerForm2 = getRegisterForm(testUserIdentifier2,testUserPassword,testUserName,testUserEmail2);
         RegisterForm registerForm3 = getRegisterForm(testUserIdentifier3,testUserPassword,testUserName,testUserEmail3);
 
-        userService.createUser(registerForm1);
         userService.createUser(registerForm2);
         userService.createUser(registerForm3);
 
@@ -82,30 +82,14 @@ class UserServiceTest {
     }
 
     @Test
-    void createUserByDuplicatedEmail() {
-        //given
-        String newIdentifier = "testId1";
-
-        RegisterForm registerForm = getRegisterForm(testUserIdentifier,testUserPassword,testUserName,testUserEmail);
-        RegisterForm duplicatedForm = getRegisterForm(newIdentifier,testUserPassword,testUserName,testUserEmail);
-
-        //when
-        userService.createUser(registerForm);
-        //then
-        Assertions.assertThatThrownBy(
-                        () -> userService.createUser(duplicatedForm))
-                .hasCauseExactlyInstanceOf(ConstraintViolationException.class);
-    }
-
-    @Test
     void isDuplicateUser() {
         //given
-        RegisterForm registerForm1 = getRegisterForm(testUserIdentifier,testUserPassword,testUserName,testUserEmail);
-        userService.createUser(registerForm1);
         //when
-        Boolean duplicateUser = userService.isDuplicateUser(testUserIdentifier);
+        Boolean duplicateUser = userService.isDuplicateUserIdentifier(testUserIdentifier);
+        Boolean duplicateEmail = userService.isDuplicateUserEmail(testUserEmail);
         //then
         Assertions.assertThat(duplicateUser).isTrue();
+        Assertions.assertThat(duplicateEmail).isTrue();
     }
 
     private RegisterForm getRegisterForm(String UserIdentifier, String UserPassword, String UserName, String Email) {

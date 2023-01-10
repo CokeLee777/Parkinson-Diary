@@ -34,9 +34,15 @@ public class RegisterController {
             return "register";
         }
 
-        if(userService.isDuplicateUser(form.getIdentifier())){
+        if(userService.isDuplicateUserIdentifier(form.getIdentifier())){
             log.debug("아이디 중복 오류 identifier={}", form.getIdentifier());
             bindingResult.rejectValue("identifier", "duplicatedUser", "아이디가 중복됩니다.");
+            return "register";
+        }
+
+        if(userService.isDuplicateUserEmail(form.getEmail())){
+            log.debug("이메일 중복 오류 email={}", form.getEmail());
+            bindingResult.rejectValue("email", "duplicatedEmail", "메일 주소가 중복됩니다.");
             return "register";
         }
 

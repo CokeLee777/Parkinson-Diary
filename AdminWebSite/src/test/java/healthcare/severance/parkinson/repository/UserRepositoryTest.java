@@ -2,11 +2,15 @@ package healthcare.severance.parkinson.repository;
 
 import healthcare.severance.parkinson.domain.RoleType;
 import healthcare.severance.parkinson.domain.User;
+import healthcare.severance.parkinson.exception.CustomException;
+import healthcare.severance.parkinson.repository.user.UserJpaRepository;
+import healthcare.severance.parkinson.repository.user.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +22,8 @@ class UserRepositoryTest {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserJpaRepository userJpaRepository;
 
     // test values
     String testUserIdentifier = "testId";
@@ -39,14 +45,13 @@ class UserRepositoryTest {
 
     @AfterEach
     void afterEach() {
-        User testId = userRepository.findByIdentifier(testUserIdentifier).get();
-        userRepository.delete(testId);
+        userJpaRepository.delete(userRepository.findByIdentifier(testUserIdentifier));
     }
 
     @Test
     @Transactional
     void findByIdentifier() {
-        User findUser = userRepository.findByIdentifier(testUserIdentifier).get();
+        User findUser = userRepository.findByIdentifier(testUserIdentifier);
 
         assertThat(findUser.getIdentifier()).isEqualTo(testUserIdentifier);
     }
@@ -70,6 +75,6 @@ class UserRepositoryTest {
                 .build();
 
         Assertions.assertThatThrownBy(() -> userRepository.save(user))
-                .hasCauseExactlyInstanceOf(ConstraintViolationException.class);
+                .isInstanceOf(DataIntegrityViolationException.class);
     }
 }

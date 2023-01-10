@@ -1,6 +1,10 @@
 package healthcare.severance.parkinson.repository;
 
 import healthcare.severance.parkinson.domain.*;
+import healthcare.severance.parkinson.repository.medicinehistory.MedicineHistoryJpaRepository;
+import healthcare.severance.parkinson.repository.medicinehistory.MedicineHistoryRepository;
+import healthcare.severance.parkinson.repository.patient.PatientRepository;
+import healthcare.severance.parkinson.repository.user.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +27,8 @@ class MedicineHistoryRepositoryTest {
     PatientRepository patientRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    MedicineHistoryJpaRepository medicineHistoryJpaRepository;
 
     // test values
     String testPatientName = "ㅌㅅㅌ";
@@ -47,7 +53,7 @@ class MedicineHistoryRepositoryTest {
         Patient patient = Patient.builder()
                 .patientNum(testPatientNum)
                 .name(testPatientName)
-                .user(userRepository.findByIdentifier(testUserIdentifier).get())
+                .user(userRepository.findByIdentifier(testUserIdentifier))
                 .build();
         patientRepository.save(patient);
     }
@@ -55,7 +61,7 @@ class MedicineHistoryRepositoryTest {
     @Test
     void findByPatientAndTakeTimeBetween() {
         //given
-        Patient testPatient = patientRepository.findById(testPatientNum).get();
+        Patient testPatient = patientRepository.findByPatientNum(testPatientNum);
         MedicineHistory givenMedicine = MedicineHistory.builder()
                 .id("1")
                 .isTake(true)
@@ -71,11 +77,11 @@ class MedicineHistoryRepositoryTest {
                 .patient(testPatient)
                 .build();
 
-        medicineHistoryRepository.save(givenMedicine);
-        medicineHistoryRepository.save(givenMedicine2);
+        medicineHistoryJpaRepository.save(givenMedicine);
+        medicineHistoryJpaRepository.save(givenMedicine2);
         //when
         List<MedicineHistory> medicineList = medicineHistoryRepository.findByPatientAndReservedTakeTimeBetween(
-                patientRepository.findById(this.testPatientNum).get(),
+                patientRepository.findByPatientNum(this.testPatientNum),
                 testDate.atStartOfDay(),
                 testDate.plusDays(1).atStartOfDay());
         //then
