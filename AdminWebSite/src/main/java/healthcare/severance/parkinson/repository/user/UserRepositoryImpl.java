@@ -2,9 +2,9 @@ package healthcare.severance.parkinson.repository.user;
 
 import healthcare.severance.parkinson.domain.User;
 import healthcare.severance.parkinson.exception.CustomException;
-import healthcare.severance.parkinson.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class UserRepositoryImpl implements UserRepository{
     @Override
     public User findByIdentifier(String identifier) {
         return userJpaRepository.findByIdentifier(identifier)
-                .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
+                .orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 아이디 입니다."));
     }
 
     @Override
