@@ -1,5 +1,6 @@
 package healthcare.severance.parkinson.service;
 
+import healthcare.severance.parkinson.domain.RoleType;
 import healthcare.severance.parkinson.domain.User;
 import healthcare.severance.parkinson.dto.user.RegisterForm;
 import healthcare.severance.parkinson.exception.CustomException;

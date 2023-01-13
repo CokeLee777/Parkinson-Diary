@@ -43,7 +43,7 @@ public class RegisterForm {
 
     public User toUser(PasswordEncoder passwordEncoder){
         return User.builder()
-                .role(RoleType.USER)
+                .role(RoleType.DOCTOR)
                 .identifier(identifier)
                 .password(passwordEncoder.encode(password))
                 .username(username)

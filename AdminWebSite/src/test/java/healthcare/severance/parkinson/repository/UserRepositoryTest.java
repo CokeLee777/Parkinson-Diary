@@ -2,11 +2,9 @@ package healthcare.severance.parkinson.repository;
 
 import healthcare.severance.parkinson.domain.RoleType;
 import healthcare.severance.parkinson.domain.User;
-import healthcare.severance.parkinson.exception.CustomException;
 import healthcare.severance.parkinson.repository.user.UserJpaRepository;
 import healthcare.severance.parkinson.repository.user.UserRepository;
 import org.assertj.core.api.Assertions;
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,7 +32,7 @@ class UserRepositoryTest {
     @BeforeEach
     void beforeEach() {
         User user = User.builder()
-                .role(RoleType.USER)
+                .role(RoleType.DOCTOR)
                 .identifier(testUserIdentifier)
                 .password(testUserPassword)
                 .username(testUserName)
@@ -67,7 +65,7 @@ class UserRepositoryTest {
     @Test
     void duplicateUser() {
         User user = User.builder()
-                .role(RoleType.USER)
+                .role(RoleType.DOCTOR)
                 .identifier(testUserIdentifier)
                 .password(testUserPassword)
                 .username(testUserName)

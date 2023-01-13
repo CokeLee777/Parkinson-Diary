@@ -100,7 +100,7 @@ class PatientServiceTest {
 
     private User makeUser() {
     return User.builder()
-            .role(RoleType.USER)
+            .role(RoleType.DOCTOR)
             .identifier(testUserIdentifier)
             .password(testUserPassword)
             .username(testUserName)

@@ -54,7 +54,7 @@ class RegisterControllerTest {
                 .param("repeatPassword", testUserPassword)
                 .param("username", testUserName)
                 .param("email", testUserEmail)
-                .param("role", String.valueOf(RoleType.USER))
+                .param("role", String.valueOf(RoleType.DOCTOR))
                 .with(SecurityMockMvcRequestPostProcessors.csrf());
         //when
         //then
@@ -74,7 +74,7 @@ class RegisterControllerTest {
                 .param("repeatPassword", patternErrorPassword)
                 .param("username", testUserName)
                 .param("email", testUserEmail)
-                .param("role", String.valueOf(RoleType.USER))
+                .param("role", String.valueOf(RoleType.DOCTOR))
                 .with(SecurityMockMvcRequestPostProcessors.csrf());
         //when
         //then
@@ -94,7 +94,7 @@ class RegisterControllerTest {
                 .param("repeatPassword", wrongRepeatPassword)
                 .param("username", testUserName)
                 .param("email", testUserEmail)
-                .param("role", String.valueOf(RoleType.USER))
+                .param("role", String.valueOf(RoleType.DOCTOR))
                 .with(SecurityMockMvcRequestPostProcessors.csrf());
         //when
         //then
@@ -109,7 +109,7 @@ class RegisterControllerTest {
         String duplicateIdentifier = "dupId";
 
         User user = User.builder()
-                .role(RoleType.USER)
+                .role(RoleType.DOCTOR)
                 .identifier(duplicateIdentifier)
                 .password(testUserPassword)
                 .username(testUserName)
@@ -123,7 +123,7 @@ class RegisterControllerTest {
                 .param("repeatPassword", testUserPassword)
                 .param("username", testUserName)
                 .param("email", testUserEmail)
-                .param("role", String.valueOf(RoleType.USER))
+                .param("role", String.valueOf(RoleType.DOCTOR))
                 .with(SecurityMockMvcRequestPostProcessors.csrf());
         //when
         //then
@@ -143,7 +143,7 @@ class RegisterControllerTest {
                 .param("repeatPassword", testUserPassword)
                 .param("username", testUserName)
                 .param("email", wrongPatternEmail)
-                .param("role", String.valueOf(RoleType.USER))
+                .param("role", String.valueOf(RoleType.DOCTOR))
                 .with(SecurityMockMvcRequestPostProcessors.csrf());
         //when
         //then

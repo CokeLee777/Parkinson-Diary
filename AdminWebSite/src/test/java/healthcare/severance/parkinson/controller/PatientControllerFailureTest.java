@@ -174,7 +174,7 @@ public class PatientControllerFailureTest {
     }
     private User getUser() {
         User user = User.builder()
-                .role(RoleType.USER)
+                .role(RoleType.DOCTOR)
                 .identifier(testUserIdentifier)
                 .password("testPass!")
                 .username("정세영")

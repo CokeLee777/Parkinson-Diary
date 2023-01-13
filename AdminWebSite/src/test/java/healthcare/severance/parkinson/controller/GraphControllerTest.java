@@ -61,7 +61,7 @@ class GraphControllerTest {
     @BeforeEach
     void beforeEach() {
         User user = User.builder()
-                .role(RoleType.USER)
+                .role(RoleType.DOCTOR)
                 .identifier(testUserIdentifier)
                 .password(testUserPassword)
                 .username(testUserName)
