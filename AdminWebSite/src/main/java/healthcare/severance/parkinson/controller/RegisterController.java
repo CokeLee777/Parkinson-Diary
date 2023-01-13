@@ -28,7 +28,6 @@ public class RegisterController {
 
     @PostMapping
     public String register(@Validated @ModelAttribute("form") RegisterForm form, BindingResult bindingResult){
-        log.info("form = {}", form.toString());
         if(bindingResult.hasErrors()){
             log.debug("필드 검증 오류={}", bindingResult);
             return "register";
