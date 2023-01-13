@@ -1,37 +1,36 @@
 package healthcare.severance.parkinson.service;
 
-import healthcare.severance.parkinson.domain.User;
 import healthcare.severance.parkinson.dto.user.RegisterForm;
-import healthcare.severance.parkinson.repository.UserRepository;
+import healthcare.severance.parkinson.exception.CustomException;
+import healthcare.severance.parkinson.exception.ErrorCode;
+import healthcare.severance.parkinson.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Transactional
+
     public void createUser(RegisterForm form){
         userRepository.save(form.toUser(passwordEncoder));
     }
 
-    public Boolean isDuplicateUser(String identifier){
+    public Boolean isDuplicateUserIdentifier(String identifier){
         return userRepository.existsByIdentifier(identifier);
     }
 
+    public Boolean isDuplicateUserEmail(String email){
+        return userRepository.existsByEmail(email);
+    }
+
     public HashMap<Long, String> findAllUsernamesAndIds() {
-        HashMap<Long, String> usernameIdsMap = new HashMap<>();
-        for (User user : userRepository.findAll()) {
-            usernameIdsMap.put(user.getId(), user.getUsername());
-        }
-        return usernameIdsMap;
+        return userRepository.findHashMapAllIdAndIdentifier();
     }
 }

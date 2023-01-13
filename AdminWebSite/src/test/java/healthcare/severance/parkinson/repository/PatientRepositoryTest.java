@@ -3,10 +3,11 @@ package healthcare.severance.parkinson.repository;
 import healthcare.severance.parkinson.domain.Patient;
 import healthcare.severance.parkinson.domain.RoleType;
 import healthcare.severance.parkinson.domain.User;
+import healthcare.severance.parkinson.repository.patient.PatientRepository;
+import healthcare.severance.parkinson.repository.user.UserJpaRepository;
+import healthcare.severance.parkinson.repository.user.UserRepository;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,8 @@ class PatientRepositoryTest {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserJpaRepository userJpaRepository;
     @Autowired
     PatientRepository patientRepository;
 
@@ -42,9 +45,9 @@ class PatientRepositoryTest {
     }
 
     @AfterEach
-    void afterEach() {
-        User testId = userRepository.findByIdentifier(testUserIdentifier).get();
-        userRepository.delete(testId);
+    void AfterEach() {
+        User testId = userRepository.findByIdentifier(testUserIdentifier);
+        userJpaRepository.delete(testId);
     }
 
     @Test
@@ -53,15 +56,15 @@ class PatientRepositoryTest {
         Patient patient = Patient.builder()
                 .patientNum(testPatientNum)
                 .name(testPatientName)
-                .user(userRepository.findByIdentifier(testUserIdentifier).get())
+                .user(userRepository.findByIdentifier(testUserIdentifier))
                 .build();
 
         //when
-        Patient save = patientRepository.save(patient);
+        patientRepository.save(patient);
 
         //then
-        Assertions.assertThat(patient.getPatientNum()).isEqualTo(save.getPatientNum());
-        patientRepository.delete(save);
+        Assertions.assertThat(patient.getPatientNum()).isEqualTo(patientRepository.findByPatientNum(testPatientNum).getPatientNum());
+        patientRepository.deleteByPatientNum(testPatientNum);
     }
 
     @Test
@@ -70,9 +73,9 @@ class PatientRepositoryTest {
         Patient patient = Patient.builder()
                 .patientNum(testPatientNum)
                 .name(testPatientName)
-                .user(userRepository.findByIdentifier(testUserIdentifier).get())
+                .user(userRepository.findByIdentifier(testUserIdentifier))
                 .build();
-        Patient save = patientRepository.save(patient);
+        patientRepository.save(patient);
 
         //when
         Page<Patient> patientByName = patientRepository.findByName(testUserIdentifier, null);
@@ -80,10 +83,10 @@ class PatientRepositoryTest {
         //then
         for (Patient patient1 : patientByName) {
             if (patient1.getPatientNum() == testPatientNum) {
-                Assertions.assertThat(patient1.getName()).isEqualTo(save.getName());
+                Assertions.assertThat(patient1.getName()).isEqualTo(patientRepository.findByPatientNum(testPatientNum).getName());
             }
         }
-        patientRepository.delete(save);
+        patientRepository.deleteByPatientNum(testPatientNum);
     }
 
     @Test
@@ -92,15 +95,15 @@ class PatientRepositoryTest {
         Patient patient = Patient.builder()
                 .patientNum(testPatientNum)
                 .name(testPatientName)
-                .user(userRepository.findByIdentifier(testUserIdentifier).get())
+                .user(userRepository.findByIdentifier(testUserIdentifier))
                 .build();
-        Patient save = patientRepository.save(patient);
+        patientRepository.save(patient);
 
         //when
         boolean result = patientRepository.existsByPatientNum(testPatientNum);
 
         //then
         Assertions.assertThat(result).isTrue();
-        patientRepository.delete(save);
+        patientRepository.deleteByPatientNum(testPatientNum);
     }
 }

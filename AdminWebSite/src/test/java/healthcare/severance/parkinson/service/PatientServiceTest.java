@@ -6,7 +6,7 @@ import healthcare.severance.parkinson.domain.User;
 import healthcare.severance.parkinson.dto.patient.PatientEditForm;
 import healthcare.severance.parkinson.dto.patient.PatientForm;
 import healthcare.severance.parkinson.exception.CustomException;
-import healthcare.severance.parkinson.repository.UserRepository;
+import healthcare.severance.parkinson.repository.user.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,14 +99,13 @@ class PatientServiceTest {
     }
 
     private User makeUser() {
-        User user = User.builder()
-                .role(RoleType.USER)
-                .identifier(testUserIdentifier)
-                .password(testUserPassword)
-                .username(testUserName)
-                .email(testUserEmail)
-                .build();
-    return user;
+    return User.builder()
+            .role(RoleType.USER)
+            .identifier(testUserIdentifier)
+            .password(testUserPassword)
+            .username(testUserName)
+            .email(testUserEmail)
+            .build();
 }
     private static PatientForm setPatient(User user) {
         PatientForm patientForm = new PatientForm();

@@ -5,9 +5,11 @@ import healthcare.severance.parkinson.domain.RoleType;
 import healthcare.severance.parkinson.domain.Survey;
 import healthcare.severance.parkinson.domain.User;
 import healthcare.severance.parkinson.dto.patient.PatientSurveyTableForm;
-import healthcare.severance.parkinson.repository.PatientRepository;
-import healthcare.severance.parkinson.repository.SurveyRepository;
-import healthcare.severance.parkinson.repository.UserRepository;
+import healthcare.severance.parkinson.repository.patient.PatientRepository;
+import healthcare.severance.parkinson.repository.survey.SurveyJpaRepository;
+import healthcare.severance.parkinson.repository.survey.SurveyRepository;
+import healthcare.severance.parkinson.repository.user.UserRepository;
+import healthcare.severance.parkinson.service.graph.SurveyService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,6 +34,8 @@ class SurveyServiceTest {
     PatientRepository patientRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    SurveyJpaRepository surveyJpaRepository;
 
     // test values
     String testPatientName = "ㅌㅅㅌ";
@@ -56,7 +60,7 @@ class SurveyServiceTest {
         Patient patient = Patient.builder()
                 .patientNum(testPatientNum)
                 .name(testPatientName)
-                .user(userRepository.findByIdentifier(testUserIdentifier).get())
+                .user(userRepository.findByIdentifier(testUserIdentifier))
                 .build();
         patientRepository.save(patient);
     }
@@ -66,7 +70,7 @@ class SurveyServiceTest {
         //given
         Survey givenSurvey = Survey.builder()
                 .id(1L)
-                .patient(patientRepository.findById(testPatientNum).get())
+                .patient(patientRepository.findByPatientNum(testPatientNum))
                 .patientCondition(2.0)
                 .medicinalEffect(true)
                 .abnormalMovement(true)
@@ -75,15 +79,15 @@ class SurveyServiceTest {
 
         Survey givenSurvey2 = Survey.builder()
                 .id(2L)
-                .patient(patientRepository.findById(testPatientNum).get())
+                .patient(patientRepository.findByPatientNum(testPatientNum))
                 .patientCondition(2.0)
                 .medicinalEffect(true)
                 .abnormalMovement(true)
                 .surveyTime(testDate.atTime(12,0))
                 .build();
 
-        surveyRepository.save(givenSurvey);
-        surveyRepository.save(givenSurvey2);
+        surveyJpaRepository.save(givenSurvey);
+        surveyJpaRepository.save(givenSurvey2);
         //when
         List<PatientSurveyTableForm> survey = surveyService.getSurveyTable(testPatientNum, testDate);
         //then
@@ -95,14 +99,14 @@ class SurveyServiceTest {
         //given
         Survey givenSurvey = Survey.builder()
                 .id(1L)
-                .patient(patientRepository.findById(testPatientNum).get())
+                .patient(patientRepository.findByPatientNum(testPatientNum))
                 .patientCondition(2.0)
                 .medicinalEffect(true)
                 .abnormalMovement(true)
                 .surveyTime(testDate.atTime(11,0))
                 .build();
 
-        surveyRepository.save(givenSurvey);
+        surveyJpaRepository.save(givenSurvey);
         //when
         List<PatientSurveyTableForm> survey = surveyService.getSurveyTable(testPatientNum, testDate);
         //then
