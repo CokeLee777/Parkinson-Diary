@@ -17,7 +17,7 @@ import static javax.persistence.FetchType.LAZY;
 public class MedicineHistory {
 
     @Id
-    @Column(name = "medicine_history_id", nullable = false, unique = true)
+    @Column(name = "medicine_history_id")
     private String id;
 
     @ManyToOne(fetch = LAZY)

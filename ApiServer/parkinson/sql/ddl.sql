@@ -25,7 +25,6 @@ CREATE TABLE medicine (
   medicine_id BIGINT AUTO_INCREMENT PRIMARY KEY,
   patient_num BIGINT NOT NULL,
   take_time TIME NOT NULL,
-  is_take BIT DEFAULT 0,
   FOREIGN KEY (patient_num) REFERENCES patients (patient_num)
 );
 
