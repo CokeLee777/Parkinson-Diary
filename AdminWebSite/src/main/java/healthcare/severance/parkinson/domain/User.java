@@ -26,7 +26,8 @@ public class User {
     @Column(name = "username", nullable = false)
     private final String username;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true,
+            columnDefinition = "VARCHAR(255) CHECK (email LIKE '%@%.%')")
     private final String email;
 
     @Enumerated(EnumType.STRING)
