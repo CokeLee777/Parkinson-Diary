@@ -2,7 +2,9 @@ package healthcare.severance.parkinson.controller;
 
 import healthcare.severance.parkinson.domain.RoleType;
 import healthcare.severance.parkinson.domain.User;
-import healthcare.severance.parkinson.repository.UserRepository;
+import healthcare.severance.parkinson.repository.user.UserJpaRepository;
+import healthcare.severance.parkinson.repository.user.UserRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -27,6 +29,8 @@ class RegisterControllerTest {
     MockMvc mvc;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserJpaRepository userJpaRepository;
 
     // test values
     String testUserName = "ㅌㅅㅌ";
@@ -51,11 +55,12 @@ class RegisterControllerTest {
                 .param("username", testUserName)
                 .param("email", testUserEmail)
                 .param("role", String.valueOf(RoleType.USER))
-                .with(SecurityMockMvcRequestPostProcessors.csrf());;
+                .with(SecurityMockMvcRequestPostProcessors.csrf());
         //when
         //then
         mvc.perform(request)
                 .andExpect(redirectedUrl("/"));
+
     }
 
     @Test
@@ -70,7 +75,7 @@ class RegisterControllerTest {
                 .param("username", testUserName)
                 .param("email", testUserEmail)
                 .param("role", String.valueOf(RoleType.USER))
-                .with(SecurityMockMvcRequestPostProcessors.csrf());;
+                .with(SecurityMockMvcRequestPostProcessors.csrf());
         //when
         //then
         mvc.perform(request)
@@ -90,7 +95,7 @@ class RegisterControllerTest {
                 .param("username", testUserName)
                 .param("email", testUserEmail)
                 .param("role", String.valueOf(RoleType.USER))
-                .with(SecurityMockMvcRequestPostProcessors.csrf());;
+                .with(SecurityMockMvcRequestPostProcessors.csrf());
         //when
         //then
         mvc.perform(request)
@@ -119,7 +124,7 @@ class RegisterControllerTest {
                 .param("username", testUserName)
                 .param("email", testUserEmail)
                 .param("role", String.valueOf(RoleType.USER))
-                .with(SecurityMockMvcRequestPostProcessors.csrf());;
+                .with(SecurityMockMvcRequestPostProcessors.csrf());
         //when
         //then
         mvc.perform(request)
@@ -139,7 +144,7 @@ class RegisterControllerTest {
                 .param("username", testUserName)
                 .param("email", wrongPatternEmail)
                 .param("role", String.valueOf(RoleType.USER))
-                .with(SecurityMockMvcRequestPostProcessors.csrf());;
+                .with(SecurityMockMvcRequestPostProcessors.csrf());
         //when
         //then
         mvc.perform(request)
