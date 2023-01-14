@@ -23,75 +23,76 @@
 				<!-- Main -->
         <section class="wrapper style5">
             <div class="inner">
-
-                <section>
-                    <h4> 설문조사 정보</h4>
-                    <div class="table-wrapper">
-                        <div>
-                            <form>
-                                <input type="date" id="selectedDate" name="selectedDate" th:value="${selectedDate}" style="color: black;">
-                                <input type="submit" value="날짜 선택">
-                            </form>
-                        </div>
-                        <section class="wrapper style5">
-                            <div class="inner">
-                                <section>
-                                    <div class="table-wrapper">
-                                        <h2>설문 조사 정보</h2>
-                                        <div th:if="${noSurveyError}">
-                                            <p th:text="${noSurveyError}" class="field-error" />
-                                        </div>
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <th>설문 시간</th>
-                                                <th>약효 유무</th>
-                                                <th>이상 운동 유무</th>
-                                                <th>환자 상태</th>
-                                            </tr>
-                                            </thead>
-                                            <tr th:each="survey : ${surveys}">
-                                                <td th:text="${survey.surveyTime}"></td>
-                                                <td th:text="${survey.medicinalEffect}"></td>
-                                                <td th:text="${survey.abnormalMovement}"></td>
-                                                <td th:text="${survey.patientCondition}"></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </section>
-                                <section>
-                                    <div class="table-wrapper">
-                                        <h2>약 복용 정보</h2>
-                                        <div th:if="${noMedicineError}">
-                                            <p th:text="${noMedicineError}" class="field-error" />
-                                        </div>
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <th>입력 복용 시간</th>
-                                                <th>실제 복용 시간</th>
-                                                <th>복용 유무</th>
-                                            </tr>
-                                            </thead>
-                                            <tr th:each="medicine : ${medicines}">
-                                                <td th:text="${medicine.getReservedTakeTime}"></td>
-                                                <td th:text="${medicine.getActualTakeTime}"></td>
-                                                <td th:text="${medicine.isTake}"></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </section>
-                            </div>
-                        </section>
+                <h4> 설문조사 정보</h4>
+                <div class="table-wrapper">
+                    <div>
+                        <form>
+                            <input type="date" id="selectedDate" name="selectedDate" th:value="${selectedDate}" style="color: black;">
+                            <input type="submit" value="날짜 선택">
+                        </form>
                     </div>
+                    <div class="table-wrapper">
+                        <h2>설문 조사 정보</h2>
+                        <div th:if="${noSurveyError}">
+                            <p th:text="${noSurveyError}" class="field-error" />
+                        </div>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>설문 시간</th>
+                                <th>약효 유무</th>
+                                <th>이상 운동 유무</th>
+                                <th>환자 상태</th>
+                            </tr>
+                            </thead>
+                            <tr th:each="survey : ${surveys}">
+                                <td th:text="${survey.surveyTime}"></td>
+                                <td th:text="${survey.medicinalEffect}"></td>
+                                <td th:text="${survey.abnormalMovement}"></td>
+                                <td th:text="${survey.patientCondition}"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="table-wrapper">
+                        <h2>약 복용 정보</h2>
+                        <div th:if="${noMedicineError}">
+                            <p th:text="${noMedicineError}" class="field-error" />
+                        </div>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>입력 복용 시간</th>
+                                <th>실제 복용 시간</th>
+                                <th>복용 유무</th>
+                            </tr>
+                            </thead>
+                            <tr th:each="medicine : ${medicines}">
+                                <td th:text="${medicine.getReservedTakeTime}"></td>
+                                <td th:text="${medicine.getActualTakeTime}"></td>
+                                <td th:text="${medicine.isTake}"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+    <!-- Footer -->
+    <footer id="footer">
+        <ul class="copyright">
+            <li><a href="https://sev.severance.healthcare/sev/index.do">&copy; severance</a></li>
+            <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            <li><a th:onclick="|location.href='@{/logout}'|">로그아웃</a></li>
+        </ul>
+    </footer>
 
-                    <!-- Scripts -->
-                    <script th:src="@{/js/jquery.min.js}"></script>
-                    <script th:src="@{/js/jquery.scrollex.min.js}"></script>
-                    <script th:src="@{/js/jquery.scrolly.min.js}"></script>
-                    <script th:src="@{/js/browser.min.js}"></script>
-                    <script th:src="@{/js/breakpoints.min.js}"></script>
-                    <script th:src="@{/js/util.js}"></script>
-                    <script th:src="@{/js/main.js}"></script>
+        <!-- Scripts -->
+        <script th:src="@{/js/jquery.min.js}"></script>
+        <script th:src="@{/js/jquery.scrollex.min.js}"></script>
+        <script th:src="@{/js/jquery.scrolly.min.js}"></script>
+        <script th:src="@{/js/browser.min.js}"></script>
+        <script th:src="@{/js/breakpoints.min.js}"></script>
+        <script th:src="@{/js/util.js}"></script>
+        <script th:src="@{/js/main.js}"></script>
 	</body>
 </html>

@@ -38,6 +38,7 @@ public class PatientService {
         return patientRepository.findByPatientNum(patientNum);
     }
 
+    @Transactional
     public void editPatient(Long patientNum, PatientEditForm form) {
         Patient patient = patientRepository.findByPatientNum(patientNum);
 
