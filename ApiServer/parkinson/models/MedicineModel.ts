@@ -15,7 +15,7 @@ export class MedicineModel {
 
   public async findByPatientNum(patientNum: number) {
     return await knex
-      .select('m.take_time', 'm.is_take')
+      .select('m.take_time')
       .from('medicine AS m')
       .where('m.patient_num', patientNum)
       .then((medicine) => {
