@@ -10,9 +10,10 @@ const medicineService = AppConfig.medicineService;
 router.route('/notification').post(verifyToken, async (request: Request, response: Response, next: NextFunction) => {
     const patientNum = (<any>request.decodedToken).patientNum;
     try {
-        await medicineService
-            .notifyMedicineTakeTime(patientNum);
-
+        if(await medicineService.isMedicineTakeTime(patientNum)){
+            await medicineService
+                .notifyMedicineTakeTime(patientNum);
+        }
         return response.sendStatus(200);
     } catch(error) {
         next(error);
@@ -20,9 +21,10 @@ router.route('/notification').post(verifyToken, async (request: Request, respons
 }).delete(verifyToken, async (request: Request, response: Response, next: NextFunction) => {
     const patientNum = (<any>request.decodedToken).patientNum;
     try {
-        await medicineService
-            .stopNotifyMedicineTakeTime(patientNum);
-
+        if(await medicineService.isMedicineTakeTime(patientNum)){
+            await medicineService
+                .stopNotifyMedicineTakeTime(patientNum);
+        }
         return response.sendStatus(200);
     } catch(error) {
         next(error);

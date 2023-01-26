@@ -24,6 +24,15 @@ export class MedicineService {
         this.medicineModel = medicineModel;
     }
 
+    public async isMedicineTakeTime(patientNum: number): Promise<boolean> {
+        const medicines = await this.medicineModel.findByPatientNum(patientNum);
+        if(medicines.length === 0){
+            return false;
+        }
+
+        return true;
+    }
+
     public async notifyMedicineTakeTime(patientNum: number){
         const patient = await this.patientModel.findByPatientNum(patientNum);
         const medicines = await this.medicineModel.findByPatientNum(patientNum);
