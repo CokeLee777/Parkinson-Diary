@@ -52,11 +52,13 @@ class SettingPageActivity : AppCompatActivity() {
         sleepStartInfo.text = String.format("취침시간: %s", intent.getStringExtra("sleep_start_time")!!.substring(0, 5))
         sleepEndInfo.text = String.format("기상시간: %s", intent.getStringExtra("sleep_end_time")!!.substring(0, 5))
         val takeTimes: ArrayList<TakeTime> = intent.getSerializableExtra("take_times") as ArrayList<TakeTime>
-        val tmp: StringBuilder = StringBuilder("약 복용시간: ")
-        for (takeTime in takeTimes) {
-            tmp.append("${takeTime.takeTime.substring(0, 5)}, ")
+        if(takeTimes.isNotEmpty()){
+            val tmp: StringBuilder = StringBuilder("약 복용시간: ")
+            for (takeTime in takeTimes) {
+                tmp.append("${takeTime.takeTime.substring(0, 5)}, ")
+            }
+            medicineTimeInfo.text = tmp.substring(0, tmp.length - 2)
         }
-        medicineTimeInfo.text = tmp.substring(0, tmp.length - 2)
     }
 
     fun logout(view: View) {

@@ -56,16 +56,15 @@ class MainActivity : Activity() {
         surveyNotificationController = SurveyNotificationController(applicationContext)
 
         //메인 페이지에 접속할 때, 사용자 정보를 가져오도록 함
+        alarmButton = findViewById(R.id.mAlarmButton)
         this.getDiaryInfo(sessionManager.getAccessToken()!!)
 
         //알람 버튼 UI 세팅
-        alarmButton = findViewById(R.id.mAlarmButton)
         if(sessionManager.isAlarmActive()){
             alarmButton.setImageResource(R.drawable.active_alarm_button)
         } else {
             alarmButton.setImageResource(R.drawable.inactive_alarm_button)
         }
-
     }
 
     private fun getDiaryInfo(accessToken: String){
@@ -131,6 +130,7 @@ class MainActivity : Activity() {
         val alarmButton = findViewById<ImageButton>(view.id)
 
         val accessToken = sessionManager.getAccessToken()!!
+
         if(sessionManager.isAlarmActive()){
             //등록된 알림 서비스 취소하기
             medicineNotificationController
@@ -152,6 +152,8 @@ class MainActivity : Activity() {
             //UI 변경
             alarmButton.setImageResource(R.drawable.active_alarm_button)
         }
+
+
     }
 
 }
