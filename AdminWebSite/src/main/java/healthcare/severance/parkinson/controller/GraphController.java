@@ -18,11 +18,12 @@ import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/patient")
 public class GraphController {
 
     private final GraphServiceImpl graphService;
 
-    @RequestMapping("/patient/{patientId}/graph")
+    @RequestMapping("/{patientId}/graph")
     public String GraphForm(@ModelAttribute Survey survey,
                              @PathVariable("patientId") Long patientId,
                              @RequestParam(value = "selectedDate")
