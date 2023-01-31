@@ -46,14 +46,21 @@ class PatientControllerTest {
 
 
     @Test
-    @WithMockUser
+    @WithMockUser(authorities = "DOCTOR")
     void patientList() throws Exception {
         mvc.perform(get("/patient/patientList"))
                 .andExpect(view().name("patient/patientList"));
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(authorities = "ADMIN")
+    void patientListAdmin() throws Exception {
+        mvc.perform(get("/patient/patientList"))
+                .andExpect(view().name("patient/patientList"));
+    }
+
+    @Test
+    @WithMockUser(authorities = "DOCTOR")
     void patientSearchList() throws Exception {
         //given
         PatientForm patientForm = setPatient(setUser());
@@ -68,14 +75,14 @@ class PatientControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(authorities = "DOCTOR")
     void addPatientForm() throws Exception {
         mvc.perform(get("/patient/add"))
                 .andExpect(view().name("patient/patientForm"));
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(authorities = "DOCTOR")
     void patientEditForm() throws Exception {
         //given
         PatientForm patientForm = setPatient(setUser());
@@ -90,7 +97,7 @@ class PatientControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(authorities = "DOCTOR")
     void addPatient() throws Exception {
         //given
         RequestBuilder request = post("/patient/add")
@@ -107,7 +114,7 @@ class PatientControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(authorities = "DOCTOR")
     void patientDetail() throws Exception {
         //given
         PatientForm patientForm = setPatient(setUser());
@@ -121,7 +128,7 @@ class PatientControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(authorities = "DOCTOR")
     void patientEdit() throws Exception {
         //given
         PatientForm patientForm = setPatient(setUser());
@@ -145,7 +152,7 @@ class PatientControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(authorities = "DOCTOR")
     void patientDelete() throws Exception {
         //given
         PatientForm patientForm = setPatient(setUser());

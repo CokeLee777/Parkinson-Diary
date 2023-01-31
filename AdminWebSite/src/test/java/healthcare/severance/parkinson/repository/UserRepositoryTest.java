@@ -12,6 +12,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
@@ -28,6 +30,8 @@ class UserRepositoryTest {
     String testUserPassword = "12346567!";
     String testUserName = "테스트";
     String testUserEmail = "testtest@gmail.com";
+    String unsignedUser = "unsignedUser";
+    String unsignedUserEmail = "unsigned@gmail.com";
 
     @BeforeEach
     void beforeEach() {
@@ -74,5 +78,33 @@ class UserRepositoryTest {
 
         Assertions.assertThatThrownBy(() -> userRepository.save(user))
                 .isInstanceOf(DataIntegrityViolationException.class);
+    }
+
+    @Test
+    void findUnsignedUser() {
+        //given
+        User user = User.builder()
+                .role(RoleType.UNSIGNED)
+                .identifier(unsignedUser)
+                .password(testUserPassword)
+                .username(testUserName)
+                .email(unsignedUserEmail)
+                .build();
+        userRepository.save(user);
+        //when
+        List<User> users = userRepository.findUnsignedUser();
+        //then
+        Assertions.assertThat(users.get(0).getIdentifier()).isEqualTo(unsignedUser);
+        userJpaRepository.delete(userJpaRepository.findByIdentifier(unsignedUser).get());
+    }
+
+    @Test
+    void findSignedUser() {
+        //given
+
+        //when
+        List<User> unsignedUser = userRepository.findSignedUser();
+        //then
+        Assertions.assertThat(unsignedUser.get(0).getIdentifier()).isEqualTo(testUserIdentifier);
     }
 }
