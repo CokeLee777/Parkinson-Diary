@@ -34,8 +34,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
+                .antMatchers("/admin/**").hasAnyAuthority(RoleType.ADMIN.name())
+                .antMatchers("/patient/**").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.DOCTOR.name())
                 .antMatchers(ANONYMOUS_PATH).anonymous()
-                .antMatchers("/admin/**").hasRole(RoleType.ADMIN.toString())
                 .anyRequest().authenticated();
 
         http.formLogin()

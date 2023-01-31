@@ -1,6 +1,7 @@
 package healthcare.severance.parkinson.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,4 +30,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         model.addAttribute("errorCode", e.getMessage());
         return new ModelAndView("/error/customErrorPage", (Map<String, ?>) model) ;
     }
+    @ExceptionHandler(value = { AuthenticationException.class })
+    protected ModelAndView AuthenticationExceptionException(AuthenticationException e, Model model) {
+        log.error("handleCustomException throw CustomException : {}", e.getMessage());
+        model.addAttribute("errorCode", "권한이 없습니다.");
+        return new ModelAndView("/error/customErrorPage", (Map<String, ?>) model) ;
+    }
+
 }

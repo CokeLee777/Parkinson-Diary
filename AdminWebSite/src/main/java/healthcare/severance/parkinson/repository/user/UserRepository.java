@@ -3,6 +3,7 @@ package healthcare.severance.parkinson.repository.user;
 import healthcare.severance.parkinson.domain.User;
 
 import java.util.HashMap;
+import java.util.List;
 
 public interface UserRepository {
 
@@ -15,4 +16,8 @@ public interface UserRepository {
     HashMap<Long, String> findHashMapAllIdAndIdentifier();
 
     void save(User user);
+
+    List<User> findUnsignedUser();
+
+    List<User> findSignedUser();
 }

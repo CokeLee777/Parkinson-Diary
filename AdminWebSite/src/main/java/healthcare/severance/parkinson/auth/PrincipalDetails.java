@@ -19,7 +19,13 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(RoleType.DOCTOR.name()));
+        if (user.getRole() == RoleType.DOCTOR) {
+            return List.of(new SimpleGrantedAuthority(RoleType.DOCTOR.name()));
+        } else if (user.getRole() == RoleType.ADMIN) {
+            return List.of(new SimpleGrantedAuthority(RoleType.ADMIN.name()));
+        } else {
+            return List.of(new SimpleGrantedAuthority(RoleType.UNSIGNED.name()));
+        }
     }
 
     @Override
