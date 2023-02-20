@@ -44,7 +44,7 @@ public class PatientControllerFailureTest {
     String sleepEndTime = "08:00";
 
     @Test
-    @WithMockUser
+    @WithMockUser(authorities = "DOCTOR")
     void addPatientRepeatNameError() throws Exception {
         //given
         String wrongRepeatName = "불일치";
@@ -64,7 +64,7 @@ public class PatientControllerFailureTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(authorities = "DOCTOR")
     void addPatientPatientNumTypeError() throws Exception {
         //given
         String wrongPatientNum = "문자값";
@@ -84,7 +84,7 @@ public class PatientControllerFailureTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(authorities = "DOCTOR")
     void patientDetailNoPatientNumError() throws Exception {
         //given
         PatientForm patientForm = setPatient(getUser());
@@ -97,7 +97,7 @@ public class PatientControllerFailureTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(authorities = "DOCTOR")
     void patientEditNoPatientNumError() throws Exception {
         //given
         PatientForm patientForm = setPatient(getUser());
@@ -121,7 +121,7 @@ public class PatientControllerFailureTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(authorities = "DOCTOR")
     void patientDeleteNoPatientNumError() throws Exception {
         //given
         PatientForm patientForm = setPatient(getUser());
@@ -143,7 +143,7 @@ public class PatientControllerFailureTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(authorities = "DOCTOR")
     void patientEditNoButtonValueError() throws Exception {
         //given
         PatientForm patientForm = setPatient(getUser());
@@ -162,6 +162,13 @@ public class PatientControllerFailureTest {
         mvc.perform(request)
                 .andExpect(view().name("patient/patientEditForm"))
                 .andExpect(model().attribute("patient", patientService.findPatientByPatientNum(testPatientNum)));
+    }
+
+    @Test
+    @WithMockUser(authorities = "UNSIGNED")
+    void patientList() throws Exception {
+        mvc.perform(get("/patient/patientList"))
+                .andExpect(status().is(403));
     }
 
     private static PatientForm setPatient(User user) {

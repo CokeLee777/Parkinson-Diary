@@ -32,6 +32,7 @@
 										<input type="text" name="keyword" id="keyword" placeholder="초성 검색" style="display: inline"/>
 										<button class="button" type="submit" id="환자 검색">검색</button>
 										<button class="button" type="button" th:onclick="|location.href='@{/patient/add}'|">환자 추가</button>
+										<button class="button" type="button" th:onclick="|location.href='@{/admin/setting/membership}'|">권한 설정</button>
 									</span>
 								</form>
 								<div class="table-wrapper">
@@ -63,7 +64,7 @@
 					<ul class="copyright">
 						<li><a href="https://sev.severance.healthcare/sev/index.do">&copy; severance</a></li>
 						<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-						<li><a th:onclick="|location.href='@{/logout}'|">로그아웃</a></li>
+						<li><a th:href="@{/logout}">로그아웃</a></li>
 					</ul>
 				</footer>
 			</div>

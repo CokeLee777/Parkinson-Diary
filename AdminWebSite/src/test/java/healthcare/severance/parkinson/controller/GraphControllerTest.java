@@ -78,7 +78,7 @@ class GraphControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(authorities = "DOCTOR")
     void surveyForm() throws Exception {
         //given
         Patient testPatient = patientRepository.findByPatientNum(testPatientNum);
@@ -133,7 +133,7 @@ class GraphControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(authorities = "DOCTOR")
     void surveyFormNoSurvey() throws Exception {
         //given
         RequestBuilder request = post("/patient/1111/graph")

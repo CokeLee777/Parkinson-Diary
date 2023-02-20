@@ -41,8 +41,8 @@ public class UserRepositoryImpl implements UserRepository{
     private static HashMap<Long, String> getUserHashMap(List<User> userList) {
         HashMap<Long, String> userHashMap = new HashMap<>();
         for (User user : userList) {
-            if (user.getRole() == RoleType.DOCTOR) {
-                userHashMap.put(user.getId(), user.getIdentifier());
+            if (user.getRole() == RoleType.DOCTOR || user.getRole() == RoleType.ADMIN) {
+                userHashMap.put(user.getId(), user.getUsername());
             }
         }
         return userHashMap;
@@ -52,4 +52,15 @@ public class UserRepositoryImpl implements UserRepository{
     public void save(User user) {
         userJpaRepository.save(user);
     }
+
+    @Override
+    public List<User> findUnsignedUser() {
+        return userJpaRepository.findUsersByRole(RoleType.UNSIGNED);
+    }
+
+    @Override
+    public List<User> findSignedUser() {
+        return userJpaRepository.findUsersByRole(RoleType.DOCTOR);
+    }
+
 }

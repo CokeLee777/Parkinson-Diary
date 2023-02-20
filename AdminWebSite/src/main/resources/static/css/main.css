@@ -154,13 +154,6 @@ input::-moz-focus-inner {
 	padding: 0;
 }
 
-input, select, textarea {
-	-moz-appearance: none;
-	-webkit-appearance: none;
-	-ms-appearance: none;
-	appearance: none;
-}
-
 /* Basic */
 
 	@-ms-viewport {
@@ -1921,10 +1914,6 @@ input, select, textarea {
 	input[type="time"],
 	select,
 	textarea {
-		-moz-appearance: none;
-		-webkit-appearance: none;
-		-ms-appearance: none;
-		appearance: none;
 		background-color: rgba(144, 144, 144, 0.25);
 		border-radius: 3px;
 		border: none;
@@ -1982,14 +1971,9 @@ input, select, textarea {
 
 	input[type="checkbox"],
 	input[type="radio"] {
-		-moz-appearance: none;
-		-webkit-appearance: none;
-		-ms-appearance: none;
-		appearance: none;
 		display: block;
 		float: left;
 		margin-right: -2em;
-		opacity: 0;
 		width: 1em;
 		z-index: -1;
 	}
@@ -2494,10 +2478,6 @@ input, select, textarea {
 	input[type="button"],
 	button,
 	.button {
-		-moz-appearance: none;
-		-webkit-appearance: none;
-		-ms-appearance: none;
-		appearance: none;
 		-moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 		-webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 		-ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;

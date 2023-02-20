@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
+@AllArgsConstructor
 @RequiredArgsConstructor
 @Builder @Getter
 public class User {
@@ -30,6 +31,12 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
-    private final RoleType role;
+    private RoleType role;
 
+    public void signUser() {
+        this.role = RoleType.DOCTOR;
+    }
+    public void unsignUser() {
+        this.role = RoleType.UNSIGNED;
+    }
 }
